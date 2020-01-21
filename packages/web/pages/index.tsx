@@ -1,6 +1,9 @@
 import { Button, Text } from '@foody/ui';
 import * as React from 'react';
 import { View } from 'react-native';
+import { STORE } from '@foody/core';
+
+console.log(STORE);
 
 const App: React.FC = () => (
   <div>

@@ -9,6 +9,7 @@
     "build": "next build"
   },
   "dependencies": {
+    "@foody/core": "1.0.0",
     "@foody/graphql": "1.0.0",
     "@foody/ui": "1.0.0",
     "next": "^9.0.3",

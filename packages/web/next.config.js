@@ -1,7 +1,7 @@
 const withTM = require('next-transpile-modules');
 
 module.exports = withTM({
-  transpileModules: ['@foody/ui', '@foody/graphql'],
+  transpileModules: ['@foody/ui', '@foody/graphql', '@foody/core'],
   webpack: config => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
