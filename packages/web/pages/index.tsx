@@ -1,16 +1,15 @@
 import { Button, Text } from '@foody/ui';
 import * as React from 'react';
+import { View } from 'react-native';
 
-const App: React.FC = () => {
-  return (
-    <div>
-      Hello,
+const App: React.FC = () => (
+  <div>
+    Hello World
+    <View>
       <Text />
-      <Button onClick={() => null} m={['0', '0 1rem']} label="a test button">
-        Test!
-      </Button>
-    </div>
-  );
-};
+    </View>
+    <Button title="a test button" />
+  </div>
+);
 
 export default App;
