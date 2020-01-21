@@ -1,4 +1,5 @@
 import * as React from 'react';
+// @ts-ignore
 import { Button as ButtonApp } from 'react-native-web';
 
 interface Props {

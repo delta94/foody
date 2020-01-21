@@ -9,6 +9,7 @@
     "build": "next build"
   },
   "dependencies": {
+    "@foody/graphql": "1.0.0",
     "@foody/ui": "1.0.0",
     "next": "^9.0.3",
     "react": "^16.12.0",
@@ -19,6 +20,7 @@
     "@types/next": "^8.0.6",
     "@types/node": "12.6.8",
     "@types/react": "16.8.23",
+    "@types/react-native": "^0.61.0",
     "next-transpile-modules": "^2.3.1",
     "typescript": "^3.7.5"
   }
