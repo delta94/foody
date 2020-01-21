@@ -1,0 +1,28 @@
+version: '3.4'
+
+x-common-variables: &common-variables
+  LOCAL_USER_ID: $USER_ID
+  LOCAL_GROUP_ID: $GROUP_ID
+
+services:
+  foody_app:
+    build: ./config/docker
+    container_name: foody_app
+    environment:
+      <<: *common-variables
+    ports:
+      - 3339:3000
+    command: yarn web:dev
+    volumes:
+      - .:/app
+
+  foody_api:
+    build: ./config/docker
+    container_name: foody_api
+    environment:
+      <<: *common-variables
+    ports:
+      - 3340:1337
+    command: yarn api:dev
+    volumes:
+      - .:/app

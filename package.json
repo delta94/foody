@@ -4,61 +4,24 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "test": "jest --watch",
     "start": "NODE_ENV=production concurrently \"yarn api:start\" \"yarn web:start\"",
     "api:dev": "yarn workspace @foody/api develop",
     "api:start": "yarn workspace @foody/api start",
     "api:build": "yarn workspace @foody/api build",
-    "postinstall": "yarn build:ui",
-    "build:ui": "yarn workspace @foody/ui build",
-    "start:web": "concurrently \"yarn workspace @foody/web start\" \"yarn workspace @foody/ui start\" \"yarn workspace @foody/graphql start\" \"yarn workspace @foody/core start\"",
-    "build:web": "yarn workspace @foody/web build",
-    "start:admin": "concurrently \"yarn workspace @foody/admin start\" \"yarn workspace @foody/ui start\"",
-    "build:admin": "yarn workspace @foody/admin build",
-    "start:storybook": "concurrently \"yarn workspace @foody/storybook start\" \"yarn workspace @foody/ui start\"",
-    "build:storybook": "yarn workspace @foody/storybook build",
-    "start:cypress": "yarn workspace @foody/cypress start"
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "jest": {
-    "roots": [
-      "<rootDir>/packages"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testMatch": [
-      "**/?(*.)+(spec|test).ts?(x)"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "ts",
-      "tsx"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsConfig": {
-          "jsx": "react"
-        }
-      }
-    }
-  },
-  "husky": {
-    "hooks": {
-      "post-merge": "yarn build:ui",
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "stylelint --fix",
-      "prettier",
-      "git add"
-    ]
+    "postinstall": "yarn ui:build",
+    "ui:build": "yarn workspace @foody/ui build",
+    "web:start": "concurrently \"yarn workspace @foody/web start\" \"yarn workspace @foody/ui start\" \"yarn workspace @foody/graphql start\" \"yarn workspace @foody/core start\"",
+    "web:build": "yarn workspace @foody/web build",
+    "admin:start": "concurrently \"yarn workspace @foody/admin start\" \"yarn workspace @foody/ui start\"",
+    "admin:build": "yarn workspace @foody/admin build",
+    "storybook:start": "concurrently \"yarn workspace @foody/storybook start\" \"yarn workspace @foody/ui start\"",
+    "storybook:build": "yarn workspace @foody/storybook build",
+    "cypress:start": "yarn workspace @foody/cypress start"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
@@ -84,5 +47,42 @@
     "stylelint-processor-styled-components": "^1.8.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.7.5"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/packages"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/?(*.)+(spec|test).ts?(x)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "jsx": "react"
+        }
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "post-merge": "yarn ui:build",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "stylelint --fix",
+      "prettier",
+      "git add"
+    ]
   }
 }
