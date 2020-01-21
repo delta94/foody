@@ -1,0 +1,21 @@
+module.exports = {
+  definition: `
+    type Recipe {
+      title: String!
+      href: String!
+      ingredients: String!
+      thumbnail: String!
+    }
+  `,
+  query: `
+    recipes(ingredients: String!): [Recipe]
+  `,
+  resolver: {
+    Query: {
+      recipes: {
+        description: 'Return a single person',
+        resolver: 'Recipes.recipes'
+      }
+    }
+  }
+};

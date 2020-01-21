@@ -1,0 +1,21 @@
+module.exports = {
+  definition: `
+    type FoodImageRecognition {
+      id: ID!
+      name: String!
+      value: Float!
+      app_id: String!
+    }
+  `,
+  query: `
+    foodImageRecognition(image: String!): [FoodImageRecognition]
+  `,
+  resolver: {
+    Query: {
+      foodImageRecognition: {
+        description: 'Return a single person',
+        resolver: 'FoodImageRecognition.clarifai'
+      }
+    }
+  }
+};

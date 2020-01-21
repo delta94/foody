@@ -6,6 +6,10 @@
   "private": true,
   "scripts": {
     "test": "jest --watch",
+    "start": "NODE_ENV=production concurrently \"yarn api:start\" \"yarn web:start\"",
+    "api:dev": "yarn workspace @foody/api develop",
+    "api:start": "yarn workspace @foody/api start",
+    "api:build": "yarn workspace @foody/api build",
     "postinstall": "yarn build:ui",
     "build:ui": "yarn workspace @foody/ui build",
     "start:web": "concurrently \"yarn workspace @foody/web start\" \"yarn workspace @foody/ui start\" \"yarn workspace @foody/graphql start\" \"yarn workspace @foody/core start\"",
@@ -16,12 +20,9 @@
     "build:storybook": "yarn workspace @foody/storybook build",
     "start:cypress": "yarn workspace @foody/cypress start"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": []
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "jest": {
     "roots": [
       "<rootDir>/packages"
@@ -65,7 +66,9 @@
     "@types/react-native": "^0.61.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
-    "concurrently": "^4.1.1",
+    "concurrently": "^5.0.2",
+    "dotenv": "^8.2.0",
+    "dotenv-webpack": "^1.7.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",

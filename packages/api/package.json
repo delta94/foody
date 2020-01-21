@@ -1,0 +1,39 @@
+{
+  "name": "@foody/api",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "yarn build && strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {
+    "cross-fetch": "^3.0.4"
+  },
+  "dependencies": {
+    "clarifai": "^2.9.1",
+    "knex": "latest",
+    "sqlite3": "^4.1.1",
+    "strapi": "3.0.0-beta.17.5",
+    "strapi-admin": "3.0.0-beta.17.5",
+    "strapi-hook-bookshelf": "3.0.0-beta.17.5",
+    "strapi-hook-knex": "3.0.0-beta.17.5",
+    "strapi-plugin-content-manager": "3.0.0-beta.17.5",
+    "strapi-plugin-content-type-builder": "3.0.0-beta.17.5",
+    "strapi-plugin-email": "3.0.0-beta.17.5",
+    "strapi-plugin-graphql": "3.0.0-beta.17.5",
+    "strapi-plugin-upload": "3.0.0-beta.17.5",
+    "strapi-plugin-users-permissions": "3.0.0-beta.17.5",
+    "strapi-utils": "3.0.0-beta.17.5"
+  },
+  "strapi": {
+    "uuid": "b74a021d-7145-4b45-8f9a-d149373b38e0"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
