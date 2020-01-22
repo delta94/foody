@@ -21,7 +21,12 @@
     "admin:build": "yarn workspace @foody/admin build",
     "storybook:start": "concurrently \"yarn workspace @foody/storybook start\" \"yarn workspace @foody/ui start\"",
     "storybook:build": "yarn workspace @foody/storybook build",
+    "mobile:start:ios": "yarn workspace @foody/mobile run-ios",
+    "mobile:start:android": "concurrently \"yarn workspace @foody/mobile start\" \"yarn workspace @foody/mobile run-android\"",
     "cypress:start": "yarn workspace @foody/cypress start"
+  },
+  "dependencies": {
+    "react-native": "0.61.5"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
