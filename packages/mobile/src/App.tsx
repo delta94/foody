@@ -5,7 +5,7 @@ import { STORE } from '@foody/core';
 
 console.log(STORE);
 
-const App = () => (
+const App: React.FC = () => (
   <View>
     <Text>Test</Text>
   </View>

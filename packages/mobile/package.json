@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start -- --reset-cache",
+    "start": "concurrently \"npm run compile -- -w\" \"react-native start -- --reset-cache\"",
     "run-ios": "react-native run-ios",
     "run-android": "react-native run-android",
+    "compile": "tsc -b --incremental",
     "info": "react-native info",
     "test": "jest",
     "lint": "eslint ."

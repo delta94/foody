@@ -16,6 +16,7 @@
     "noUnusedLocals": true,
     "declaration": true,
     "esModuleInterop": true,
+    "composite": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "resolveJsonModule": true,
