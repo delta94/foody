@@ -1,28 +1,37 @@
 {
   "name": "@foody/web",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
   "private": true,
-  "license": "MIT",
   "scripts": {
-    "start": "next dev",
-    "build": "next build"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "dependencies": {
     "@foody/core": "1.0.0",
     "@foody/graphql": "1.0.0",
     "@foody/ui": "1.0.0",
-    "next": "^9.0.3",
     "react": "16.9.0",
-    "react-native-web": "^0.12.0-rc.1"
+    "react-dom": "16.9.0",
+    "react-native-web": "^0.12.0-rc.1",
+    "react-scripts": "3.0.1"
   },
   "devDependencies": {
-    "@types/jest": "24.0.15",
-    "@types/next": "^8.0.6",
-    "@types/node": "12.6.8",
-    "@types/react": "16.8.23",
-    "@types/react-native": "^0.61.0",
-    "next-transpile-modules": "^2.3.1",
-    "typescript": "^3.7.5"
+    "@types/react-dom": "16.8.5",
+    "babel-plugin-react-native-web": "0.11.7",
+    "react-app-rewired": "2.1.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

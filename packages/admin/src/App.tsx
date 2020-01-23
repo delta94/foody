@@ -1,12 +1,14 @@
-import { Button, Text } from '@foody/ui';
+import { Button } from '@foody/ui/src/components/Button';
+import { STORE } from '@foody/core';
 import * as React from 'react';
+
+console.log(STORE);
 
 const App: React.FC = () => {
   return (
     <div>
       Hello, World!
-      <Text />
-      <Button label="Press Me!" onClick={() => console.log('I was pressed!')} />
+      <Button title="Press Me admin" />
     </div>
   );
 };

@@ -1,11 +1,11 @@
-import { Button } from '@foody/ui';
+import { Button } from '@foody/ui/src/components/Button';
 import * as React from 'react';
 
 const App: React.FC = () => {
   return (
     <div>
-      Error
-      <Button title="a test button" />
+      Hello, World!
+      <Button title="Press Me" />
     </div>
   );
 };
