@@ -15,7 +15,6 @@
     "@foody/core": "1.0.0",
     "@foody/graphql": "1.0.0",
     "@foody/ui": "1.0.0",
-    "react": "16.9.0",
     "react-native": "^0.61.5",
     "styled-components": "^4.3.2"
   },

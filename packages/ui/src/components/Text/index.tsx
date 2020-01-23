@@ -1,9 +1,5 @@
 import React from 'react';
 // @ts-ignore
-import { View, Text as Test } from 'react-native-web';
+import { Text as AppText } from 'react-native';
 
-export const Text: React.FC = () => (
-  <View>
-    <Test style={{ color: 'red' }}>testt</Test>
-  </View>
-);
+export const Text: React.FC = ({ children }) => <AppText>{children}</AppText>;
