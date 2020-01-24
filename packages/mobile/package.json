@@ -1,0 +1,33 @@
+{
+  "name": "@foody/mobile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run compile -- -w\" \"react-native start -- --reset-cache\"",
+    "run-ios": "react-native run-ios",
+    "run-android": "react-native run-android",
+    "compile": "tsc -b --incremental",
+    "info": "react-native info",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@foody/core": "1.0.0",
+    "@foody/graphql": "1.0.0",
+    "@foody/ui": "1.0.0",
+    "react-native": "^0.61.5",
+    "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
+    "@types/react-test-renderer": "^16.8.3",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react-test-renderer": "16.9.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
