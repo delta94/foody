@@ -19,7 +19,7 @@
     "web:build": "yarn workspace @foody/web build",
     "admin:start": "concurrently \"yarn workspace @foody/admin start\" \"yarn workspace @foody/api develop\"",
     "admin:build": "yarn workspace @foody/admin build",
-    "storybook:start": "yarn workspace @foody/storybook start",
+    "storybook:start": "concurrently \"yarn workspace @foody/storybook start\" \"yarn workspace @foody/ui start\"",
     "storybook:build": "yarn workspace @foody/storybook build",
     "mobile:start:ios": "yarn workspace @foody/mobile run-ios",
     "mobile:start:android": "concurrently \"yarn workspace @foody/mobile start\" \"yarn workspace @foody/mobile run-android\"",
