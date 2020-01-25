@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 70,
+    backgroundColor: 'white',
     fontSize: 18,
     borderRadius: 100,
     shadowColor: 'rgba(0, 0, 0, .1)',
