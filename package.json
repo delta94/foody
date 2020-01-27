@@ -15,7 +15,7 @@
     "api:build": "yarn workspace @foody/api build",
     "postinstall": "yarn ui:build",
     "ui:build": "yarn workspace @foody/ui build",
-    "web:start": "concurrently \"yarn workspace @foody/web start\" \"yarn workspace @foody/graphql start\" \"yarn workspace @foody/core start\"",
+    "web:start": "concurrently \"yarn workspace @foody/web start\" \"yarn workspace @foody/ui start\"  \"yarn workspace @foody/graphql start\" \"yarn workspace @foody/core start\"",
     "web:build": "yarn workspace @foody/web build",
     "admin:start": "concurrently \"yarn workspace @foody/admin start\" \"yarn workspace @foody/api develop\"",
     "admin:build": "yarn workspace @foody/admin build",

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const Text: React.FC<Props> = ({ customStyle, children, ...props }) => (
-  <AppText style={[customStyle, styles.text]} {...props}>
+  <AppText style={[styles.text, customStyle]} {...props}>
     {children}
   </AppText>
 );
