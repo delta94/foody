@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text } from '../Text';
+import { Text } from '../../Text';
 import { View, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 
 interface Props {

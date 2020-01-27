@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../Text';
+import { Text } from '../../Text';
 import { View } from 'react-native';
 
 export const Modal: React.FC = () => (
