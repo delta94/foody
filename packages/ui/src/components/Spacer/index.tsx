@@ -1,9 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
 
-export const Spacer: React.FC = ({ height, width }) => <View style={{ height, width }} />;
+interface Props {
+  height?: number;
+  width?: number;
+}
+
+export const Spacer: React.FC<Props> = ({ height, width }) => <View style={{ height, width }} />;
 
 Spacer.defaultProps = {
-  height: 'auto',
-  width: 'auto',
+  height: 0,
+  width: 0,
 };
