@@ -9,9 +9,19 @@ interface Props {
   customStyle?: {
     [key: string]: any;
   };
+  spacer?: number;
+  error?: boolean;
+  errorMessage?: string;
 }
 
-export const Input: React.FC<Props> = ({ label, customStyle, spacer }) => (
+export const Input: React.FC<Props> = ({
+  label,
+  customStyle,
+  spacer,
+  error,
+  errorMessage,
+  ...props
+}) => (
   <View style={{ width: '100%' }}>
     {label && (
       <>
@@ -19,13 +29,21 @@ export const Input: React.FC<Props> = ({ label, customStyle, spacer }) => (
         <Spacer height={10} />
       </>
     )}
-    <TextInput style={[styles.input, customStyle]} />
+    <TextInput style={[styles.input, customStyle]} {...props} />
+    {error && (
+      <>
+        <Spacer height={10} />
+        <Text theme="black">{errorMessage}</Text>
+      </>
+    )}
     {spacer > 0 && <Spacer height={spacer} />}
   </View>
 );
 
 Input.defaultProps = {
   spacer: 40,
+  error: false,
+  errorMessage: 'This field is required',
 };
 
 const styles = StyleSheet.create({

@@ -9,13 +9,14 @@ interface Props {
   customStyle?: {
     [key: string]: any;
   };
+  onPress: () => any;
 }
 
-export const Button: React.FC<Props> = ({ label, customStyle }) => {
+export const Button: React.FC<Props> = ({ label, customStyle, onPress }) => {
   const { onFocus, onBlur, itemStyles } = useHover(styles.button, styles.hover);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Text
         onMouseOver={onFocus}
         onFocus={onFocus}
