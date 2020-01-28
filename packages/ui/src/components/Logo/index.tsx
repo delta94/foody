@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text } from '../Text';
 import { View } from 'react-native';
+import { Title } from '../Title';
 
 export const Logo: React.FC = () => (
   <View>
-    <Text>LOGO</Text>
+    <Title title="FOODY" spacer={0} />
   </View>
 );

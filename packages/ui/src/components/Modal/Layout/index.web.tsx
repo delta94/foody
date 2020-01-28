@@ -28,7 +28,7 @@ export const Modal: React.FC = ({ isOpen, toggleModal, children }) => {
         <Text customStyle={{ color: 'black' }}>{children}</Text>
         <View style={styles.close}>
           <TouchableOpacity onPress={toggleModal}>
-            <Text customStyle={{ color: 'black' }}>X</Text>
+            <Text theme="black">Close</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -58,10 +58,12 @@ const styles = StyleSheet.create({
   modal: {
     position: 'relative',
     zIndex: 2,
-    maxWidth: 560,
+    maxWidth: 700,
     width: '100%',
     backgroundColor: 'white',
-    padding: 20,
+    borderRadius: 4,
+    paddingHorizontal: 20,
+    paddingVertical: 25,
     opacity: 0,
     transition: '.2s',
     margin: 'auto',

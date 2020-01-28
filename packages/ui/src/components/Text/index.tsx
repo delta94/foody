@@ -6,21 +6,25 @@ interface Props {
     [key: string]: any;
   };
   children: any;
+  theme?: string;
   onMouseOver?: () => any;
   onFocus?: () => any;
   onMouseOut?: () => any;
   onBlur?: () => any;
 }
 
-export const Text: React.FC<Props> = ({ customStyle, children, ...props }) => (
-  <AppText style={[styles.text, customStyle]} {...props}>
+export const Text: React.FC<Props> = ({ customStyle, children, theme, ...props }) => (
+  <AppText style={[styles.text, customStyle, { color: theme }]} {...props}>
     {children}
   </AppText>
 );
 
+Text.defaultProps = {
+  theme: 'white',
+};
+
 const styles = StyleSheet.create({
   text: {
-    color: 'white',
     fontWeight: '400',
     fontFamily: 'Poppins',
   },
