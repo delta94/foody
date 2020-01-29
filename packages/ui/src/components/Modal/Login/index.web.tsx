@@ -3,11 +3,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { Modal } from '../Layout';
 import { Input } from '../../Input';
 import { Title } from '../../Title';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Column } from '../../Grid/Column';
 import { Spacer } from '../../Spacer';
 import { Button } from '../../Button';
-import { Text } from '../../Text';
+import { useMutation, LOGIN } from '@foody/graphql';
 
 interface Props {
   isOpen: boolean;
@@ -15,28 +15,37 @@ interface Props {
 }
 
 export const ModalLogin: React.FC<Props> = ({ ...props }) => {
-  const { register, handleSubmit, control, watch, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const { handleSubmit, control, errors } = useForm();
   const onChange = args => ({
     value: args[0].nativeEvent.text,
   });
+
+  const onError = (error: any): any => console.log(error);
+  const onCompleted = (data: any): any => console.log(data.login);
+
+  const [login] = useMutation(LOGIN, {
+    onError,
+    onCompleted,
+  });
+
+  const onSubmit = (variables): any => login({ variables });
 
   return (
     <Modal {...props}>
       <Column>
         <Title title="Login" customStyle={{ color: 'black' }} spacer={20} theme="black" />
       </Column>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', width: '100%' }}>
-        <Column customStyle={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Column customStyle={styles.column}>
           <Controller
-            as={<Input label="Username" error={errors.username} />}
+            as={<Input label="Identifier" error={errors.identifier} />}
             control={control}
-            name="username"
+            name="identifier"
             onChange={onChange}
             rules={{ required: true }}
           />
         </Column>
-        <Column customStyle={{ flex: 1 }}>
+        <Column customStyle={styles.column}>
           <Controller
             as={<Input label="Password" error={errors.password} />}
             control={control}
@@ -53,3 +62,14 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100%',
+  },
+  column: {
+    flex: 1,
+  },
+});

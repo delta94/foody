@@ -16,7 +16,7 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-const uploadLink = createUploadLink({ uri: process.env.API_GRAPHQL_URL });
+const uploadLink = createUploadLink({ uri: 'http://localhost:1337/graphql' });
 const link = ApolloLink.from([authLink, uploadLink]);
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
