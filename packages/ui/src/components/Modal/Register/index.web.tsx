@@ -30,7 +30,7 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => (
     </Column>
     <View style={{ width: '100%' }}>
       <Column customStyle={{ width: '50%' }}>
-        <Button label="Sign in" />
+        <Button label="Sign in" onPress={() => console.log('on press')} />
         <Spacer height={10} />
       </Column>
     </View>

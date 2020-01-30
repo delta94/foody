@@ -10,7 +10,7 @@ interface Props {
   onToggle?: () => any;
 }
 
-export const Modal: React.FC = ({ isOpen, toggleModal, children }) => {
+export const Modal: React.FC<Props> = ({ isOpen, toggleModal, children }) => {
   useEffect(() => {
     if (isOpen) {
       // @ts-ignore
@@ -36,7 +36,12 @@ export const Modal: React.FC = ({ isOpen, toggleModal, children }) => {
   );
 };
 
-const Overlay = ({ isOpen, onPress }) => (
+interface OverlayProps {
+  isOpen: boolean;
+  onPress: () => any;
+}
+
+const Overlay: React.FC<OverlayProps> = ({ isOpen, onPress }) => (
   <TouchableHighlight onPress={onPress}>
     <View style={[styles.overlay, isOpen ? styles.isOpen : {}]} />
   </TouchableHighlight>
@@ -48,6 +53,7 @@ Modal.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
+    // @ts-ignore
     position: 'fixed',
     top: 0,
     right: 0,
@@ -65,10 +71,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 25,
     opacity: 0,
+    // @ts-ignore
     transition: '.2s',
     margin: 'auto',
   },
   overlay: {
+    // @ts-ignore
     position: 'fixed',
     top: 0,
     right: 0,

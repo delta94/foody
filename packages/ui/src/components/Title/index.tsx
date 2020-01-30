@@ -17,7 +17,7 @@ export const Title: React.FC<Props> = ({ title, spacer, customStyle, ...props })
     <Text customStyle={[styles.title, customStyle]} {...props}>
       {title}
     </Text>
-    {spacer > 0 && <Spacer height={spacer} />}
+    {spacer && spacer > 0 && <Spacer height={spacer} />}
   </>
 );
 

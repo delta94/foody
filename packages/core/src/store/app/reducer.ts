@@ -4,6 +4,7 @@ const initialState: types.AppState = {
   isLoading: true,
   token: null,
   user: null,
+  isConnected: false,
 };
 
 const appReducer = (state: types.AppState = initialState, action): types.AppState => {
@@ -25,12 +26,14 @@ const appReducer = (state: types.AppState = initialState, action): types.AppStat
         ...state,
         token: action.token,
         user: action.user,
+        isConnected: true,
       };
     case types.LOGOUT:
       return {
         ...state,
         token: initialState.token,
         user: initialState.user,
+        isConnected: false,
       };
     default:
       return state;

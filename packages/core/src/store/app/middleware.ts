@@ -1,6 +1,23 @@
 import * as types from './types';
-// import * as appActions from './actions';
+import * as appActions from './actions';
 import { Store } from '../types';
+
+const handleAppInit = (store: types.Store): any => {
+  const { app } = store.getState();
+
+  switch (true) {
+    case app.user !== null:
+      console.log('login');
+      setTimeout(() => store.dispatch(appActions.appLoaded()));
+      break;
+    case app.user === null:
+      console.log('logout');
+      setTimeout(() => store.dispatch(appActions.appLoaded()));
+      break;
+    default:
+      break;
+  }
+};
 
 const appMiddleware = (store: Record<string, any>) => (next: Record<string, any>) => (
   action: () => any
@@ -9,7 +26,7 @@ const appMiddleware = (store: Record<string, any>) => (next: Record<string, any>
 
   switch (action.type) {
     case types.APP_INIT:
-      console.log('app init');
+      handleAppInit(store);
       break;
     case types.APP_LOADING:
       console.log('app loading');

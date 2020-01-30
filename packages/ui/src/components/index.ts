@@ -1,7 +1,6 @@
 export * from './Text';
 export * from './Title';
 export * from './Input';
-export * from './NavLink';
 export * from './App';
 export * from './Logo';
 export * from './Footer';
@@ -13,3 +12,4 @@ export * from './Grid/Row';
 export * from './Grid/Column';
 export * from './Spacer';
 export * from './Button';
+export * from './Navigation';

@@ -5,7 +5,6 @@ import {
   Logo,
   App,
   Text,
-  NavLink,
   Spacer,
   Main,
   Title,
@@ -13,7 +12,12 @@ import {
   // @ts-ignore
 } from '@foody/ui';
 // @ts-ignore
-import { initializeWebStore, Provider, ModalLoginFormContainer } from '@foody/core';
+import {
+  initializeWebStore,
+  Provider,
+  ModalLoginFormContainer,
+  NavigationContainer,
+} from '@foody/core';
 // @ts-ignore
 import { ApolloProvider, apolloClient } from '@foody/graphql';
 import './index.css';
@@ -34,10 +38,10 @@ const MyApp: React.FC = () => {
           <Spacer height={50} />
           <View style={styles.header}>
             <Logo />
-            <View style={styles.navigation}>
-              <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
-              <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
-            </View>
+            <NavigationContainer
+              toggleLoginForm={toggleLoginForm}
+              toggleRegisterForm={toggleRegisterForm}
+            />
           </View>
           <Spacer height={100} />
           <Main gutter>
@@ -63,9 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 50,
-  },
-  navigation: {
-    flexDirection: 'row',
   },
 });
 

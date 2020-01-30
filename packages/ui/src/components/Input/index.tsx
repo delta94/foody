@@ -3,6 +3,7 @@ import React from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
 import { Text } from '../Text';
 import { Spacer } from '../Spacer';
+import { FieldError, NestDataObject } from 'react-hook-form';
 
 interface Props {
   label?: string;
@@ -10,7 +11,7 @@ interface Props {
     [key: string]: any;
   };
   spacer?: number;
-  error?: boolean;
+  error?: FieldError | FieldError[] | NestDataObject<any> | NestDataObject<any>[] | undefined;
   errorMessage?: string;
 }
 
@@ -36,13 +37,13 @@ export const Input: React.FC<Props> = ({
         <Text theme="black">{errorMessage}</Text>
       </>
     )}
-    {spacer > 0 && <Spacer height={spacer} />}
+    {spacer && spacer > 0 && <Spacer height={spacer} />}
   </View>
 );
 
 Input.defaultProps = {
   spacer: 40,
-  error: false,
+  error: undefined,
   errorMessage: 'This field is required',
 };
 
@@ -50,15 +51,10 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 60,
-    // backgroundColor: '#F4F8F7',
     fontSize: 16,
     borderRadius: 6,
     borderWidth: 1,
     borderColor: 'rgba(0, 0, 0, .2)',
-    // shadowColor: 'rgba(0, 0, 0, .1)',
-    // shadowOffset: { width: 0, height: 28 },
-    // shadowOpacity: 0.8,
-    // shadowRadius: 43,
     paddingHorizontal: 20,
   },
 });
