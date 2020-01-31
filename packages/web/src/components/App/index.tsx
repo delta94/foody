@@ -20,16 +20,33 @@ import {
 } from '@foody/core';
 // @ts-ignore
 import { ApolloProvider, apolloClient } from '@foody/graphql';
+import {
+  createNavigator,
+  SwitchRouter,
+  SceneView,
+  // @ts-ignore
+} from '@react-navigation/core';
+// @ts-ignore
+import { createBrowserApp } from '@react-navigation/web';
+import Home from '../../screens/Home';
+import Search from '../../screens/Search';
+import Pantries from '../../screens/Pantries';
+import Favoris from '../../screens/Favoris';
+import Recipes from '../../screens/Recipes';
+import History from '../../screens/History';
 import './index.css';
 
 const reduxStore = initializeWebStore();
 
-const MyApp: React.FC = () => {
+// @ts-ignore
+const MyApp: React.FC = ({ descriptors, navigation }) => {
   const [loginFormIsOpen, setShowLoginForm] = useState(false);
   const toggleLoginForm = () => setShowLoginForm(!loginFormIsOpen);
-
   const [registerFormIsOpen, setShowRegisterForm] = useState(false);
   const toggleRegisterForm = () => setShowRegisterForm(!registerFormIsOpen);
+
+  const activeKey = navigation.state.routes[navigation.state.index].key;
+  const descriptor = descriptors[activeKey];
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -37,21 +54,21 @@ const MyApp: React.FC = () => {
         <App>
           <Spacer height={50} />
           <View style={styles.header}>
-            <Logo />
+            <Logo onPress={() => navigation.navigate('Search')} />
             <NavigationContainer
               toggleLoginForm={toggleLoginForm}
               toggleRegisterForm={toggleRegisterForm}
+              navigation={navigation}
             />
           </View>
           <Spacer height={100} />
-          <Main gutter>
-            <Title title="Lorem ipsum dolor" />
+          <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
+          {/* <Title title="Lorem ipsum dolor" />
             <Text>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, sapiente impedit
               maiores aspernatur culpa, vero amet accusamus corporis fugit nesciunt, nostrum nemo?
               Maxime corporis temporibus ducimus doloremque nemo dolorum esse.
-            </Text>
-          </Main>
+            </Text> */}
           <Footer />
           <ModalLoginFormContainer isOpen={loginFormIsOpen} toggleModal={toggleLoginForm} />
           <ModalRegister isOpen={registerFormIsOpen} toggleModal={toggleRegisterForm} />
@@ -70,4 +87,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyApp;
+const AppNavigator = createNavigator(
+  MyApp,
+  SwitchRouter({
+    Home,
+    Search,
+    Pantries,
+    Favoris,
+    Recipes,
+    History,
+  }),
+  {}
+);
+
+const MyAppNavigator = createBrowserApp(AppNavigator);
+
+export default MyAppNavigator;

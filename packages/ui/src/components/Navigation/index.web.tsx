@@ -6,21 +6,23 @@ interface Props {
   isConnected: boolean;
   toggleLoginForm: () => any;
   toggleRegisterForm: () => any;
+  navigation: any;
 }
 
 export const Navigation: React.FC<Props> = ({
   isConnected,
   toggleLoginForm,
   toggleRegisterForm,
+  navigation,
 }) => {
   if (isConnected) {
     return (
       <View style={styles.navigation}>
-        <NavLink label="Recherche" isFirst onPress={() => console.log('on press')} />
-        <NavLink label="Garde-manger" onPress={() => console.log('on press')} />
-        <NavLink label="Mes recettes" onPress={() => console.log('on press')} />
-        <NavLink label="Mes favoris" onPress={() => console.log('on press')} />
-        <NavLink label="Historique" isLast onPress={() => console.log('on press')} />
+        <NavLink label="Recherche" isFirst onPress={() => navigation.navigate('Search')} />
+        <NavLink label="Garde-manger" onPress={() => navigation.navigate('Pantries')} />
+        <NavLink label="Mes recettes" onPress={() => navigation.navigate('Recipes')} />
+        <NavLink label="Mes favoris" onPress={() => navigation.navigate('Favoris')} />
+        <NavLink label="Historique" isLast onPress={() => navigation.navigate('History')} />
       </View>
     );
   }

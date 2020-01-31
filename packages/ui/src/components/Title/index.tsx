@@ -5,7 +5,7 @@ import { Spacer } from '../Spacer';
 
 interface Props {
   title: string;
-  spacer?: number;
+  spacer?: number | null;
   customStyle?: {
     [key: string]: any;
   };
@@ -17,7 +17,7 @@ export const Title: React.FC<Props> = ({ title, spacer, customStyle, ...props })
     <Text customStyle={[styles.title, customStyle]} {...props}>
       {title}
     </Text>
-    {spacer && spacer > 0 && <Spacer height={spacer} />}
+    {spacer && <Spacer height={spacer} />}
   </>
 );
 
