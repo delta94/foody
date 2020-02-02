@@ -3,20 +3,25 @@ import {
   Main,
   Title,
   Text,
+  Search,
+  Spacer,
   // @ts-ignore
 } from '@foody/ui';
 
-const Search = () => (
-  <Main gutter>
-    <Title title="Search" />
-    <Text>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, sapiente impedit maiores
-      aspernatur culpa, vero amet accusamus corporis fugit nesciunt, nostrum nemo? Maxime corporis
-      temporibus ducimus doloremque nemo dolorum esse.
-    </Text>
-  </Main>
-);
+const SearchScreen = () => {
+  return (
+    <Main gutter>
+      <Title title="Recherche" />
+      <Text customStyle={{ maxWidth: '60%' }}>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, sapiente impedit
+        maiores aspernatur culpa, vero amet accusamus corporis fugit nesciunt, nostrum nemo.
+      </Text>
+      <Spacer height={40} />
+      <Search />
+    </Main>
+  );
+};
 
-Search.path = 'recherche';
+SearchScreen.path = 'recherche';
 
-export default Search;
+export default SearchScreen;

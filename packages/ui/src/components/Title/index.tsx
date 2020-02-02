@@ -22,7 +22,7 @@ export const Title: React.FC<Props> = ({ title, spacer, customStyle, ...props })
 );
 
 Title.defaultProps = {
-  spacer: 25,
+  spacer: 5,
 };
 
 const styles = StyleSheet.create({

@@ -63,14 +63,12 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
           </View>
           <Spacer height={100} />
           <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
-          {/* <Title title="Lorem ipsum dolor" />
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, sapiente impedit
-              maiores aspernatur culpa, vero amet accusamus corporis fugit nesciunt, nostrum nemo?
-              Maxime corporis temporibus ducimus doloremque nemo dolorum esse.
-            </Text> */}
           <Footer />
-          <ModalLoginFormContainer isOpen={loginFormIsOpen} toggleModal={toggleLoginForm} />
+          <ModalLoginFormContainer
+            isOpen={loginFormIsOpen}
+            toggleModal={toggleLoginForm}
+            onCompleted={() => navigation.navigate('Search')}
+          />
           <ModalRegister isOpen={registerFormIsOpen} toggleModal={toggleRegisterForm} />
         </App>
       </Provider>

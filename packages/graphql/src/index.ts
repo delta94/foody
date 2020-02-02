@@ -1,6 +1,6 @@
-import { useMutation, ApolloProvider } from 'react-apollo';
+import { useMutation, useQuery, ApolloProvider } from 'react-apollo';
 
 export * from './mutations';
 export * from './queries';
 export * from './client';
-export { useMutation, ApolloProvider };
+export { useMutation, useQuery, ApolloProvider };

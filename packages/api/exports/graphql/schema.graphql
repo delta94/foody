@@ -159,10 +159,11 @@ type Query {
 }
 
 type Recipe {
-  title: String!
-  href: String!
-  ingredients: String!
-  thumbnail: String!
+  uri: String!
+  label: String!
+  source: String!
+  url: String!
+  image: String!
 }
 
 input RoleInput {

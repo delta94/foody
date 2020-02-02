@@ -25,6 +25,7 @@ export const ModalLogin: React.FC<Props> = ({ receiveUser, ...props }) => {
   const onCompleted = (data: any): any => {
     receiveUser(data.login);
     props.toggleModal();
+    props.onCompleted();
   };
 
   const [login] = useMutation(LOGIN, {
