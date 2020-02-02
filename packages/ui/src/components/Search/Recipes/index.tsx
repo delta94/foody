@@ -1,9 +1,7 @@
 import React from 'react';
-import { Row } from '../../Grid/Row';
-import { Column } from '../../Grid/Column';
-import { Image } from 'react-native';
-import { Spacer } from '../../Spacer';
+import { View } from 'react-native';
 import { Text } from '../../Text';
+import { RecipeList } from '../../Recipe/List';
 
 interface Props {
   data: any;
@@ -11,26 +9,12 @@ interface Props {
 
 export const SearchRecipes: React.FC<Props> = ({ data }) => {
   return (
-    <Row outside direction="row">
+    <View>
       {data.length > 0 ? (
-        data.map(({ label, image }: any, index: number) => (
-          <>
-            <Column key={index} customStyle={{ width: '50%', flexWrap: 'wrap' }}>
-              <Image
-                style={{ width: '100%', height: 300, borderRadius: 6 }}
-                source={{
-                  uri: image,
-                }}
-              />
-              <Spacer height={10} />
-              <Text customStyle={{ fontWeight: 'bold' }}>{label}</Text>
-              <Spacer height={25} />
-            </Column>
-          </>
-        ))
+        <RecipeList data={data} />
       ) : (
         <Text>Aucune recette n&apos;a été trouvée.</Text>
       )}
-    </Row>
+    </View>
   );
 };
