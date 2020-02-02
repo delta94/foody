@@ -12,21 +12,25 @@ interface Props {
 export const SearchRecipes: React.FC<Props> = ({ data }) => {
   return (
     <Row outside direction="row">
-      {data.map(({ label, image }: any, index: number) => (
-        <>
-          <Column key={index} customStyle={{ width: '50%', flexWrap: 'wrap' }}>
-            <Image
-              style={{ width: '100%', height: 400, borderRadius: 6 }}
-              source={{
-                uri: image,
-              }}
-            />
-            <Spacer height={10} />
-            <Text>{label}</Text>
-            <Spacer height={25} />
-          </Column>
-        </>
-      ))}
+      {data.length > 0 ? (
+        data.map(({ label, image }: any, index: number) => (
+          <>
+            <Column key={index} customStyle={{ width: '50%', flexWrap: 'wrap' }}>
+              <Image
+                style={{ width: '100%', height: 300, borderRadius: 6 }}
+                source={{
+                  uri: image,
+                }}
+              />
+              <Spacer height={10} />
+              <Text customStyle={{ fontWeight: 'bold' }}>{label}</Text>
+              <Spacer height={25} />
+            </Column>
+          </>
+        ))
+      ) : (
+        <Text>Aucune recette n&apos;a été trouvée.</Text>
+      )}
     </Row>
   );
 };

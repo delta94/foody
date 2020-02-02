@@ -6,6 +6,7 @@ import { Checkbox } from '../../Forms/Checkbox/index.web';
 import { Column } from '../../Grid/Column';
 import { Button } from '../../Button';
 import { useQuery, RECIPES } from '@foody/graphql';
+import { Ingredient } from '../../Ingredient';
 
 interface Props {
   data: any;
@@ -41,21 +42,24 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
     <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
       {data.map(({ name }: any, index: number) => (
         <>
-          <View key={index} style={{ flexDirection: 'row', width: '25%', flexWrap: 'wrap' }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Text>{name}</Text>
-              <Spacer width={5} />
-              <Checkbox onChange={() => onChange(name)} value={ingredients.includes(name)} />
-            </View>
+          <View key={index} style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <Ingredient
+              label={name}
+              onPress={() => onChange(name)}
+              isActive={ingredients.includes(name)}
+            />
             <View style={{ width: '100%' }}>
               <Spacer height={10} />
             </View>
           </View>
+          <Spacer width={10} />
         </>
       ))}
-      <Column collapse style={{ width: '100%' }}>
+      <Column collapse customStyle={{ width: '100%' }}>
         <Spacer height={30} />
-        <Button label="Trouver une recette" onPress={onPress} />
+        <View>
+          <Button label="Trouver une recette" onPress={onPress} />
+        </View>
         {recipesQuery.loading ? <Text>Chargement ...</Text> : null}
       </Column>
     </View>
