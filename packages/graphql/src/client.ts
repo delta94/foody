@@ -4,6 +4,7 @@ import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from 'apollo-link-context';
+import { persistCache } from 'apollo-cache-persist';
 
 const authLink = setContext((_, { headers }) => {
   const storage = localStorage.getItem('state');
@@ -19,11 +20,16 @@ const authLink = setContext((_, { headers }) => {
 const uploadLink = createUploadLink({ uri: 'http://localhost:1337/graphql' });
 const link = ApolloLink.from([authLink, uploadLink]);
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const createApolloClient = (cache = {}) =>
-  new ApolloClient({
-    link,
-    cache: new InMemoryCache().restore(cache),
+export const createApolloClient = (cache = {}) => {
+  const restoreCache = new InMemoryCache().restore(cache);
+
+  persistCache({
+    cache: restoreCache,
+    storage: window.localStorage,
   });
 
-export const apolloClient = createApolloClient();
+  return new ApolloClient({
+    link,
+    cache: restoreCache,
+  });
+};

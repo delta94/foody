@@ -18,8 +18,6 @@ import {
   ModalLoginFormContainer,
   NavigationContainer,
 } from '@foody/core';
-// @ts-ignore
-import { ApolloProvider, apolloClient } from '@foody/graphql';
 import {
   createNavigator,
   SwitchRouter,
@@ -49,30 +47,28 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
   const descriptor = descriptors[activeKey];
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <Provider store={reduxStore}>
-        <App>
-          <Spacer height={50} />
-          <View style={styles.header}>
-            <Logo onPress={() => navigation.navigate('Search')} />
-            <NavigationContainer
-              toggleLoginForm={toggleLoginForm}
-              toggleRegisterForm={toggleRegisterForm}
-              navigation={navigation}
-            />
-          </View>
-          <Spacer height={100} />
-          <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
-          <Footer />
-          <ModalLoginFormContainer
-            isOpen={loginFormIsOpen}
-            toggleModal={toggleLoginForm}
-            onCompleted={() => navigation.navigate('Search')}
+    <Provider store={reduxStore}>
+      <App>
+        <Spacer height={50} />
+        <View style={styles.header}>
+          <Logo onPress={() => navigation.navigate('Search')} />
+          <NavigationContainer
+            toggleLoginForm={toggleLoginForm}
+            toggleRegisterForm={toggleRegisterForm}
+            navigation={navigation}
           />
-          <ModalRegister isOpen={registerFormIsOpen} toggleModal={toggleRegisterForm} />
-        </App>
-      </Provider>
-    </ApolloProvider>
+        </View>
+        <Spacer height={100} />
+        <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
+        <Footer />
+        <ModalLoginFormContainer
+          isOpen={loginFormIsOpen}
+          toggleModal={toggleLoginForm}
+          onCompleted={() => navigation.navigate('Search')}
+        />
+        <ModalRegister isOpen={registerFormIsOpen} toggleModal={toggleRegisterForm} />
+      </App>
+    </Provider>
   );
 };
 
