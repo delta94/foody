@@ -5,25 +5,51 @@ import { Spacer } from '../Spacer';
 import { SearchIngredients } from './Ingredients';
 import { SearchRecipes } from './Recipes';
 import { SearchUrl } from './Url';
+import { Link } from '../Link';
+import { Row } from '../Grid/Row';
 
 export const Search: React.FC = () => {
   const [url, setUrl] = useState('/assets/images/placeholder/pic.jpg');
-  const [results, setResults] = useState(null);
+  const [ingredients, setIngredients] = useState(null);
   const [recipes, setRecipes] = useState(null);
+
+  const reset = () => {
+    setIngredients(null);
+    setRecipes(null);
+  };
 
   return (
     <View style={{ flexDirection: 'row' }}>
-      <View style={{ flex: 1, paddingRight: 100 }}>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, sapiente impedit
-          maiores asperna.
-        </Text>
+      <View style={{ flex: 1, paddingRight: 100, alignItems: 'flex-start' }}>
+        {ingredients || recipes ? (
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            {recipes && (
+              <View style={{ flexDirection: 'row' }}>
+                <Link label="Retour aux ingrédients" onPress={() => setRecipes(null)} />
+                <Spacer width={20} />
+              </View>
+            )}
+            <View style={{ paddingRight: 40 }}>
+              <Link label="Nouvelle recherche" onPress={reset} />
+            </View>
+          </View>
+        ) : (
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, sapiente impedit
+            maiores asperna.
+          </Text>
+        )}
         <Spacer height={20} />
-        {results && !recipes && (
-          <SearchIngredients data={results} onReceiveRecipes={(items: any) => setRecipes(items)} />
+        {ingredients && !recipes && (
+          <SearchIngredients
+            data={ingredients}
+            onReceiveRecipes={(items: any) => setRecipes(items)}
+          />
         )}
         {recipes && <SearchRecipes data={recipes} />}
-        {!results && <SearchUrl onSearch={setUrl} onResults={(data: any) => setResults(data)} />}
+        {!ingredients && (
+          <SearchUrl onSearch={setUrl} onResults={(data: any) => setIngredients(data)} />
+        )}
       </View>
       <View>
         <Spacer width={40} />

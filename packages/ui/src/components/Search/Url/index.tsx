@@ -3,6 +3,9 @@ import { Input } from '../../Input';
 import { Button } from '../../Button';
 import { useQuery, FOOD_IMAGE_RECOGNITION } from '@foody/graphql';
 import { Text } from '../../Text';
+import { View } from 'react-native';
+import { Row } from '../../Grid/Row';
+import { Column } from '../../Grid/Column';
 
 interface Props {
   onSearch: (url: string) => any;
@@ -13,7 +16,6 @@ export const SearchUrl: React.FC<Props> = ({ onSearch, onResults }) => {
   const [url, setUrl] = useState('');
   const [skip, setSkip] = useState(true);
 
-  // @ts-ignore
   const foodImageRecognitionQuery = useQuery(FOOD_IMAGE_RECOGNITION, {
     variables: { image: url },
     skip,
@@ -34,10 +36,14 @@ export const SearchUrl: React.FC<Props> = ({ onSearch, onResults }) => {
   };
 
   return (
-    <>
-      <Input onChange={onChange} />
-      <Button label="Rechercher" onPress={onPress} />
+    <Row direction="row">
+      <Column collapse customStyle={{ flex: 1 }}>
+        <Input onChange={onChange} />
+      </Column>
+      <Column customStyle={{ marginRight: -20 }}>
+        <Button label="Rechercher" onPress={onPress} />
+      </Column>
       {foodImageRecognitionQuery.loading ? <Text>Chargement...</Text> : null}
-    </>
+    </Row>
   );
 };

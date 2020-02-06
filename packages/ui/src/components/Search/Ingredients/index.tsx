@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Text } from '../../Text';
 import { Spacer } from '../../Spacer';
-import { Checkbox } from '../../Forms/Checkbox/index.web';
 import { Column } from '../../Grid/Column';
 import { Button } from '../../Button';
 import { useQuery, RECIPES } from '@foody/graphql';
@@ -55,7 +54,7 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
           <Spacer width={10} />
         </>
       ))}
-      <Column collapse customStyle={{ width: '100%' }}>
+      <Column collapse customStyle={{ width: '100%', alignItems: 'flex-start' }}>
         <Spacer height={30} />
         <View>
           <Button label="Trouver une recette" onPress={onPress} />

@@ -7,6 +7,7 @@ export * from './Footer';
 export * from './Main';
 export * from './Search';
 export * from './Favoris';
+export * from './Link';
 export * from './Forms/Input';
 export * from './Forms/Checkbox';
 export * from './Modal/Layout';

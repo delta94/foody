@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     borderRadius: 6,
     paddingHorizontal: 20,
+    borderWidth: 2,
+    borderColor: 'rgba(0, 0, 0, .2)',
     transition: '.2s',
   },
   hover: {

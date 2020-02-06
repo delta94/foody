@@ -52,9 +52,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 60,
     fontSize: 16,
+    outside: 0,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, .2)',
+    backgroundColor: 'white',
+    border: 0,
     paddingHorizontal: 20,
   },
 });
