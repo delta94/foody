@@ -6,32 +6,29 @@ import { Text } from '../../Text';
 import { View } from 'react-native';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
+import useFoodImageRecognition from '../../../hooks/useFoodImageRecognition';
 
 interface Props {
   onSearch: (url: string) => any;
   onResults: (url: string) => any;
 }
 
+// https://assets.lightspeedhq.com/img/2019/07/8aac85b2-blog_foodpresentationtipsfromtopchefs.jpg
+
 export const SearchUrl: React.FC<Props> = ({ onSearch, onResults }) => {
   const [url, setUrl] = useState('');
-  const [skip, setSkip] = useState(true);
+  const [skipRecognitionQuery, setSkipRecognitionQuery] = useState(true);
 
-  const foodImageRecognitionQuery = useQuery(FOOD_IMAGE_RECOGNITION, {
-    variables: { image: url },
-    skip,
-    onCompleted: (data: any) => {
-      setSkip(true);
-      onResults(data.foodImageRecognition);
-    },
-    onError: () => setSkip(true),
-  });
+  const onCompleted = (data: any) => {
+    setSkipRecognitionQuery(true);
+    onResults(data.foodImageRecognition);
+  };
 
-  // https://assets.lightspeedhq.com/img/2019/07/8aac85b2-blog_foodpresentationtipsfromtopchefs.jpg
+  const { loading } = useFoodImageRecognition(url, skipRecognitionQuery, onCompleted);
 
   const onChange = (event: any): any => setUrl(event.target.value);
-
   const onPress = (): any => {
-    setSkip(false);
+    setSkipRecognitionQuery(false);
     onSearch(url);
   };
 
@@ -43,7 +40,7 @@ export const SearchUrl: React.FC<Props> = ({ onSearch, onResults }) => {
       <Column customStyle={{ marginRight: -20 }}>
         <Button label="Rechercher" onPress={onPress} />
       </Column>
-      {foodImageRecognitionQuery.loading ? <Text>Chargement...</Text> : null}
+      {loading ? <Text>Chargement...</Text> : null}
     </Row>
   );
 };

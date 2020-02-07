@@ -6,7 +6,7 @@ import { SearchIngredients } from './Ingredients';
 import { SearchRecipes } from './Recipes';
 import { SearchUrl } from './Url';
 import { Link } from '../Link';
-import { Row } from '../Grid/Row';
+import SearchUpload from './Upload';
 
 export const Search: React.FC = () => {
   const [url, setUrl] = useState('/assets/images/placeholder/pic.jpg');
@@ -47,6 +47,7 @@ export const Search: React.FC = () => {
           />
         )}
         {recipes && <SearchRecipes data={recipes} />}
+        {/* <SearchUpload /> */}
         {!ingredients && (
           <SearchUrl onSearch={setUrl} onResults={(data: any) => setIngredients(data)} />
         )}
