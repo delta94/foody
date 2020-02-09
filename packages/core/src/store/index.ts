@@ -1,11 +1,11 @@
 // @flow
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+// @ts-ignore
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { loadState, saveState } from './localstorage';
+import { loadState, saveState } from './localStorage';
 import appReducer from './app/reducer';
 import { appLoading, appInit } from './app/actions';
-import { Store } from './types';
 import { __DEV__ } from '../constants';
 import appMiddleware from './app/middleware';
 
@@ -21,7 +21,7 @@ const reducers = combineReducers({
 
 const middlewares = [appMiddleware].filter(Boolean);
 
-export const initializeWebStore = (): Store => {
+export const initializeWebStore = (): any => {
   const persistedState = loadState();
 
   const store = createStore(

@@ -19,7 +19,8 @@ export const loginSuccess = (): types.Action => ({
 
 export const receiveUser = (token: string, user: User): types.ReceiveUserAction => ({
   type: types.RECEIVE_USER,
-  token,
+  // @ts-ignore
+  jwt,
   user,
 });
 

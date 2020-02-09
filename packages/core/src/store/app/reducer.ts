@@ -7,7 +7,7 @@ const initialState: types.AppState = {
   isConnected: false,
 };
 
-const appReducer = (state: types.AppState = initialState, action): types.AppState => {
+const appReducer = (state: types.AppState = initialState, action: any): types.AppState => {
   switch (action.type) {
     case types.APP_INIT:
       return state;

@@ -1,3 +1,5 @@
+// TODO: add types
+// @ts-ignore
 import { Provider } from 'react-redux';
 
 export * from './constants';

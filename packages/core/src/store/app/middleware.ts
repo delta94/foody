@@ -1,8 +1,7 @@
 import * as types from './types';
 import * as appActions from './actions';
-import { Store } from '../types';
 
-const handleAppInit = (store: types.Store): any => {
+const handleAppInit = (store: any): any => {
   const { app } = store.getState();
 
   switch (true) {
@@ -19,13 +18,13 @@ const handleAppInit = (store: types.Store): any => {
   }
 };
 
-const appMiddleware = (store: Record<string, any>) => (next: Record<string, any>) => (
-  action: () => any
-): Store => {
+const appMiddleware = (store: any) => (next: any) => (action: () => any): any => {
   next(action);
 
+  // @ts-ignore
   switch (action.type) {
     case types.APP_INIT:
+      // @ts-ignore
       handleAppInit(store);
       break;
     case types.APP_LOADING:

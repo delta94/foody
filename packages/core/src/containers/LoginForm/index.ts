@@ -1,15 +1,16 @@
+// @ts-ignore
 import { connect } from 'react-redux';
-import { Dispatch } from 'react';
+// @ts-ignore
 import { ModalLogin } from '@foody/ui';
 import { ReceiveUserAction } from '../../store/app/types';
 import { receiveUser, loginSuccess } from '../../store/app/actions';
 
 interface DispatchProps {
-  receiveUser: (props: ReceiveUserAction) => Dispatch;
+  receiveUser: (props: ReceiveUserAction) => any;
 }
 
 const mapDispatchToProps = (dispatch: Function): DispatchProps => ({
-  receiveUser: ({ jwt, user }: ReceiveUserAction): Dispatch => {
+  receiveUser: ({ jwt, user }: ReceiveUserAction) => {
     dispatch(receiveUser(jwt, user));
     dispatch(loginSuccess());
   },

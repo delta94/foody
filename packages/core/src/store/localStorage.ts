@@ -1,6 +1,6 @@
 import { Store } from './types';
 
-const loadState = (): Store => {
+const loadState = (): any => {
   try {
     const serializedState = localStorage.getItem('state');
 
@@ -14,7 +14,7 @@ const loadState = (): Store => {
   }
 };
 
-const saveState = (state: Store): Store => {
+const saveState = (state: Store): any => {
   try {
     const serializedState = JSON.stringify(state);
 

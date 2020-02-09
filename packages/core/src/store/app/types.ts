@@ -1,13 +1,16 @@
-import { User, Profil } from '../../interfaces';
+import { User } from '../../interfaces';
 
-export interface AppState extends Profil {
+export interface AppState {
   isLoading: boolean;
+  user: null | any;
+  token: null | string;
+  isConnected: boolean;
 }
 export interface Action {
   type: string;
 }
 export interface ReceiveUserAction extends Action {
-  token: string;
+  jwt: string;
   user: User;
 }
 

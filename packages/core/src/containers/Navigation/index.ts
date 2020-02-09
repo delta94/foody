@@ -1,4 +1,7 @@
+// TODO: add types
+// @ts-ignore
 import { connect } from 'react-redux';
+// @ts-ignore
 import { Navigation } from '@foody/ui';
 import { Store } from '../../store/types';
 import { logout } from '../../store/app/actions';
@@ -9,7 +12,7 @@ const mapStateToProps = (state: Store) => {
   return { isConnected };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   logout: () => dispatch(logout()),
 });
 
