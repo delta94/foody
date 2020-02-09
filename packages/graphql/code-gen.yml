@@ -1,0 +1,14 @@
+schema: http://localhost:1337/graphql
+documents: ../api/exports/graphql/schema.graphql
+generates:
+  ./types.ts:
+    config:
+      noNamespaces: true
+      noComponents: true
+      withHooks: true
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-common
+      - typescript-client
+      - typescript-react-apollo
