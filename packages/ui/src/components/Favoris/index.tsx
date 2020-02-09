@@ -17,6 +17,7 @@ export const Favoris: React.FC<Props> = ({ recipe }) => {
 
   const onPress = () => {
     // TODO: try to use apollo client cache
+    // @ts-ignore
     const { app } = JSON.parse(localStorage.getItem('state'));
     updateUserFavoris({ variables: { userId: app.user.id, favoris: [recipe] } });
   };

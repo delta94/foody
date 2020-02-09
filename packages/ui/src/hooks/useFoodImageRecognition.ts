@@ -2,7 +2,7 @@ import { FOOD_IMAGE_RECOGNITION, useQuery } from '@foody/graphql';
 import { useState, useEffect } from 'react';
 
 const useFoodImageRecognition = (
-  url: string,
+  url: null | string,
   skipContainer: boolean = true,
   onCompleted: Function,
   onError?: Function

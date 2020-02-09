@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from '../Layout';
-import { Input } from '../../Input';
+import { Input } from '../../Forms/Input';
 import { Title } from '../../Title';
 import { View } from 'react-native';
 import { Column } from '../../Grid/Column';

@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, CheckBox } from 'react-native';
-import { Text } from '../../Text';
+import { View, CheckBox as AppCheckBox } from 'react-native';
 
 export const Checkbox = ({ ...props }) => (
   <View>
-    <CheckBox {...props} />
+    <AppCheckBox {...props} />
   </View>
 );

@@ -2,7 +2,13 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from '../Text';
 
-export const Ingredient = ({ label, onPress, isActive }) => (
+interface Props {
+  label: string;
+  onPress: () => any;
+  isActive: boolean;
+}
+
+export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => (
   <TouchableOpacity onPress={onPress}>
     <View style={[styles.container, isActive ? styles.active : []]}>
       <Text customStyle={{ margin: 'auto' }}>{label}</Text>

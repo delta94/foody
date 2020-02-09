@@ -25,6 +25,7 @@ export const createApolloClient = (cache = {}) => {
 
   persistCache({
     cache: restoreCache,
+    // @ts-ignore
     storage: window.localStorage,
   });
 

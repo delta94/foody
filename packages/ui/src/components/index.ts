@@ -1,6 +1,5 @@
 export * from './Text';
 export * from './Title';
-export * from './Input';
 export * from './App';
 export * from './Logo';
 export * from './Footer';

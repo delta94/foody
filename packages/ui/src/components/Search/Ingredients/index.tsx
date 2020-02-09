@@ -9,7 +9,7 @@ import { Ingredient } from '../../Ingredient';
 
 interface Props {
   data: any;
-  onReceiveRecipes: () => any;
+  onReceiveRecipes: (data: any) => any;
 }
 
 export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) => {

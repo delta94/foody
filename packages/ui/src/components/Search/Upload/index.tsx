@@ -7,11 +7,12 @@ import useFoodImageRecognition from '../../../hooks/useFoodImageRecognition';
 
 const SearchUpload = () => {
   const [skipRecognitionQuery, setSkipRecognitionQuery] = useState(true);
-  const [imageRecognitionUrl, setImageRecognitionUrl] = useState(true);
+  const [imageRecognitionUrl, setImageRecognitionUrl] = useState(null);
   const [file, setFile] = useState(null);
 
   const onError = (error: any): any => console.log(error);
   const onCompleted = (data: any): any => {
+    // @ts-ignore
     setImageRecognitionUrl('localhost:1337' + data.upload.url);
     setSkipRecognitionQuery(false);
   };

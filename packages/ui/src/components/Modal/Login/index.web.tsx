@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Modal } from '../Layout';
-import { Input } from '../../Input';
+import { Input } from '../../Forms/Input';
 import { Title } from '../../Title';
 import { View, StyleSheet } from 'react-native';
 import { Column } from '../../Grid/Column';
@@ -13,6 +13,7 @@ interface Props {
   isOpen: boolean;
   toggleModal: () => any;
   receiveUser: (props: any) => any;
+  onCompleted: () => any;
 }
 
 export const ModalLogin: React.FC<Props> = ({ receiveUser, ...props }) => {

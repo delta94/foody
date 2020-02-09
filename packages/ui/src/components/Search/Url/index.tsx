@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Input } from '../../Input';
+import { Input } from '../../Forms/Input';
 import { Button } from '../../Button';
-import { useQuery, FOOD_IMAGE_RECOGNITION } from '@foody/graphql';
 import { Text } from '../../Text';
-import { View } from 'react-native';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import useFoodImageRecognition from '../../../hooks/useFoodImageRecognition';
