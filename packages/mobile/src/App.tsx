@@ -6,7 +6,7 @@ import { Button } from '@foody/ui/src/components/Button';
 const App: React.FC = () => (
   <View>
     <Text>Test</Text>
-    <Button title="fefef" />
+    <Button label="fefef" onPress={() => console.log('test')} />
   </View>
 );
 

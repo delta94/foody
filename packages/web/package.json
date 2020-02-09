@@ -12,6 +12,8 @@
     "@foody/core": "1.0.0",
     "@foody/graphql": "1.0.0",
     "@foody/ui": "1.0.0",
+    "@react-navigation/core": "^3.5.2",
+    "@react-navigation/web": "^1.0.0-alpha.9",
     "react-native-web": "^0.12.0-rc.1",
     "react-scripts": "3.0.1"
   },
