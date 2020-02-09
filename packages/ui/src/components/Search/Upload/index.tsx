@@ -17,6 +17,7 @@ const SearchUpload = () => {
     setSkipRecognitionQuery(false);
   };
 
+  // @ts-ignore
   const { loading } = useFoodImageRecognition(
     imageRecognitionUrl,
     skipRecognitionQuery,

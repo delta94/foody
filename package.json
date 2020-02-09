@@ -26,7 +26,12 @@
     "storybook:build": "yarn workspace @foody/storybook build",
     "mobile:start:ios": "yarn workspace @foody/mobile run-ios",
     "mobile:start:android": "concurrently \"yarn workspace @foody/mobile start\" \"yarn workspace @foody/mobile run-android\"",
-    "cypress:start": "yarn workspace @foody/cypress start"
+    "cypress:start": "yarn workspace @foody/cypress start",
+    "code:clean": "yarn code:lint && yarn code:format",
+    "code:lint": "eslint --ext .js,.jsx,.ts,.tsx \"src/\" --fix",
+    "code:format": "prettier './packages/**/**.{ts,tsx}' --write",
+    "code:check:rules": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "clean:modules": "rm -rf ./node_modules && packages/**/node_modules"
   },
   "dependencies": {
     "react": "16.9.0",
@@ -51,6 +56,7 @@
     "husky": "^3.0.2",
     "jest": "^24.8.0",
     "lint-staged": "^9.2.1",
+    "poetic": "^1.4.0",
     "prettier": "^1.18.2",
     "stylelint": "^10.1.0",
     "stylelint-config-recommended": "^2.2.0",

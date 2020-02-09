@@ -1,5 +1,5 @@
+import React from 'react';
 import { View } from 'react-native';
-import * as React from 'react';
 // @ts-ignore
 import { Button, Text } from '@foody/ui';
 

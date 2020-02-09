@@ -1,4 +1,5 @@
 {
+  "extends": "../../node_modules/poetic/config/typescript/tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
     "target": "es2015",

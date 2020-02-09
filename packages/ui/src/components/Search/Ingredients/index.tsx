@@ -29,7 +29,7 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
 
   const onChange = (name: string) => {
     if (ingredients.includes(name)) {
-      return setIngredients(ingredients.filter(item => item !== name));
+      return setIngredients(ingredients.filter((item) => item !== name));
     }
 
     return setIngredients([...ingredients, name]);
