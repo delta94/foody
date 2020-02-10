@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "jest --watch",
-    "start": "NODE_ENV=production concurrently \"yarn api:start\" \"yarn web:serve\"",
+    "start": "NODE_ENV=production concurrently \"yarn api:dev\" \"yarn web:serve\"",
     "build": "yarn graphql:build && yarn core:build && yarn ui:build && yarn web:build",
     "api:dev": "yarn workspace @foody/api develop",
     "api:start": "yarn workspace @foody/api start",

@@ -4,10 +4,7 @@ import {
   ModalRegister,
   Logo,
   App,
-  Text,
   Spacer,
-  Main,
-  Title,
   Footer,
   // @ts-ignore
 } from '@foody/ui';
