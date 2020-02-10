@@ -5,15 +5,22 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/admin",
+    "packages/core",
+    "packages/cypress",
+    "packages/graphql",
+    "packages/mobile",
+    "packages/storybook",
+    "packages/ui",
+    "packages/web"
   ],
   "scripts": {
     "test": "jest --watch",
     "start": "NODE_ENV=production concurrently \"yarn api:dev\" \"yarn web:serve\"",
     "build": "yarn graphql:build && yarn core:build && yarn ui:build && yarn web:build",
-    "api:dev": "yarn workspace @foody/api develop",
-    "api:start": "yarn workspace @foody/api start",
-    "api:build": "yarn workspace @foody/api build",
+    "api:dev": "npm --prefix ./packages/api run develop",
+    "api:start": "npm --prefix ./packages/api run start",
+    "api:build": "npm --prefix ./packages/api run build",
     "postinstall": "yarn core:build && yarn graphql:build && yarn ui:build",
     "core:build": "yarn workspace @foody/core build",
     "graphql:build": "yarn workspace @foody/graphql build",
