@@ -14,7 +14,7 @@
     "api:dev": "yarn workspace @foody/api develop",
     "api:start": "yarn workspace @foody/api start",
     "api:build": "yarn workspace @foody/api build",
-    "postinstall": "yarn ui:build",
+    "postinstall": "yarn core:build && yarn graphql:build && yarn ui:build",
     "core:build": "yarn workspace @foody/core build",
     "graphql:build": "yarn workspace @foody/graphql build",
     "ui:build": "yarn workspace @foody/ui build",

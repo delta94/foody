@@ -24,7 +24,7 @@ RUN chmod a+x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # YARN
-RUN npm i -g yarn
+RUN npm i -g yarn serve
 
 # VOLUMES
 VOLUME ["/app"]

@@ -6,7 +6,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "serve": "serve -p 3000 ."
   },
   "dependencies": {
     "@foody/core": "1.0.0",
