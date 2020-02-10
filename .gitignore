@@ -157,7 +157,7 @@ typings/
 .tmp
 
 # api
-public
+packages/api/public
 
 
 ### Windows ###
