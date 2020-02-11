@@ -37,7 +37,7 @@ docker-build:
 	docker-compose build
 docker-up:
 	@echo "--> Start docker services"
-	$(DOCKERCOMPO) up -d
+	$(DOCKERCOMPO) up
 docker-down:
 	@echo "--> Stop docker services"
 	$(DOCKERCOMPO) down
@@ -58,6 +58,8 @@ yarn-start:
 yarn-api-dev:
 	@echo "--> Start project"
 	$(DOCKERYARN) api:dev
+yarn-api-start:
+	$(DOCKERYARN) api:start
 yarn-build:
 	@echo "--> Build app"
 	$(DOCKERYARN) build
