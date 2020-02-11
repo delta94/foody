@@ -264,5 +264,6 @@ dist/
 build/
 
 .next
+.config
 
 android-old
