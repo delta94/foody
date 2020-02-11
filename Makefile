@@ -37,7 +37,7 @@ docker-build:
 	docker-compose build
 docker-up:
 	@echo "--> Start docker services"
-	$(DOCKERCOMPO) up
+	$(DOCKERCOMPO) up -d
 docker-down:
 	@echo "--> Stop docker services"
 	$(DOCKERCOMPO) down
