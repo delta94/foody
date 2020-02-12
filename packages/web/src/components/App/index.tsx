@@ -63,7 +63,14 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
           toggleModal={toggleLoginForm}
           onCompleted={() => navigation.navigate('Search')}
         />
-        <ModalRegister isOpen={registerFormIsOpen} toggleModal={toggleRegisterForm} />
+        <ModalRegister
+          isOpen={registerFormIsOpen}
+          toggleModal={toggleRegisterForm}
+          onCompleted={() => {
+            toggleRegisterForm();
+            toggleLoginForm();
+          }}
+        />
       </App>
     </Provider>
   );
