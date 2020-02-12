@@ -14,6 +14,7 @@ interface Props {
   onChange?: (event: any) => any;
   error?: FieldError | FieldError[] | NestDataObject<any> | NestDataObject<any>[] | undefined;
   errorMessage?: string;
+  bordered?: boolean;
 }
 
 export const Input: React.FC<Props> = ({
@@ -22,16 +23,17 @@ export const Input: React.FC<Props> = ({
   spacer,
   error,
   errorMessage,
+  bordered,
   ...props
 }) => (
-  <View style={{ width: '100%', backgroundColor: 'red' }}>
+  <View style={{ width: '100%' }}>
     {label && (
       <>
         <Text theme="black">{label}</Text>
         <Spacer height={10} />
       </>
     )}
-    <TextInput style={[styles.input, customStyle]} {...props} />
+    <TextInput style={[styles.input, customStyle, bordered ? styles.bordered : []]} {...props} />
     {error && (
       <>
         <Spacer height={10} />
@@ -46,6 +48,7 @@ Input.defaultProps = {
   spacer: 40,
   error: undefined,
   errorMessage: 'This field is required',
+  bordered: true,
 };
 
 const styles = StyleSheet.create({
@@ -57,7 +60,11 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     backgroundColor: 'white',
-    border: 0,
+    borderWidth: 0,
     paddingHorizontal: 20,
+  },
+  bordered: {
+    borderWidth: 2,
+    borderColor: 'rgba(0, 0, 0, .2)',
   },
 });
