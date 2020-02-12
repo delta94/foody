@@ -12,6 +12,7 @@ import { REGISTER, useMutation } from '@foody/graphql';
 interface Props {
   isOpen: boolean;
   toggleModal: () => any;
+  onCompleted: () => any;
 }
 
 export const ModalRegister: React.FC<Props> = ({ ...props }) => {
