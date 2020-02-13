@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "test": "jest --watch",
-    "start": "NODE_ENV=production concurrently \"yarn api:dev\" \"yarn build && yarn web:serve\"",
+    "start": "NODE_ENV=production concurrently \"yarn api:dev\" \"yarn clean:build && yarn build && yarn web:serve\"",
     "build": "yarn graphql:build && yarn core:build && yarn ui:build && yarn web:build",
     "api:dev": "npm --prefix ./packages/api run develop",
     "api:start": "npm --prefix ./packages/api run start",
@@ -39,7 +39,8 @@
     "code:lint": "eslint --ext .js,.jsx,.ts,.tsx \"src/\" --fix",
     "code:format": "prettier './packages/**/**.{ts,tsx}' --write",
     "code:check:rules": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "clean:modules": "rm -rf ./node_modules && packages/**/node_modules"
+    "clean:modules": "rm -rf ./node_modules && packages/**/node_modules",
+    "clean:build": "rm -rf packages/**/dist && rm -rf packages/web/build"
   },
   "dependencies": {
     "react": "16.9.0",
