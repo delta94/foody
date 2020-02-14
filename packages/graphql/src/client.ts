@@ -17,20 +17,22 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-const uploadLink = createUploadLink({ uri: 'http://localhost:1337/graphql' });
-const link = ApolloLink.from([authLink, uploadLink]);
 
-export const createApolloClient = (cache = {}) => {
-  const restoreCache = new InMemoryCache().restore(cache);
+export const createApolloClient = (uri: string | undefined, cache = {}) => {
+  if (uri) {
+    const uploadLink = createUploadLink({ uri });
+    const link = ApolloLink.from([authLink, uploadLink]);
+    const restoreCache = new InMemoryCache().restore(cache);
 
-  persistCache({
-    cache: restoreCache,
-    // @ts-ignore
-    storage: window.localStorage,
-  });
+    persistCache({
+      cache: restoreCache,
+      // @ts-ignore
+      storage: window.localStorage,
+    });
 
-  return new ApolloClient({
-    link,
-    cache: restoreCache,
-  });
+    return new ApolloClient({
+      link,
+      cache: restoreCache,
+    });
+  }
 };
