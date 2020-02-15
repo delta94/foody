@@ -18,7 +18,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-export const createApolloClient = (uri: string | undefined, cache = {}) => {
+export const createApolloClient = (uri: string | undefined, cache = {}): any => {
   if (uri) {
     const uploadLink = createUploadLink({ uri });
     const link = ApolloLink.from([authLink, uploadLink]);
