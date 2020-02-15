@@ -2,7 +2,7 @@ import * as types from './types';
 
 const initialState: types.AppState = {
   isLoading: true,
-  token: null,
+  jwt: null,
   user: null,
   isConnected: false,
 };
@@ -24,14 +24,14 @@ const appReducer = (state: types.AppState = initialState, action: any): types.Ap
     case types.RECEIVE_USER:
       return {
         ...state,
-        token: action.token,
+        jwt: action.jwt,
         user: action.user,
         isConnected: true,
       };
     case types.LOGOUT:
       return {
         ...state,
-        token: initialState.token,
+        jwt: initialState.jwt,
         user: initialState.user,
         isConnected: false,
       };
