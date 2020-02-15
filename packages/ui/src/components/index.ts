@@ -17,3 +17,4 @@ export * from './Grid/Column';
 export * from './Spacer';
 export * from './Button';
 export * from './Navigation';
+export * from './Recipe/List';

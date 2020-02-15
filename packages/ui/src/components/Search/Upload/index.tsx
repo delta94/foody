@@ -3,7 +3,7 @@ import { useMutation, UPLOAD } from '@foody/graphql';
 import { Button } from '../../Button';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
-import useFoodImageRecognition from '../../../hooks/useFoodImageRecognition';
+import { useFoodImageRecognition } from '@foody/graphql';
 
 const SearchUpload = () => {
   const [skipRecognitionQuery, setSkipRecognitionQuery] = useState(true);

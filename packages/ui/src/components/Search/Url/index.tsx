@@ -4,7 +4,7 @@ import { Button } from '../../Button';
 import { Text } from '../../Text';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
-import useFoodImageRecognition from '../../../hooks/useFoodImageRecognition';
+import { useFoodImageRecognition } from '@foody/graphql';
 
 interface Props {
   onSearch: (url: string) => any;
