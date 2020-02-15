@@ -6,14 +6,14 @@ import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from 'apollo-link-context';
 import { persistCache } from 'apollo-cache-persist';
 
-const authLink = setContext((_, { headers }) => {
+export const authLink = setContext((_, { headers }) => {
   const storage = localStorage.getItem('state');
   const state: Record<string, any> = storage ? JSON.parse(storage) : {};
 
   return {
     headers: {
       ...headers,
-      authorization: state.app.token ? `Bearer ${state.app.token}` : '',
+      authorization: state.app.jwt ? `Bearer ${state.app.jwt}` : '',
     },
   };
 });
