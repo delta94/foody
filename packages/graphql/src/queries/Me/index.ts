@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo';
 
-const ME = gql`
+export const ME = gql`
   {
     userMe {
       id
