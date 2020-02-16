@@ -3,7 +3,7 @@ import { User } from '../../interfaces';
 export interface AppState {
   isLoading: boolean;
   user: null | any;
-  token: null | string;
+  jwt: null | string;
   isConnected: boolean;
 }
 export interface Action {

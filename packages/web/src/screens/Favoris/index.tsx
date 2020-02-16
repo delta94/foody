@@ -20,11 +20,11 @@ const Favoris = () => {
       <Text>Retrouvez l&apos;intégralité de vos recettes coup de coeur.</Text>
       <Spacer height={30} />
       {loading ? (
-        <ActivityIndicator />
+        <ActivityIndicator color="white" size="large" />
       ) : error ? (
-        <div>Error</div>
+        <Text>Error</Text>
       ) : !data.userMe.favoris || data.userMe.favoris.length === 0 ? (
-        <div>Aucune recette favorite.</div>
+        <Text>Aucune recette favorite.</Text>
       ) : (
         <RecipeList data={data.userMe.favoris} />
       )}

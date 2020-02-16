@@ -3,7 +3,7 @@ import { Column } from '../../Grid/Column';
 import { Image } from 'react-native';
 import { Spacer } from '../../Spacer';
 import { Text } from '../../Text';
-import { Favoris } from '../../Favoris';
+import { Favoris } from '../Favoris';
 
 interface Props {
   recipe: any;

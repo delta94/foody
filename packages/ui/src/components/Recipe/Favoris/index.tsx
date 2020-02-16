@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useUpdateFavoris, withApollo, ME } from '@foody/graphql';
 
 interface Props {
+  client: any;
   recipe: any;
 }
 
@@ -10,14 +11,14 @@ const ButtonFavoris: React.FC<Props> = ({ client, recipe }) => {
   const updateFavoris = useUpdateFavoris();
 
   const { userMe } = client.readQuery({ query: ME });
-  const userFavoris = userMe.favoris ? userMe.favoris.map(({ label }) => label) : [];
+  const userFavoris = userMe.favoris ? userMe.favoris.map(({ label }: any) => label) : [];
   const isAlreadyFavoris = userFavoris.includes(recipe.label);
 
   const onPress = () => {
     let favoris;
 
     if (isAlreadyFavoris) {
-      favoris = userMe.favoris.filter(({ label }) => label !== recipe.label);
+      favoris = userMe.favoris.filter(({ label }: any) => label !== recipe.label);
     } else {
       favoris = [...userMe.favoris, recipe];
     }
@@ -55,4 +56,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// @ts-ignore
 export const Favoris = withApollo(ButtonFavoris);

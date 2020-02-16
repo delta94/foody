@@ -5,7 +5,7 @@ import { Spacer } from '../../Spacer';
 import { Column } from '../../Grid/Column';
 import { Button } from '../../Button';
 import { useQuery, RECIPES } from '@foody/graphql';
-import { Ingredient } from '../../Ingredient';
+import { IngredientList } from '../../Ingredient/List';
 
 interface Props {
   data: any;
@@ -39,21 +39,11 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
 
   return (
     <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
-      {data.map(({ name }: any, index: number) => (
-        <>
-          <View key={index} style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            <Ingredient
-              label={name}
-              onPress={() => onChange(name)}
-              isActive={ingredients.includes(name)}
-            />
-            <View style={{ width: '100%' }}>
-              <Spacer height={10} />
-            </View>
-          </View>
-          <Spacer width={10} />
-        </>
-      ))}
+      <IngredientList
+        data={data.map(({ name }: any) => name)}
+        dataSelected={ingredients}
+        onChange={onChange}
+      />
       <Column collapse customStyle={{ width: '100%', alignItems: 'flex-start' }}>
         <Spacer height={30} />
         <View>

@@ -15,7 +15,7 @@ export const UPDATE_FAVORIS = gql`
 export const useUpdateFavoris = () => {
   const [updateFavoris] = useMutation(UPDATE_FAVORIS, {
     update: (cache, { data }) => {
-      const { userMe } = cache.readQuery({
+      const { userMe }: any = cache.readQuery({
         query: ME,
       });
 
