@@ -1,7 +1,7 @@
 schema: http://localhost:1337/graphql
-documents: ../api/exports/graphql/schema.graphql
+# documents: ../api/exports/graphql/schema.graphql
 generates:
-  ./types.ts:
+  ./src/types.ts:
     config:
       noNamespaces: true
       noComponents: true
@@ -9,6 +9,6 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typescript-common
-      - typescript-client
-      - typescript-react-apollo
+      # - typescript-common
+      # - typescript-client
+      # - typescript-react-apollo
