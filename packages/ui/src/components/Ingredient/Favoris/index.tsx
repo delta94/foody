@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   active: {
-    backgroundColor: 'red',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   inactive: {
     backgroundColor: 'white',

@@ -4,7 +4,7 @@ import {
   Title,
   Text,
   Spacer,
-  IngredientList,
+  SearchIngredients,
   // @ts-ignore
 } from '@foody/ui';
 import { useMe } from '@foody/graphql';
@@ -30,7 +30,10 @@ const Pantries = () => {
       ) : !data.userMe.pantries || data.userMe.pantries.length === 0 ? (
         <Text>Aucun ingrédient dans mon garde-manger.</Text>
       ) : (
-        <IngredientList data={data.userMe.pantries} />
+        <>
+          <Spacer height={15} />
+          <SearchIngredients data={data.userMe.pantries} />
+        </>
       )}
     </Main>
   );

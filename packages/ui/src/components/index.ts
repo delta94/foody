@@ -17,5 +17,6 @@ export * from './Modal/Register';
 export * from './Grid/Row';
 export * from './Grid/Column';
 export * from './Spacer';
+export * from './Search/Ingredients';
 export * from './Button';
 export * from './Navigation';

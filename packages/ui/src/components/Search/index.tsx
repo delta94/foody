@@ -10,11 +10,11 @@ import { Link } from '../Link/index.web';
 
 export const Search: React.FC = () => {
   const [url, setUrl] = useState('/assets/images/placeholder/pic.jpg');
-  const [ingredients, setIngredients] = useState(null);
+  const [ingredients, setIngredients] = useState([]);
   const [recipes, setRecipes] = useState(null);
 
   const reset = () => {
-    setIngredients(null);
+    setIngredients([]);
     setRecipes(null);
   };
 
@@ -42,7 +42,7 @@ export const Search: React.FC = () => {
         <Spacer height={20} />
         {ingredients && !recipes && (
           <SearchIngredients
-            data={ingredients}
+            data={ingredients.map(({ name }: any) => name)}
             onReceiveRecipes={(items: any) => setRecipes(items)}
           />
         )}

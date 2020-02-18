@@ -39,11 +39,7 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
 
   return (
     <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
-      <IngredientList
-        data={data.map(({ name }: any) => name)}
-        dataSelected={ingredients}
-        onChange={onChange}
-      />
+      <IngredientList data={data} dataSelected={ingredients} onChange={onChange} />
       <Column collapse customStyle={{ width: '100%', alignItems: 'flex-start' }}>
         <Spacer height={30} />
         <View>

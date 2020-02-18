@@ -46,7 +46,7 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
   return (
     <Provider store={reduxStore}>
       <App>
-        <Spacer height={50} />
+        <Spacer height={40} />
         <View style={styles.header}>
           <Logo onPress={() => navigation.navigate('Search')} />
           <NavigationContainer
@@ -55,8 +55,11 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
             navigation={navigation}
           />
         </View>
+        <Spacer height={80} />
+        <View style={styles.content}>
+          <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
+        </View>
         <Spacer height={100} />
-        <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
         <Footer />
         <ModalLoginFormContainer
           isOpen={loginFormIsOpen}
@@ -82,6 +85,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 50,
+  },
+  content: {
+    paddingHorizontal: 30,
   },
 });
 

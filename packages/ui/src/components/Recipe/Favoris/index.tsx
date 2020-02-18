@@ -20,7 +20,7 @@ const ButtonFavoris: React.FC<Props> = ({ client, recipe }) => {
     if (isAlreadyFavoris) {
       favoris = userMe.favoris.filter(({ label }: any) => label !== recipe.label);
     } else {
-      favoris = [...userMe.favoris, recipe];
+      favoris = [...(userMe?.favoris ?? []), recipe];
     }
 
     return updateFavoris({
