@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo';
 import { ME } from '../../queries';
-import { CustomUsersPermissionsMe } from '../../types';
+import { Query } from '../../types';
 
 export const UPDATE_FAVORIS = gql`
   mutation($userId: ID!, $favoris: JSON) {
@@ -16,19 +16,22 @@ export const UPDATE_FAVORIS = gql`
 export const useUpdateFavoris = () => {
   const [updateFavoris] = useMutation(UPDATE_FAVORIS, {
     update: (cache, { data }) => {
-      const { userMe }: CustomUsersPermissionsMe = cache.readQuery({
+      const query: Query | null = cache.readQuery({
         query: ME,
       });
+      const userMe = query?.userMe;
 
-      cache.writeQuery({
-        query: ME,
-        data: {
-          userMe: {
-            ...userMe,
-            favoris: data.updateUser.user.favoris,
+      if (userMe) {
+        cache.writeQuery({
+          query: ME,
+          data: {
+            userMe: {
+              ...userMe,
+              favoris: data.updateUser.user.favoris,
+            },
           },
-        },
-      });
+        });
+      }
     },
   });
 

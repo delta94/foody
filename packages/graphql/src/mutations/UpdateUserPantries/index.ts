@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo';
 import { ME } from '../../queries';
+import { Query } from '../../types';
 
 export const UPDATE_USER_PANTRIES = gql`
   mutation($userId: ID!, $pantries: JSON) {
@@ -15,19 +16,22 @@ export const UPDATE_USER_PANTRIES = gql`
 export const useUpdatePantries = () => {
   const [updatePantries] = useMutation(UPDATE_USER_PANTRIES, {
     update: (cache, { data }) => {
-      const { userMe }: any = cache.readQuery({
+      const query: Query | null = cache.readQuery({
         query: ME,
       });
+      const userMe = query?.userMe;
 
-      cache.writeQuery({
-        query: ME,
-        data: {
-          userMe: {
-            ...userMe,
-            pantries: data.updateUser.user.pantries,
+      if (userMe) {
+        cache.writeQuery({
+          query: ME,
+          data: {
+            userMe: {
+              ...userMe,
+              pantries: data.updateUser.user.pantries,
+            },
           },
-        },
-      });
+        });
+      }
     },
   });
 
