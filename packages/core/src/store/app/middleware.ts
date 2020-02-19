@@ -1,30 +1,35 @@
 import * as types from './types';
 import * as appActions from './actions';
+import { MiddlewareAPI, Dispatch, Action } from 'redux';
 
-const handleAppInit = (store: any): any => {
+const handleAppInit = (store: MiddlewareAPI<any>): void => {
   const { app } = store.getState();
 
   switch (true) {
-    case app.user !== null:
-      console.log('login');
-      setTimeout(() => store.dispatch(appActions.appLoaded()));
+    case app.jwt !== null:
+      console.log('logged');
+      store.dispatch(appActions.appLoaded());
       break;
-    case app.user === null:
-      console.log('logout');
-      setTimeout(() => store.dispatch(appActions.appLoaded()));
+    case app.jwt === null:
+      console.log('notlogged');
+      store.dispatch(appActions.appLoaded());
       break;
     default:
       break;
   }
 };
 
-const appMiddleware = (store: any) => (next: any) => (action: () => any): any => {
+interface EffectAction extends Action {
+  effect<T>(action: T): void;
+}
+
+const appMiddleware = (store: MiddlewareAPI<any>) => (next: Dispatch<EffectAction>) => (
+  action: EffectAction
+): MiddlewareAPI<any> => {
   next(action);
 
-  // @ts-ignore
   switch (action.type) {
     case types.APP_INIT:
-      // @ts-ignore
       handleAppInit(store);
       break;
     case types.APP_LOADING:
@@ -32,9 +37,6 @@ const appMiddleware = (store: any) => (next: any) => (action: () => any): any =>
       break;
     case types.APP_LOADED:
       console.log('app loaded');
-      break;
-    case types.LOGIN_SUCCESS:
-      console.log('login success');
       break;
     default:
       return store;

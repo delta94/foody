@@ -11,20 +11,20 @@ import { useMutation, LOGIN } from '@foody/graphql';
 
 interface Props {
   isOpen: boolean;
-  toggleModal: () => any;
-  receiveUser: (props: any) => any;
-  onCompleted: () => any;
+  toggleModal: () => void;
+  receiveJwt: (jwt: string) => void;
+  onCompleted: () => void;
 }
 
-export const ModalLogin: React.FC<Props> = ({ receiveUser, ...props }) => {
+export const ModalLogin: React.FC<Props> = ({ receiveJwt, ...props }) => {
   const { handleSubmit, control, errors } = useForm();
-  const onChange = (event: any) => ({
+  const onChange = (event: Event) => ({
     value: event[0].nativeEvent.text,
   });
 
-  const onError = (error: any): any => console.log(error);
-  const onCompleted = (data: any): any => {
-    receiveUser(data.login);
+  const onError = (error: any): void => console.log(error);
+  const onCompleted = ({ login }): void => {
+    receiveJwt(login.jwt);
     props.toggleModal();
     props.onCompleted();
   };
@@ -34,7 +34,7 @@ export const ModalLogin: React.FC<Props> = ({ receiveUser, ...props }) => {
     onCompleted,
   });
 
-  const onSubmit = (variables: Record<string, any>): any => login({ variables });
+  const onSubmit = (variables: Record<string, any>): void => login({ variables });
 
   return (
     <Modal {...props}>

@@ -1,4 +1,3 @@
-// @flow
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 // @ts-ignore
 import { createLogger } from 'redux-logger';
@@ -23,7 +22,6 @@ const middlewares = [appMiddleware].filter(Boolean);
 
 export const initializeWebStore = (): any => {
   const persistedState = loadState();
-
   const store = createStore(
     reducers,
     persistedState,
