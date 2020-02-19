@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { Text } from '../Text';
 import { Spacer } from '../Spacer';
 import { SearchIngredients } from './Ingredients';
 import { SearchRecipes } from './Recipes';
 import { SearchUrl } from './Url';
 import { Link } from '../Link/index.web';
-// import SearchUpload from './Upload';
+import SearchUpload from './Upload';
+import { Checkbox } from '../Forms/Checkbox';
 
 export const Search: React.FC = () => {
   const [url, setUrl] = useState('/assets/images/placeholder/pic.jpg');
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState(null);
   const [recipes, setRecipes] = useState(null);
+  const [useUpload, setUseUpload] = useState(false);
 
   const reset = () => {
-    setIngredients([]);
+    setIngredients(null);
     setRecipes(null);
   };
 
@@ -34,10 +36,13 @@ export const Search: React.FC = () => {
             </View>
           </View>
         ) : (
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, sapiente impedit
-            maiores asperna.
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Checkbox onChange={() => setUseUpload(!useUpload)} value={useUpload} />
+            <Spacer width={10} />
+            <TouchableOpacity onPress={() => setUseUpload(!useUpload)}>
+              <Text>Importer une photo</Text>
+            </TouchableOpacity>
+          </View>
         )}
         <Spacer height={20} />
         {ingredients && !recipes && (
@@ -47,9 +52,14 @@ export const Search: React.FC = () => {
           />
         )}
         {recipes && <SearchRecipes data={recipes} />}
-        {/* <SearchUpload /> */}
         {!ingredients && (
-          <SearchUrl onSearch={setUrl} onResults={(data: any) => setIngredients(data)} />
+          <>
+            {useUpload ? (
+              <SearchUpload />
+            ) : (
+              <SearchUrl onSearch={setUrl} onResults={(data: any) => setIngredients(data)} />
+            )}
+          </>
         )}
       </View>
       <View>

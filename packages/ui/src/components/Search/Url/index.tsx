@@ -5,6 +5,7 @@ import { Text } from '../../Text';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';
+import { Loader } from '../../Loader';
 
 interface Props {
   onSearch: (url: string) => any;
@@ -38,7 +39,7 @@ export const SearchUrl: React.FC<Props> = ({ onSearch, onResults }) => {
       <Column customStyle={{ marginRight: -20 }}>
         <Button label="Rechercher" onPress={onPress} />
       </Column>
-      {loading ? <Text>Chargement...</Text> : null}
+      {loading ? <Loader /> : null}
     </Row>
   );
 };

@@ -6,6 +6,7 @@ import { Column } from '../../Grid/Column';
 import { Button } from '../../Button';
 import { useQuery, RECIPES } from '@foody/graphql';
 import { IngredientList } from '../../Ingredient/List';
+import { Loader } from '../../Loader';
 
 interface Props {
   data: any;
@@ -45,7 +46,7 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
         <View>
           <Button label="Trouver une recette" onPress={onPress} />
         </View>
-        {recipesQuery.loading ? <Text>Chargement ...</Text> : null}
+        {recipesQuery.loading ? <Loader /> : null}
       </Column>
     </View>
   );

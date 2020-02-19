@@ -20,7 +20,8 @@ const ButtonFavoris: React.FC<Props> = ({ client, ingredient, isActive }) => {
 
   const updatePantries = useUpdatePantries();
 
-  const { userMe } = client.readQuery({ query: ME });
+  const query = client.readQuery({ query: ME });
+  const userMe = query?.userMe;
   const userPantries = userMe.pantries ?? [];
   const isAlreadyFavoris = userPantries.includes(ingredient);
 
