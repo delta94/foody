@@ -2,8 +2,8 @@ import React from 'react';
 import { ActivityIndicator } from 'react-native';
 
 interface Props {
-  color: string;
-  size: string;
+  color?: string | undefined;
+  size?: 'small' | 'large';
 }
 
 export const Loader: React.FC<Props> = (props) => <ActivityIndicator {...props} />;

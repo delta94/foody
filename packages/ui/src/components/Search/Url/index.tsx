@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Input } from '../../Forms/Input';
 import { Button } from '../../Button';
-import { Text } from '../../Text';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';

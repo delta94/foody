@@ -16,14 +16,20 @@ interface Props {
   onCompleted: () => void;
 }
 
+interface Login {
+  login: {
+    jwt: string;
+  };
+}
+
 export const ModalLogin: React.FC<Props> = ({ receiveJwt, ...props }) => {
   const { handleSubmit, control, errors } = useForm();
-  const onChange = (event: Event) => ({
+  const onChange = (event: any) => ({
     value: event[0].nativeEvent.text,
   });
 
   const onError = (error: any): void => console.log(error);
-  const onCompleted = ({ login }): void => {
+  const onCompleted = ({ login }: Login): void => {
     receiveJwt(login.jwt);
     props.toggleModal();
     props.onCompleted();

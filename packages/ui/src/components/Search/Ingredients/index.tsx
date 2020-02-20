@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Text } from '../../Text';
 import { Spacer } from '../../Spacer';
 import { Column } from '../../Grid/Column';
 import { Button } from '../../Button';
