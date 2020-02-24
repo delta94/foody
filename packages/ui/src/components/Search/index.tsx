@@ -9,25 +9,58 @@ import { Link } from '../Link/index.web';
 import SearchUpload from './Upload';
 import { Checkbox } from '../Forms/Checkbox';
 
-export const Search: React.FC = () => {
-  const [url, setUrl] = useState('/assets/images/placeholder/pic.jpg');
-  const [ingredients, setIngredients] = useState(null);
-  const [recipes, setRecipes] = useState(null);
-  const [useUpload, setUseUpload] = useState(false);
+interface State {
+  ingredients: any;
+  recipes: any;
+  upload: boolean;
+}
 
-  const reset = () => {
-    setIngredients(null);
-    setRecipes(null);
-  };
+const initialState: State = {
+  ingredients: [],
+  recipes: [],
+  upload: false,
+};
+
+const IMAGE_PLACEHOLDER = '/assets/images/placeholder/pic.jpg';
+
+export const Search: React.FC = () => {
+  const [url, setUrl] = useState(IMAGE_PLACEHOLDER);
+  const [state, setState] = useState(initialState);
+
+  const ingredientsIsEmpty = state.ingredients.length === 0;
+  const recipesIsEmpty = state.recipes.length === 0;
+
+  const setUpload = (upload: boolean) =>
+    setState({
+      ...state,
+      upload,
+    });
+
+  const setRecipes = (recipes: any) =>
+    setState({
+      ...state,
+      recipes,
+    });
+
+  const setIngredients = (ingredients: any) =>
+    setState({
+      ...state,
+      ingredients,
+    });
+
+  const reset = () => setState(initialState);
 
   return (
     <View style={{ flexDirection: 'row' }}>
       <View style={{ flex: 1, paddingRight: 100, alignItems: 'flex-start' }}>
-        {ingredients || recipes ? (
+        {!ingredientsIsEmpty || !recipesIsEmpty ? (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            {recipes && (
+            {!recipesIsEmpty && (
               <View style={{ flexDirection: 'row' }}>
-                <Link label="Retour aux ingrédients" onPress={() => setRecipes(null)} />
+                <Link
+                  label="Retour aux ingrédients"
+                  onPress={() => setRecipes(initialState.recipes)}
+                />
                 <Spacer width={20} />
               </View>
             )}
@@ -37,27 +70,27 @@ export const Search: React.FC = () => {
           </View>
         ) : (
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Checkbox onChange={() => setUseUpload(!useUpload)} value={useUpload} />
+            <Checkbox onChange={(): void => setUpload(!state.upload)} value={state.upload} />
             <Spacer width={10} />
-            <TouchableOpacity onPress={() => setUseUpload(!useUpload)}>
+            <TouchableOpacity onPress={() => setUpload(!state.upload)}>
               <Text>Importer une photo</Text>
             </TouchableOpacity>
           </View>
         )}
         <Spacer height={20} />
-        {ingredients && !recipes && (
+        {!ingredientsIsEmpty && recipesIsEmpty && (
           <SearchIngredients
-            data={ingredients.map(({ name }: any) => name)}
-            onReceiveRecipes={(items: any) => setRecipes(items)}
+            data={state.ingredients.map(({ name }: any) => name)}
+            onReceiveRecipes={setRecipes}
           />
         )}
-        {recipes && <SearchRecipes data={recipes} />}
-        {!ingredients && (
+        {!recipesIsEmpty && <SearchRecipes data={state.recipes} />}
+        {ingredientsIsEmpty && (
           <>
-            {useUpload ? (
+            {state.upload ? (
               <SearchUpload />
             ) : (
-              <SearchUrl onSearch={setUrl} onResults={(data: any) => setIngredients(data)} />
+              <SearchUrl onSearch={setUrl} onResults={setIngredients} />
             )}
           </>
         )}

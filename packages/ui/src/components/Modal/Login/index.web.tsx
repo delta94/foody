@@ -40,6 +40,7 @@ export const ModalLogin: React.FC<Props> = ({ receiveJwt, ...props }) => {
     onCompleted,
   });
 
+  // @ts-ignore
   const onSubmit = (variables: Record<string, any>): void => login({ variables });
 
   return (
