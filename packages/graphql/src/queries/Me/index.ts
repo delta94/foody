@@ -12,8 +12,8 @@ export const ME = gql`
   }
 `;
 
-export const useMe = () => {
-  const { data, error, loading } = useQuery(ME);
+export const useMe = (params?: any = {}) => {
+  const { data, error, loading } = useQuery(ME, params);
 
   return {
     data,

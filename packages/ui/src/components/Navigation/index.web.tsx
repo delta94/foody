@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from '../NavLink/index.web';
 import { View, StyleSheet } from 'react-native';
+import { useMe } from '@foody/graphql';
 
 interface Props {
   isConnected: boolean;
@@ -17,6 +18,18 @@ export const Navigation: React.FC<Props> = ({
   navigation,
   logout,
 }) => {
+  const [skipUseMe, setSkipUseMe] = useState(true);
+
+  useEffect(() => {
+    if (isConnected) {
+      setSkipUseMe(false);
+    }
+  });
+
+  useMe({
+    skip: skipUseMe,
+  });
+
   if (isConnected) {
     return (
       <View style={styles.navigation}>
