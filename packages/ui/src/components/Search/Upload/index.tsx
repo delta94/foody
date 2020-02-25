@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
-import { useMutation, UPLOAD } from '@foody/graphql';
+import { useMutation, UPLOAD, Mutation } from '@foody/graphql';
 import { Button } from '../../Button';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';
+import { Loader } from '../../Loader';
+import { SearchPictureProps } from '../Url';
 
-const SearchUpload = () => {
-  const [skipRecognitionQuery, setSkipRecognitionQuery] = useState(true);
-  const [imageRecognitionUrl, setImageRecognitionUrl] = useState(null);
+const SearchUpload: React.FC<SearchPictureProps> = ({ onSearch, onResults }) => {
+  const [skipRecognitionQuery, setSkipRecognitionQuery] = useState<boolean>(true);
+  const [imageRecognitionUrl, setImageRecognitionUrl] = useState<string | null>(null);
   const [file, setFile] = useState(null);
 
-  const onError = (error: any): any => console.log(error);
-  const onCompleted = (data: any): any => {
-    // @ts-ignore
-    setImageRecognitionUrl('localhost:1337' + data.upload.url);
+  const onError = (error: any): void => console.log(error);
+  const onCompleted = ({ upload }: Mutation): void => {
+    const imageUploadUrl = process.env.REACT_APP_API_URL + upload.url;
+    setImageRecognitionUrl(imageUploadUrl);
+    onSearch(imageUploadUrl);
     setSkipRecognitionQuery(false);
   };
 
-  // @ts-ignore
-  const { loading } = useFoodImageRecognition(
+  const imageRecognition = useFoodImageRecognition(
     imageRecognitionUrl,
     skipRecognitionQuery,
-    (data: any): any => console.log(data)
+    (data: any): any => onResults(data.foodImageRecognition)
   );
 
-  const [upload] = useMutation(UPLOAD, {
+  const [upload, uploadMutation] = useMutation(UPLOAD, {
     onError,
     onCompleted,
   });
 
   const uploadPicture = (): any => upload({ variables: { file: file, ref: 'Toto' } });
-
   const handleChangeFile = ({
     target: {
       files: [file],
@@ -43,7 +44,10 @@ const SearchUpload = () => {
         <input type="file" onChange={handleChangeFile} />
       </Column>
       <Column customStyle={{ marginRight: -20 }}>
-        <Button label="Rechercher" onPress={uploadPicture} />
+        <Row>
+          <Button label="Rechercher" onPress={uploadPicture} />
+          {uploadMutation.loading || (imageRecognition.loading && <Loader />)}
+        </Row>
       </Column>
     </Row>
   );

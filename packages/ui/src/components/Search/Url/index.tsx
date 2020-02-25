@@ -6,14 +6,14 @@ import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';
 import { Loader } from '../../Loader';
 
-interface Props {
+export interface SearchPictureProps {
   onSearch: (url: string) => any;
   onResults: (url: string) => any;
 }
 
 // https://assets.lightspeedhq.com/img/2019/07/8aac85b2-blog_foodpresentationtipsfromtopchefs.jpg
 
-export const SearchUrl: React.FC<Props> = ({ onSearch, onResults }) => {
+export const SearchUrl: React.FC<SearchPictureProps> = ({ onSearch, onResults }) => {
   const [url, setUrl] = useState('');
   const [skipRecognitionQuery, setSkipRecognitionQuery] = useState(true);
 

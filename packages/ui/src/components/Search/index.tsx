@@ -88,7 +88,7 @@ export const Search: React.FC = () => {
         {ingredientsIsEmpty && (
           <>
             {state.upload ? (
-              <SearchUpload />
+              <SearchUpload onSearch={setUrl} onResults={setIngredients} />
             ) : (
               <SearchUrl onSearch={setUrl} onResults={setIngredients} />
             )}
