@@ -43,7 +43,7 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
   const activeKey = navigation.state.routes[navigation.state.index].key;
   const descriptor = descriptors[activeKey];
 
-  const logoutCallback = () => {
+  const logoutCallback = (): void => {
     localStorage.removeItem('apollo-cache-persist');
     return navigation.navigate('Home');
   };
@@ -55,6 +55,7 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
         <View style={styles.header}>
           <Logo onPress={() => navigation.navigate('Search')} />
           <NavigationContainer
+            activeScreen={activeKey}
             toggleLoginForm={toggleLoginForm}
             toggleRegisterForm={toggleRegisterForm}
             navigation={navigation}

@@ -4,15 +4,47 @@ import { View, StyleSheet } from 'react-native';
 import { useMe } from '@foody/graphql';
 
 interface Props {
+  activeScreen: string;
   isConnected: boolean;
   toggleLoginForm: () => void;
   toggleRegisterForm: () => void;
   logout: () => void;
   logoutCallback?: () => void;
-  navigation: () => void;
+  navigation: any;
 }
 
+interface Screen {
+  label: string;
+  screenName: string;
+  isFirst?: boolean;
+}
+
+const APP_SCREENS: Screen[] = [
+  {
+    label: 'Recherche',
+    isFirst: true,
+    screenName: 'Search',
+  },
+  {
+    label: 'Garde-manger',
+    screenName: 'Pantries',
+  },
+  {
+    label: 'Mes recettes',
+    screenName: 'Recipes',
+  },
+  {
+    label: 'Mes favoris',
+    screenName: 'Favoris',
+  },
+  {
+    label: 'Historique',
+    screenName: 'History',
+  },
+];
+
 export const Navigation: React.FC<Props> = ({
+  activeScreen,
   isConnected,
   toggleLoginForm,
   toggleRegisterForm,
@@ -35,11 +67,14 @@ export const Navigation: React.FC<Props> = ({
   if (isConnected) {
     return (
       <View style={styles.navigation}>
-        <NavLink label="Recherche" isFirst onPress={() => navigation.navigate('Search')} />
-        <NavLink label="Garde-manger" onPress={() => navigation.navigate('Pantries')} />
-        <NavLink label="Mes recettes" onPress={() => navigation.navigate('Recipes')} />
-        <NavLink label="Mes favoris" onPress={() => navigation.navigate('Favoris')} />
-        <NavLink label="Historique" onPress={() => navigation.navigate('History')} />
+        {APP_SCREENS.map(({ label, screenName }: Screen, index) => (
+          <NavLink
+            key={index}
+            label={label}
+            isActive={activeScreen === screenName}
+            onPress={() => navigation.navigate(screenName)}
+          />
+        ))}
         <NavLink
           label="Déconnexion"
           isLast

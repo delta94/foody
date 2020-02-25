@@ -5,13 +5,14 @@ import { Spacer } from '../Spacer';
 import { useHover } from '../../hooks/useHover';
 
 interface Props {
+  isActive?: undefined | null | boolean;
   label: string;
   isFirst?: boolean;
   isLast?: boolean;
   onPress: () => void;
 }
 
-export const NavLink: React.FC<Props> = ({ label, isFirst, isLast, onPress }) => {
+export const NavLink: React.FC<Props> = ({ isActive, label, isFirst, isLast, onPress }) => {
   const { itemStyles, onFocus, onBlur } = useHover(styles.item, styles.hover);
 
   return (
@@ -23,7 +24,7 @@ export const NavLink: React.FC<Props> = ({ label, isFirst, isLast, onPress }) =>
           onFocus={onFocus}
           onMouseOut={onBlur}
           onBlur={onBlur}
-          customStyle={itemStyles}
+          customStyle={[itemStyles, isActive ? styles.active : {}]}
         >
           {label}
         </Text>
@@ -50,5 +51,10 @@ const styles = StyleSheet.create({
   },
   hover: {
     opacity: 1,
+  },
+  active: {
+    opacity: 1,
+    borderBottomWidth: 2,
+    borderBottomColor: 'white',
   },
 });
