@@ -43,6 +43,11 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
   const activeKey = navigation.state.routes[navigation.state.index].key;
   const descriptor = descriptors[activeKey];
 
+  const logoutCallback = () => {
+    localStorage.removeItem('apollo-cache-persist');
+    return navigation.navigate('Home');
+  };
+
   return (
     <Provider store={reduxStore}>
       <App>
@@ -53,14 +58,15 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
             toggleLoginForm={toggleLoginForm}
             toggleRegisterForm={toggleRegisterForm}
             navigation={navigation}
+            logoutCallback={logoutCallback}
           />
         </View>
         <Spacer height={80} />
         <View style={styles.content}>
           <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
+          <Spacer height={100} />
+          <Footer />
         </View>
-        <Spacer height={100} />
-        <Footer />
         <ModalLoginFormContainer
           isOpen={loginFormIsOpen}
           toggleModal={toggleLoginForm}
@@ -87,6 +93,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
   },
   content: {
+    flex: 1,
     paddingHorizontal: 30,
   },
 });

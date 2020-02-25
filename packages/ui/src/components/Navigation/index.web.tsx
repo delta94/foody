@@ -5,10 +5,11 @@ import { useMe } from '@foody/graphql';
 
 interface Props {
   isConnected: boolean;
-  toggleLoginForm: () => any;
-  toggleRegisterForm: () => any;
-  logout: () => any;
-  navigation: any;
+  toggleLoginForm: () => void;
+  toggleRegisterForm: () => void;
+  logout: () => void;
+  logoutCallback?: () => void;
+  navigation: () => void;
 }
 
 export const Navigation: React.FC<Props> = ({
@@ -17,6 +18,7 @@ export const Navigation: React.FC<Props> = ({
   toggleRegisterForm,
   navigation,
   logout,
+  logoutCallback,
 }) => {
   const [skipUseMe, setSkipUseMe] = useState(true);
 
@@ -38,7 +40,14 @@ export const Navigation: React.FC<Props> = ({
         <NavLink label="Mes recettes" onPress={() => navigation.navigate('Recipes')} />
         <NavLink label="Mes favoris" onPress={() => navigation.navigate('Favoris')} />
         <NavLink label="Historique" onPress={() => navigation.navigate('History')} />
-        <NavLink label="Déconnexion" isLast onPress={logout} />
+        <NavLink
+          label="Déconnexion"
+          isLast
+          onPress={() => {
+            logout();
+            logoutCallback && logoutCallback();
+          }}
+        />
       </View>
     );
   }
