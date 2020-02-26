@@ -1,8 +1,16 @@
 import React from 'react';
 import { View, CheckBox as AppCheckBox, CheckBoxProps } from 'react-native';
 
-export const Checkbox: React.FC<CheckBoxProps> = (props) => (
+interface Props extends CheckBoxProps {
+  color?: string;
+}
+
+export const Checkbox: React.FC<Props> = (props) => (
   <View>
     <AppCheckBox {...props} />
   </View>
 );
+
+Checkbox.defaultProps = {
+  color: '#9b42da',
+};

@@ -18,7 +18,7 @@ interface State {
 const initialState: State = {
   ingredients: [],
   recipes: [],
-  upload: false,
+  upload: true,
 };
 
 const IMAGE_PLACEHOLDER = '/assets/images/placeholder/pic.jpg';

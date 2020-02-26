@@ -5,6 +5,7 @@ import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';
 import { SearchPictureProps } from '../Url';
+import { Upload } from '../../Forms/Upload';
 
 const SearchUpload: React.FC<SearchPictureProps> = ({ onSearch, onResults }) => {
   const [skipRecognitionQuery, setSkipRecognitionQuery] = useState<boolean>(true);
@@ -40,7 +41,7 @@ const SearchUpload: React.FC<SearchPictureProps> = ({ onSearch, onResults }) => 
   return (
     <Row direction="row">
       <Column collapse customStyle={{ flex: 1 }}>
-        <input type="file" onChange={handleChangeFile} />
+        <Upload handleChangeFile={handleChangeFile} />
       </Column>
       <Column customStyle={{ marginRight: -20 }}>
         <Row>
