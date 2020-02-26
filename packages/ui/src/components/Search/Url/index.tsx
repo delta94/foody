@@ -4,7 +4,6 @@ import { Button } from '../../Button';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';
-import { Loader } from '../../Loader';
 
 export interface SearchPictureProps {
   onSearch: (url: string) => any;
@@ -36,9 +35,8 @@ export const SearchUrl: React.FC<SearchPictureProps> = ({ onSearch, onResults })
         <Input onChange={onChange} />
       </Column>
       <Column customStyle={{ marginRight: -20 }}>
-        <Button label="Rechercher" onPress={onPress} />
+        <Button label="Rechercher" onPress={onPress} loading={loading} />
       </Column>
-      {loading ? <Loader /> : null}
     </Row>
   );
 };

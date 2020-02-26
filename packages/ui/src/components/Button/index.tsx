@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from '../Text';
 import { useHover } from '../../hooks/useHover';
+import { Loader } from '../Loader';
 
 interface Props {
   label?: string;
@@ -10,23 +11,31 @@ interface Props {
     [key: string]: any;
   };
   onPress: () => any;
+  loading?: boolean;
 }
 
-export const Button: React.FC<Props> = ({ label, customStyle, onPress }) => {
+export const Button: React.FC<Props> = ({ label, customStyle, onPress, loading }) => {
   const { onFocus, onBlur, itemStyles } = useHover(styles.button, styles.hover);
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text
-        onMouseOver={onFocus}
-        onFocus={onFocus}
-        onMouseOut={onBlur}
-        onBlur={onBlur}
-        customStyle={[itemStyles, customStyle]}
-      >
-        {label}
-      </Text>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity onPress={onPress}>
+        <Text
+          onMouseOver={onFocus}
+          onFocus={onFocus}
+          onMouseOut={onBlur}
+          onBlur={onBlur}
+          customStyle={[itemStyles, customStyle]}
+        >
+          {label}
+        </Text>
+      </TouchableOpacity>
+      {loading && (
+        <View style={styles.loading}>
+          <Loader />
+        </View>
+      )}
+    </View>
   );
 };
 
@@ -48,5 +57,15 @@ const styles = StyleSheet.create({
   },
   hover: {
     backgroundColor: '#51509c',
+  },
+  loading: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, .35)',
+    borderRadius: 6,
   },
 });

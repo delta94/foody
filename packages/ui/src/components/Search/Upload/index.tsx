@@ -4,7 +4,6 @@ import { Button } from '../../Button';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';
-import { Loader } from '../../Loader';
 import { SearchPictureProps } from '../Url';
 
 const SearchUpload: React.FC<SearchPictureProps> = ({ onSearch, onResults }) => {
@@ -45,8 +44,11 @@ const SearchUpload: React.FC<SearchPictureProps> = ({ onSearch, onResults }) => 
       </Column>
       <Column customStyle={{ marginRight: -20 }}>
         <Row>
-          <Button label="Rechercher" onPress={uploadPicture} />
-          {uploadMutation.loading || (imageRecognition.loading && <Loader />)}
+          <Button
+            label="Rechercher"
+            onPress={uploadPicture}
+            loading={uploadMutation.loading || imageRecognition.loading}
+          />
         </Row>
       </Column>
     </Row>
