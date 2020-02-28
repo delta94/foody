@@ -6,6 +6,14 @@ type createRolePayload {
   role: UsersPermissionsRole
 }
 
+input createSearchInput {
+  data: SearchInput
+}
+
+type createSearchPayload {
+  search: Search
+}
+
 input createUserInput {
   data: UserInput
 }
@@ -45,6 +53,14 @@ type deleteRolePayload {
   role: UsersPermissionsRole
 }
 
+input deleteSearchInput {
+  where: InputID
+}
+
+type deleteSearchPayload {
+  search: Search
+}
+
 input deleteUserInput {
   where: InputID
 }
@@ -72,6 +88,11 @@ input editRoleInput {
   type: String
   permissions: [ID]
   users: [ID]
+}
+
+input editSearchInput {
+  user: ID
+  ingredients: JSON
 }
 
 input editUserInput {
@@ -116,9 +137,13 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = FoodImageRecognition | Recipe | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | CustomUsersPermissionsMe | CustomUsersPermissionsMeRole | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = FoodImageRecognition | Recipe | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | CustomUsersPermissionsMe | CustomUsersPermissionsMeRole | Search | createSearchPayload | updateSearchPayload | deleteSearchPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
+  createSearch(input: createSearchInput): createSearchPayload
+  updateSearch(input: updateSearchInput): updateSearchPayload
+  deleteSearch(input: deleteSearchInput): deleteSearchPayload
+
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
 
@@ -143,6 +168,8 @@ type Mutation {
 }
 
 type Query {
+  search(id: ID!): Search
+  searches(sort: String, limit: Int, start: Int, where: JSON): [Search]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   role(id: ID!): UsersPermissionsRole
 
@@ -153,7 +180,7 @@ type Query {
   user(id: ID!): UsersPermissionsUser
   users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
   foodImageRecognition(image: String!): [FoodImageRecognition]
-  recipes(ingredients: String!): [Recipe]
+  recipes(userId: ID, ingredients: String!): [Recipe]
   me: UsersPermissionsMe
   userMe: CustomUsersPermissionsMe
 }
@@ -174,6 +201,19 @@ input RoleInput {
   users: [ID]
 }
 
+type Search {
+  user: UsersPermissionsUser
+  ingredients: JSON!
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+input SearchInput {
+  user: ID
+  ingredients: JSON!
+}
+
 input updateRoleInput {
   where: InputID
   data: editRoleInput
@@ -181,6 +221,15 @@ input updateRoleInput {
 
 type updateRolePayload {
   role: UsersPermissionsRole
+}
+
+input updateSearchInput {
+  where: InputID
+  data: editSearchInput
+}
+
+type updateSearchPayload {
+  search: Search
 }
 
 input updateUserInput {

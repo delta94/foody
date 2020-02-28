@@ -9,7 +9,7 @@ module.exports = {
     }
   `,
   query: `
-    recipes(ingredients: String!): [Recipe]
+    recipes(userId: ID, ingredients: String!): [Recipe]
   `,
   resolver: {
     Query: {
