@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+// @ts-ignore
+import { css } from '@emotion/native';
+import { View } from 'react-native';
 
 interface Props {
   customStyle?: {
@@ -9,21 +11,28 @@ interface Props {
   collapse?: boolean;
 }
 
-export const Column: React.FC<Props> = ({ customStyle, collapse, children }) => (
-  <View style={[styles.container, customStyle, collapse ? styles.collapse : []]}>{children}</View>
+export const Column: React.FC<Props> = ({
+  customStyle,
+  collapse,
+  children
+}) => (
+  <View
+    style={[styles.container, customStyle, collapse ? styles.collapse : []]}>
+    {children}
+  </View>
 );
 
 Column.defaultProps = {
-  collapse: false,
+  collapse: false
 };
 
-const styles = StyleSheet.create({
-  container: {
+const styles = {
+  container: css({
     paddingLeft: 20,
-    paddingRight: 20,
-  },
-  collapse: {
+    paddingRight: 20
+  }),
+  collapse: css({
     paddingLeft: 0,
-    paddingRight: 0,
-  },
-});
+    paddingRight: 0
+  })
+};

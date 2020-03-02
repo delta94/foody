@@ -1,5 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+// @ts-ignore
+import { css } from '@emotion/native';
+import { TouchableOpacity } from 'react-native';
 import { Text } from '../Text';
 
 interface Props {
@@ -9,13 +11,11 @@ interface Props {
 
 export const Link: React.FC<Props> = ({ label, onPress }) => (
   <TouchableOpacity onPress={onPress}>
-    <Text customStyle={styles.text}>{label}</Text>
+    <Text customStyle={styles}>{label}</Text>
   </TouchableOpacity>
 );
 
-const styles = StyleSheet.create({
-  text: {
-    borderBottomWidth: 2,
-    borderColor: 'white',
-  },
+const styles = css({
+  borderBottomWidth: 2,
+  borderColor: 'white'
 });
