@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
+// @ts-ignore
+import { css } from '@emotion/native';
 
 interface Props {
   customStyle?: {
@@ -11,16 +13,21 @@ interface Props {
   direction?: string;
 }
 
-export const Row: React.FC<Props> = ({ customStyle, gutter, outside, direction, children }) => (
+export const Row: React.FC<Props> = ({
+  customStyle,
+  gutter,
+  outside,
+  direction,
+  children
+}) => (
   <View
     style={[
       styles.container,
       customStyle,
       gutter ? styles.gutter : [],
       outside ? styles.outside : [],
-      { flexDirection: direction },
-    ]}
-  >
+      { flexDirection: direction }
+    ]}>
     {children}
   </View>
 );
@@ -28,23 +35,23 @@ export const Row: React.FC<Props> = ({ customStyle, gutter, outside, direction, 
 Row.defaultProps = {
   direction: 'column',
   outside: false,
-  gutter: false,
+  gutter: false
 };
 
-const styles = StyleSheet.create({
-  container: {
+const styles = {
+  container: css({
     flexWrap: 'wrap',
     maxWidth: 1240,
     width: '100%',
     marginRight: 'auto',
-    marginLeft: 'auto',
-  },
-  gutter: {
+    marginLeft: 'auto'
+  }),
+  gutter: css({
     paddingRight: 20,
-    paddingLeft: 20,
-  },
-  outside: {
+    paddingLeft: 20
+  }),
+  outside: css({
     marginRight: -20,
-    marginLeft: -20,
-  },
-});
+    marginLeft: -20
+  })
+};

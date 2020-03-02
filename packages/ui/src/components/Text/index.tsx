@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Text as AppText, StyleSheet } from 'react-native';
+// @ts-ignore
+import { css } from '@emotion/native';
+import { Text as AppText } from 'react-native';
 
 interface Props {
   customStyle?: {
@@ -13,19 +15,22 @@ interface Props {
   onBlur?: () => any;
 }
 
-export const Text: React.FC<Props> = ({ customStyle, children, theme, ...props }) => (
-  <AppText style={[styles.text, customStyle, { color: theme }]} {...props}>
+export const Text: React.FC<Props> = ({
+  customStyle,
+  children,
+  theme,
+  ...props
+}) => (
+  <AppText style={[styles, customStyle, { color: theme }]} {...props}>
     {children}
   </AppText>
 );
 
 Text.defaultProps = {
-  theme: 'white',
+  theme: 'white'
 };
 
-const styles = StyleSheet.create({
-  text: {
-    fontWeight: '400',
-    fontFamily: 'Poppins',
-  },
+const styles = css({
+  fontWeight: '400',
+  fontFamily: 'Poppins'
 });

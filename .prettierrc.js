@@ -1,10 +1,12 @@
-const { prettierConfig } = require('poetic')
+const { prettierConfig } = require('poetic');
 
 module.exports = {
   ...prettierConfig,
-  "singleQuote": true,
-  "trailingComma": "es5",
-  "printWidth": 100,
-  "bracketSpacing": true,
-  "tabWidth": 2
-}
+  singleQuote: true,
+  printWidth: 80,
+  bracketSpacing: true,
+  tabWidth: 2,
+  jsxBracketSameLine: true,
+  trailingComma: 'none',
+  useTabs: false
+};
