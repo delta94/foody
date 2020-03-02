@@ -2,6 +2,8 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 // @ts-ignore
 import { css } from '@emotion/native';
+// @ts-ignore
+import { useMediaQuery } from 'react-responsive';
 import { Text } from '../Text';
 import { Spacer } from '../Spacer';
 import { useHover } from '../../hooks/useHover';
@@ -22,6 +24,7 @@ export const NavLink: React.FC<Props> = ({
   onPress
 }) => {
   const { itemStyles, onFocus, onBlur } = useHover(styles.item, styles.hover);
+  const isSmall = useMediaQuery({ query: '(max-width: 640px)' });
 
   return (
     <>
@@ -32,7 +35,11 @@ export const NavLink: React.FC<Props> = ({
           onFocus={onFocus}
           onMouseOut={onBlur}
           onBlur={onBlur}
-          customStyle={[itemStyles, isActive ? styles.active : {}]}>
+          customStyle={[
+            itemStyles,
+            isActive ? styles.active : {},
+            isSmall ? styles.test : {}
+          ]}>
           {label}
         </Text>
       </TouchableOpacity>
@@ -52,6 +59,9 @@ const styles = {
     cursor: 'pointer',
     opacity: 0.8,
     transition: '.2s'
+  }),
+  test: css({
+    backgroundColor: 'red'
   }),
   hover: css({
     opacity: 1
