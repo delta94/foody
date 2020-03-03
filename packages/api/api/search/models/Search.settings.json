@@ -1,0 +1,23 @@
+{
+  "connection": "default",
+  "collectionName": "searches",
+  "info": {
+    "name": "search",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": ["created_at", "updated_at"],
+    "comment": ""
+  },
+  "attributes": {
+    "user": {
+      "model": "user",
+      "plugin": "users-permissions"
+    },
+    "ingredients": {
+      "type": "json",
+      "required": true
+    }
+  }
+}
