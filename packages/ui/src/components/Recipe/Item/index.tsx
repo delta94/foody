@@ -10,12 +10,12 @@ interface Props {
 }
 
 export const RecipeItem: React.FC<Props> = ({ recipe }) => (
-  <Column customStyle={{ width: '50%', flexWrap: 'wrap' }}>
+  <Column customStyle={{ flex: 1, flexWrap: 'wrap' }}>
     <Favoris recipe={recipe} />
     <Image
       style={{ width: '100%', height: 300, borderRadius: 6 }}
       source={{
-        uri: recipe.image,
+        uri: recipe.image
       }}
     />
     <Spacer height={10} />

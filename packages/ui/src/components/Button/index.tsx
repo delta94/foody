@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import { StyleSheet, TouchableOpacity, View, Platform } from 'react-native';
+import { TouchableOpacity, View, Platform } from 'react-native';
 import { css } from '@emotion/native';
 import { Text } from '../Text';
 import { useHover } from '../../hooks/useHover';

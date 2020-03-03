@@ -1,15 +1,19 @@
 import React from 'react';
-import { Row } from '../../Grid/Row';
 import { RecipeItem } from '../Item';
+import { FlatList } from 'react-native';
 
 interface Props {
   data: any;
 }
 
 export const RecipeList: React.FC<Props> = ({ data }) => (
-  <Row outside direction="row">
-    {data.map((recipe: any, index: number) => (
-      <RecipeItem key={index} recipe={recipe} />
-    ))}
-  </Row>
+  <FlatList
+    data={data}
+    style={{
+      marginHorizontal: -20
+    }}
+    numColumns={2}
+    renderItem={({ item }) => <RecipeItem recipe={item} />}
+    keyExtractor={(item) => item}
+  />
 );
