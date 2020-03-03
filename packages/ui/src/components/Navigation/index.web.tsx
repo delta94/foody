@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+// @ts-ignore
+import { css } from '@emotion/native';
+// @ts-ignore
+import { useMediaQuery } from 'react-responsive';
 import { NavLink } from '../NavLink/index.web';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import { useSelector } from '@foody/core';
 import { useMe } from '@foody/graphql';
 
 interface Props {
   activeScreen: string;
-  isConnected: boolean;
   toggleLoginForm: () => void;
   toggleRegisterForm: () => void;
   logout: () => void;
@@ -23,36 +27,38 @@ const APP_SCREENS: Screen[] = [
   {
     label: 'Recherche',
     isFirst: true,
-    screenName: 'Search',
+    screenName: 'Search'
   },
   {
     label: 'Garde-manger',
-    screenName: 'Pantries',
+    screenName: 'Pantries'
   },
   {
     label: 'Mes recettes',
-    screenName: 'Recipes',
+    screenName: 'Recipes'
   },
   {
     label: 'Mes favoris',
-    screenName: 'Favoris',
+    screenName: 'Favoris'
   },
   {
     label: 'Historique',
-    screenName: 'History',
-  },
+    screenName: 'History'
+  }
 ];
 
 export const Navigation: React.FC<Props> = ({
   activeScreen,
-  isConnected,
   toggleLoginForm,
   toggleRegisterForm,
   navigation,
   logout,
-  logoutCallback,
+  logoutCallback
 }) => {
   const [skipUseMe, setSkipUseMe] = useState(true);
+  const isConnected = useSelector(
+    (state: any): boolean => state.app.isConnected
+  );
 
   useEffect(() => {
     if (isConnected) {
@@ -61,8 +67,10 @@ export const Navigation: React.FC<Props> = ({
   });
 
   useMe({
-    skip: skipUseMe,
+    skip: skipUseMe
   });
+
+  const isMObile = useMediaQuery({ query: '(max-width: 640px)' });
 
   if (isConnected) {
     return (
@@ -88,15 +96,29 @@ export const Navigation: React.FC<Props> = ({
   }
 
   return (
-    <View style={styles.navigation}>
+    <View style={[styles.navigation, isMObile ? styles.mobile : {}]}>
       <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
       <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  navigation: {
-    flexDirection: 'row',
-  },
-});
+const styles = {
+  navigation: css({
+    flexDirection: 'row'
+  }),
+  mobile: css({
+    transform: [
+      {
+        translateX: '100%'
+      }
+    ],
+    flexDirection: 'column',
+    position: 'absolute',
+    top: -40,
+    right: 0,
+    width: 300,
+    height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, .3)'
+  })
+};

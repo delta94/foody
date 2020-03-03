@@ -24,10 +24,11 @@ export const NavLink: React.FC<Props> = ({
   onPress
 }) => {
   const { itemStyles, onFocus, onBlur } = useHover(styles.item, styles.hover);
-  const isSmall = useMediaQuery({ query: '(max-width: 640px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
 
   return (
     <>
+      {isMobile && isFirst && <Spacer height={10} />}
       {!isFirst && <Spacer width={20} />}
       <TouchableOpacity onPress={onPress} accessibilityRole="menuitem">
         <Text
@@ -38,7 +39,7 @@ export const NavLink: React.FC<Props> = ({
           customStyle={[
             itemStyles,
             isActive ? styles.active : {},
-            isSmall ? styles.test : {}
+            isMobile ? styles.mobile : {}
           ]}>
           {label}
         </Text>
@@ -60,8 +61,9 @@ const styles = {
     opacity: 0.8,
     transition: '.2s'
   }),
-  test: css({
-    backgroundColor: 'red'
+  mobile: css({
+    paddingVertical: 11,
+    paddingHorizontal: 30
   }),
   hover: css({
     opacity: 1

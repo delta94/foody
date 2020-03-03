@@ -2,23 +2,18 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
   ModalRegister,
-  Logo,
   App,
   Spacer,
   Footer,
+  Header
   // @ts-ignore
 } from '@foody/ui';
 // @ts-ignore
-import {
-  initializeWebStore,
-  Provider,
-  ModalLoginFormContainer,
-  NavigationContainer,
-} from '@foody/core';
+import { initializeWebStore, Provider } from '@foody/core';
 import {
   createNavigator,
   SwitchRouter,
-  SceneView,
+  SceneView
   // @ts-ignore
 } from '@react-navigation/core';
 // @ts-ignore
@@ -52,27 +47,28 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
     <Provider store={reduxStore}>
       <App>
         <Spacer height={40} />
-        <View style={styles.header}>
-          <Logo onPress={() => navigation.navigate('Search')} />
-          <NavigationContainer
-            activeScreen={activeKey}
-            toggleLoginForm={toggleLoginForm}
-            toggleRegisterForm={toggleRegisterForm}
-            navigation={navigation}
-            logoutCallback={logoutCallback}
-          />
-        </View>
+        <Header
+          goToSearchScreen={() => navigation.navigate('Search')}
+          activeScreen={activeKey}
+          toggleLoginForm={toggleLoginForm}
+          toggleRegisterForm={toggleRegisterForm}
+          navigation={navigation}
+          logoutCallback={logoutCallback}
+        />
         <Spacer height={80} />
         <View style={styles.content}>
-          <SceneView component={descriptor.getComponent()} navigation={descriptor.navigation} />
+          <SceneView
+            component={descriptor.getComponent()}
+            navigation={descriptor.navigation}
+          />
           <Spacer height={100} />
           <Footer />
         </View>
-        <ModalLoginFormContainer
+        {/* <ModalLoginFormContainer
           isOpen={loginFormIsOpen}
           toggleModal={toggleLoginForm}
           onCompleted={() => navigation.navigate('Search')}
-        />
+        /> */}
         <ModalRegister
           isOpen={registerFormIsOpen}
           toggleModal={toggleRegisterForm}
@@ -91,12 +87,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 50,
+    paddingHorizontal: 50
   },
   content: {
     flex: 1,
-    paddingHorizontal: 30,
-  },
+    paddingHorizontal: 30
+  }
 });
 
 const AppNavigator = createNavigator(
@@ -107,7 +103,7 @@ const AppNavigator = createNavigator(
     Pantries,
     Favoris,
     Recipes,
-    History,
+    History
   }),
   {}
 );

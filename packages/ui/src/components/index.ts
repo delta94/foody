@@ -9,6 +9,7 @@ export * from './Recipe/Favoris';
 export * from './Recipe/List';
 export * from './Ingredient/List';
 export * from './Link';
+export * from './Header';
 export * from './Forms/Input';
 export * from './Forms/Checkbox';
 export * from './Modal/Layout';
