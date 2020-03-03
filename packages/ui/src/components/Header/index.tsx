@@ -5,8 +5,7 @@ import { css } from '@emotion/native';
 import { Logo } from '../Logo';
 import { Navigation } from '../Navigation';
 
-// @ts-ignore
-export const Header: React.FC = ({ goToSearchScreen, ...props }) => (
+export const Header: React.FC<any> = ({ goToSearchScreen, ...props }) => (
   <View style={styles.header}>
     <Logo onPress={goToSearchScreen} />
     <Navigation {...props} />
