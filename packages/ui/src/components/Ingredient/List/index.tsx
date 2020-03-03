@@ -9,16 +9,20 @@ interface Props {
   onChange?: (name: string) => any;
 }
 
+interface ItemProps extends Props {
+  name: string;
+}
+
 export const IngredientList: React.FC<Props> = ({ data, ...props }) => (
   <FlatList
     data={data}
     contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}
-    renderItem={({ item }) => <Item name={item} {...props} />}
-    keyExtractor={(item) => item}
+    // @ts-ignore
+    renderItem={({ item }) => <Item name={item} data={data} {...props} />}
   />
 );
 
-const Item: React.FC<Props> = ({ name, dataSelected, onChange }) => (
+const Item: React.FC<ItemProps> = ({ data, name, dataSelected, onChange }) => (
   <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
     <Ingredient
       label={name}

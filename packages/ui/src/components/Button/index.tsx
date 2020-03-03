@@ -1,6 +1,7 @@
 import React from 'react';
 // @ts-ignore
 import { TouchableOpacity, View, Platform } from 'react-native';
+// @ts-ignore
 import { css } from '@emotion/native';
 import { Text } from '../Text';
 import { useHover } from '../../hooks/useHover';
@@ -39,6 +40,7 @@ export const Button: React.FC<Props> = ({
         ) : (
           <View
             // TODO: Create HOC component for over element
+            // @ts-ignore
             onMouseOver={onFocus}
             onFocus={onFocus}
             onMouseOut={onBlur}

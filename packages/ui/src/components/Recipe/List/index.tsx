@@ -14,6 +14,5 @@ export const RecipeList: React.FC<Props> = ({ data }) => (
     }}
     numColumns={2}
     renderItem={({ item }) => <RecipeItem recipe={item} />}
-    keyExtractor={(item) => item}
   />
 );
