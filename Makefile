@@ -51,7 +51,7 @@ docker-restart:
 ########
 yarn-install:
 	@echo "--> Install npm dependencies"
-	$(DOCKERYARN)
+	$(DOCKERYARN) --production=false
 yarn-start:
 	@echo "--> Start project"
 	$(DOCKERYARN) start
