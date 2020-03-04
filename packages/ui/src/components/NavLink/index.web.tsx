@@ -2,11 +2,10 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 // @ts-ignore
 import { css } from '@emotion/native';
-// @ts-ignore
-import { useMediaQuery } from 'react-responsive';
 import { Text } from '../Text';
 import { Spacer } from '../Spacer';
 import { useHover } from '../../hooks/useHover';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface Props {
   isActive?: undefined | null | boolean;
@@ -24,11 +23,11 @@ export const NavLink: React.FC<Props> = ({
   onPress
 }) => {
   const { itemStyles, onFocus, onBlur } = useHover(styles.item, styles.hover);
-  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+  const { isTablet } = useMediaQuery({ query: '(max-width: 640px)' });
 
   return (
     <>
-      {isMobile && isFirst && <Spacer height={10} />}
+      {isTablet && isFirst && <Spacer height={10} />}
       {!isFirst && <Spacer width={20} />}
       <TouchableOpacity onPress={onPress} accessibilityRole="menuitem">
         <Text
@@ -39,7 +38,7 @@ export const NavLink: React.FC<Props> = ({
           customStyle={[
             itemStyles,
             isActive ? styles.active : {},
-            isMobile ? styles.mobile : {}
+            isTablet ? styles.mobile : {}
           ]}>
           {label}
         </Text>

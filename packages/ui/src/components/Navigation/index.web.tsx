@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import { useSelector } from '@foody/core';
 import { useMe } from '@foody/graphql';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { Hamburger } from '../Hamburger';
 
 interface Props {
   activeScreen: string;
@@ -56,13 +57,32 @@ export const Navigation: React.FC<Props> = ({
   logoutCallback
 }) => {
   const [skipUseMe, setSkipUseMe] = useState(true);
+  const [showNavigation, setShowNavigation] = useState(false);
+  const [navStyles, setNavStyles] = useState([styles.navigation]);
   const isConnected = useSelector(
     (state: any): boolean => state.app.isConnected
   );
+  const { isTablet, isDesktop } = useMediaQuery();
+
+  const navigationIsClose = isTablet && !showNavigation;
+  const navigationIsOpen = isTablet && showNavigation;
 
   useEffect(() => {
     if (isConnected) {
       setSkipUseMe(false);
+    }
+
+    if (isTablet && navigationIsClose) {
+      setNavStyles([...navStyles, styles.tablet]);
+    }
+
+    if (isTablet && navigationIsOpen) {
+      setNavStyles([...navStyles, styles.active]);
+    }
+
+    if (isDesktop) {
+      setNavStyles([styles.navigation]);
+      setShowNavigation(false);
     }
   });
 
@@ -70,12 +90,15 @@ export const Navigation: React.FC<Props> = ({
     skip: skipUseMe
   });
 
-  const { isTablet } = useMediaQuery();
+  const toggleNavigation = () => setShowNavigation(!showNavigation);
 
-  return (
-    <View style={[styles.navigation, isTablet ? styles.tablet : {}]}>
-      {isConnected ? (
-        <>
+  if (isConnected) {
+    return (
+      <>
+        <Hamburger onPress={toggleNavigation} />
+        <View style={navStyles}>
+          {/* TODO: Create overlay for close navigation */}
+          <Hamburger onPress={toggleNavigation} />
           {APP_SCREENS.map(({ label, screenName }: Screen, index: number) => (
             <NavLink
               key={index}
@@ -86,20 +109,25 @@ export const Navigation: React.FC<Props> = ({
           ))}
           <NavLink
             label="Déconnexion"
-            isLast
+            isLast={!navigationIsOpen}
             onPress={() => {
               logout();
               logoutCallback && logoutCallback();
             }}
           />
-        </>
-      ) : (
-        <>
-          <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
-          <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
-        </>
-      )}
-    </View>
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Hamburger onPress={toggleNavigation} />
+      <View style={navStyles}>
+        <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
+        <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
+      </View>
+    </>
   );
 };
 
@@ -118,6 +146,13 @@ const styles = {
     transform: [
       {
         translateX: '100%'
+      }
+    ]
+  }),
+  active: css({
+    transform: [
+      {
+        translateX: 0
       }
     ]
   })
