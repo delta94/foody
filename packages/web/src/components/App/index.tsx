@@ -5,7 +5,8 @@ import {
   App,
   Spacer,
   Footer,
-  Header
+  Header,
+  ModalLogin
   // @ts-ignore
 } from '@foody/ui';
 // @ts-ignore
@@ -64,11 +65,11 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
           <Spacer height={100} />
           <Footer />
         </View>
-        {/* <ModalLoginFormContainer
+        <ModalLogin
           isOpen={loginFormIsOpen}
           toggleModal={toggleLoginForm}
           onCompleted={() => navigation.navigate('Search')}
-        /> */}
+        />
         <ModalRegister
           isOpen={registerFormIsOpen}
           toggleModal={toggleRegisterForm}

@@ -8,11 +8,11 @@ import { Column } from '../../Grid/Column';
 import { Spacer } from '../../Spacer';
 import { Button } from '../../Button';
 import { useMutation, LOGIN } from '@foody/graphql';
+import { useDispatch } from '@foody/core';
 
 interface Props {
   isOpen: boolean;
   toggleModal: () => void;
-  receiveJwt: (jwt: string) => void;
   onCompleted: () => void;
 }
 
@@ -22,31 +22,39 @@ interface Login {
   };
 }
 
-export const ModalLogin: React.FC<Props> = ({ receiveJwt, ...props }) => {
+export const ModalLogin: React.FC<Props> = ({ ...props }) => {
   const { handleSubmit, control, errors } = useForm();
+  const dispatch = useDispatch();
+
   const onChange = (event: any) => ({
-    value: event[0].nativeEvent.text,
+    value: event[0].nativeEvent.text
   });
 
   const onError = (error: any): void => console.log(error);
   const onCompleted = ({ login }: Login): void => {
-    receiveJwt(login.jwt);
+    dispatch({ type: 'RECEIVE_JWT', jwt: login.jwt });
     props.toggleModal();
     props.onCompleted();
   };
 
   const [login] = useMutation(LOGIN, {
     onError,
-    onCompleted,
+    onCompleted
   });
 
   // @ts-ignore
-  const onSubmit = (variables: Record<string, any>): void => login({ variables });
+  const onSubmit = (variables: Record<string, any>): void =>
+    login({ variables });
 
   return (
     <Modal {...props}>
       <Column>
-        <Title title="Login" customStyle={{ color: 'black' }} spacer={20} theme="black" />
+        <Title
+          title="Login"
+          customStyle={{ color: 'black' }}
+          spacer={20}
+          theme="black"
+        />
       </Column>
       <View style={styles.container}>
         <Column customStyle={styles.column}>
@@ -80,9 +88,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '100%',
+    width: '100%'
   },
   column: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });

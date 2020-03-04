@@ -1,7 +1,7 @@
 // @ts-ignore
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 
 export * from './constants';
 export * from './store';
 // export * from './containers';
-export { Provider, useSelector };
+export { Provider, useSelector, useDispatch };

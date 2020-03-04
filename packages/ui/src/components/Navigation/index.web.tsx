@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 // @ts-ignore
 import { css } from '@emotion/native';
 // @ts-ignore
-import { useMediaQuery } from 'react-responsive';
 import { NavLink } from '../NavLink/index.web';
 import { View } from 'react-native';
 import { useSelector } from '@foody/core';
 import { useMe } from '@foody/graphql';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface Props {
   activeScreen: string;
@@ -70,35 +70,35 @@ export const Navigation: React.FC<Props> = ({
     skip: skipUseMe
   });
 
-  const isMObile = useMediaQuery({ query: '(max-width: 640px)' });
-
-  if (isConnected) {
-    return (
-      <View style={styles.navigation}>
-        {APP_SCREENS.map(({ label, screenName }: Screen, index) => (
-          <NavLink
-            key={index}
-            label={label}
-            isActive={activeScreen === screenName}
-            onPress={() => navigation.navigate(screenName)}
-          />
-        ))}
-        <NavLink
-          label="Déconnexion"
-          isLast
-          onPress={() => {
-            logout();
-            logoutCallback && logoutCallback();
-          }}
-        />
-      </View>
-    );
-  }
+  const { isTablet } = useMediaQuery();
 
   return (
-    <View style={[styles.navigation, isMObile ? styles.mobile : {}]}>
-      <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
-      <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
+    <View style={[styles.navigation, isTablet ? styles.tablet : {}]}>
+      {isConnected ? (
+        <>
+          {APP_SCREENS.map(({ label, screenName }: Screen, index: number) => (
+            <NavLink
+              key={index}
+              label={label}
+              isActive={activeScreen === screenName}
+              onPress={() => navigation.navigate(screenName)}
+            />
+          ))}
+          <NavLink
+            label="Déconnexion"
+            isLast
+            onPress={() => {
+              logout();
+              logoutCallback && logoutCallback();
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
+          <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
+        </>
+      )}
     </View>
   );
 };
@@ -107,18 +107,18 @@ const styles = {
   navigation: css({
     flexDirection: 'row'
   }),
-  mobile: css({
-    transform: [
-      {
-        translateX: '100%'
-      }
-    ],
+  tablet: css({
     flexDirection: 'column',
     position: 'absolute',
     top: -40,
     right: 0,
     width: 300,
     height: '100vh',
-    backgroundColor: 'rgba(0, 0, 0, .3)'
+    backgroundColor: 'rgba(0, 0, 0, .3)',
+    transform: [
+      {
+        translateX: '100%'
+      }
+    ]
   })
 };
