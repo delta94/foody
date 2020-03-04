@@ -23,7 +23,7 @@ export const NavLink: React.FC<Props> = ({
   onPress
 }) => {
   const { itemStyles, onFocus, onBlur } = useHover(styles.item, styles.hover);
-  const { isTablet } = useMediaQuery({ query: '(max-width: 640px)' });
+  const { isTablet } = useMediaQuery();
 
   return (
     <>

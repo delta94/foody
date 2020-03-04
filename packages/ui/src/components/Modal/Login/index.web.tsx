@@ -42,8 +42,8 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
     onCompleted
   });
 
-  // @ts-ignore
   const onSubmit = (variables: Record<string, any>): void =>
+    // @ts-ignore
     login({ variables });
 
   return (
