@@ -23,10 +23,10 @@ export const Row: React.FC<Props> = ({
   <View
     style={[
       styles.container,
-      customStyle,
       gutter ? styles.gutter : [],
       outside ? styles.outside : [],
-      { flexDirection: direction }
+      { flexDirection: direction },
+      customStyle
     ]}>
     {children}
   </View>

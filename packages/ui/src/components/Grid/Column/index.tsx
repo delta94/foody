@@ -17,7 +17,7 @@ export const Column: React.FC<Props> = ({
   children
 }) => (
   <View
-    style={[styles.container, customStyle, collapse ? styles.collapse : []]}>
+    style={[styles.container, collapse ? styles.collapse : [], customStyle]}>
     {children}
   </View>
 );
@@ -28,11 +28,9 @@ Column.defaultProps = {
 
 const styles = {
   container: css({
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingHorizontal: 20
   }),
   collapse: css({
-    paddingLeft: 0,
-    paddingRight: 0
+    paddingHorizontal: 0
   })
 };

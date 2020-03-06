@@ -8,6 +8,7 @@ import { SearchUrl } from './Url';
 import { Link } from '../Link/index.web';
 import SearchUpload from './Upload';
 import { Checkbox } from '../Forms/Checkbox';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface State {
   ingredients: any;
@@ -18,7 +19,7 @@ interface State {
 const initialState: State = {
   ingredients: [],
   recipes: [],
-  upload: true,
+  upload: true
 };
 
 const IMAGE_PLACEHOLDER = '/assets/images/placeholder/pic.jpg';
@@ -33,28 +34,39 @@ export const Search: React.FC = () => {
   const setUpload = (upload: boolean) =>
     setState({
       ...state,
-      upload,
+      upload
     });
 
   const setRecipes = (recipes: any) =>
     setState({
       ...state,
-      recipes,
+      recipes
     });
 
   const setIngredients = (ingredients: any) =>
     setState({
       ...state,
-      ingredients,
+      ingredients
     });
 
   const reset = () => setState(initialState);
 
+  const { isTablet, isMobile, isDesktop } = useMediaQuery();
+
   return (
-    <View style={{ flexDirection: 'row' }}>
-      <View style={{ flex: 1, paddingRight: 100, alignItems: 'flex-start' }}>
+    <View
+      style={{
+        flexDirection: isMobile ? 'column' : 'row'
+      }}>
+      <View
+        style={{
+          flex: 1,
+          paddingRight: isTablet ? 0 : 100,
+          alignItems: 'flex-start'
+        }}>
         {!ingredientsIsEmpty || !recipesIsEmpty ? (
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             {!recipesIsEmpty && (
               <View style={{ flexDirection: 'row' }}>
                 <Link
@@ -70,7 +82,10 @@ export const Search: React.FC = () => {
           </View>
         ) : (
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Checkbox onChange={(): void => setUpload(!state.upload)} value={state.upload} />
+            <Checkbox
+              onChange={(): void => setUpload(!state.upload)}
+              value={state.upload}
+            />
             <Spacer width={10} />
             <TouchableOpacity onPress={() => setUpload(!state.upload)}>
               <Text>Importer une photo</Text>
@@ -96,13 +111,13 @@ export const Search: React.FC = () => {
         )}
       </View>
       <View>
-        <Spacer width={40} />
+        <Spacer width={40} height={40} />
       </View>
       <View style={{ width: 400 }}>
         <Image
           style={{ height: 400, borderRadius: 6 }}
           source={{
-            uri: url,
+            uri: url
           }}
         />
       </View>
