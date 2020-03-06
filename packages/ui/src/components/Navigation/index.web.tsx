@@ -60,31 +60,31 @@ export const Navigation: React.FC<Props> = ({
   logout,
   logoutCallback
 }) => {
-  // @ts-ignore
-  const [animatedValue, setAnimatedValue] = useState(
-    new Animated.Value(NAVIGATION_WIDTH)
-  );
   const [skipUseMe, setSkipUseMe] = useState(true);
   const [showNavigation, setShowNavigation] = useState(false);
   const [navStyles, setNavStyles] = useState([styles.navigation]);
   const isConnected = useSelector(
     (state: any): boolean => state.app.isConnected
   );
-  const { isTablet, isDesktop } = useMediaQuery();
+  const { isMobileAndTablet, isDesktop } = useMediaQuery();
+  // @ts-ignore
+  const [animatedValue, setAnimatedValue] = useState(
+    new Animated.Value(NAVIGATION_WIDTH)
+  );
 
-  const navigationIsClose = isTablet && !showNavigation;
-  const navigationIsOpen = isTablet && showNavigation;
+  const navigationIsClose = isMobileAndTablet && !showNavigation;
+  const navigationIsOpen = isMobileAndTablet && showNavigation;
 
   useEffect(() => {
     if (isConnected) {
       setSkipUseMe(false);
     }
 
-    if (isTablet && navigationIsClose) {
+    if (isMobileAndTablet && navigationIsClose) {
       setNavStyles([...navStyles, styles.tablet]);
     }
 
-    if (isTablet && navigationIsOpen) {
+    if (isMobileAndTablet && navigationIsOpen) {
       setNavStyles([...navStyles, styles.active]);
     }
 
@@ -92,7 +92,11 @@ export const Navigation: React.FC<Props> = ({
       setNavStyles([styles.navigation]);
       setShowNavigation(false);
     }
-  }, [isTablet && navigationIsClose, isTablet && navigationIsOpen, isDesktop]);
+  }, [
+    isMobileAndTablet && navigationIsClose,
+    isMobileAndTablet && navigationIsOpen,
+    isDesktop
+  ]);
 
   useMe({
     skip: skipUseMe
@@ -114,7 +118,7 @@ export const Navigation: React.FC<Props> = ({
         <Animated.View
           style={[
             ...navStyles,
-            { transform: [{ translateX: animatedValue }] }
+            { transform: [{ translateX: isDesktop ? 0 : animatedValue }] }
           ]}>
           {/* TODO: Create overlay for close navigation */}
           <Hamburger onPress={toggleNavigation} />

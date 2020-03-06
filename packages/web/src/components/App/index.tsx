@@ -11,6 +11,8 @@ import {
 } from '@foody/ui';
 // @ts-ignore
 import { initializeWebStore, Provider } from '@foody/core';
+// @ts-ignore
+import { useMediaQuery } from '@foody/ui';
 import {
   createNavigator,
   SwitchRouter,
@@ -44,6 +46,8 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
     return navigation.navigate('Home');
   };
 
+  const { isDesktop } = useMediaQuery();
+
   return (
     <Provider store={reduxStore}>
       <App>
@@ -56,7 +60,7 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
           navigation={navigation}
           logoutCallback={logoutCallback}
         />
-        <Spacer height={80} />
+        <Spacer height={isDesktop ? 80 : 40} />
         <View style={styles.content}>
           <SceneView
             component={descriptor.getComponent()}

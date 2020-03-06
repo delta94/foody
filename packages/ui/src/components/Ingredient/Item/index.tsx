@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { Text } from '../../Text';
 import { Favoris } from '../Favoris';
 import { useHover } from '../../../hooks/useHover';
+import { Spacer } from '../../Spacer';
 
 interface Props {
   label: string;
@@ -12,12 +13,17 @@ interface Props {
 
 export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => {
   const [showFavorisButton, setShowFavorisButton] = useState(false);
-  const { onFocus, onBlur, itemStyles } = useHover(styles.container, styles.hover);
+  const { onFocus, onBlur, itemStyles } = useHover(
+    styles.container,
+    styles.hover
+  );
 
   const focus = () => {
     onFocus();
     setShowFavorisButton(true);
   };
+
+  const isWeb = Platform.OS === 'web';
 
   const blur = () => {
     onBlur();
@@ -33,10 +39,14 @@ export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => {
           onFocus={focus}
           onMouseOut={blur}
           onBlur={blur}
-          style={[itemStyles, isActive ? styles.active : []]}
-        >
-          <Favoris isActive={showFavorisButton} ingredient={label} />
+          style={[
+            itemStyles,
+            isWeb ? styles.web : {},
+            isActive ? styles.active : {}
+          ]}>
           <Text customStyle={{ margin: 'auto' }}>{label}</Text>
+          <Spacer width={5} />
+          <Favoris isActive={showFavorisButton} ingredient={label} />
         </View>
       </TouchableOpacity>
     </View>
@@ -45,16 +55,20 @@ export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
     height: 30,
     alignItems: 'center',
     borderRadius: 30,
     backgroundColor: 'rgba(155, 66, 218, .3)',
-    paddingHorizontal: 10,
+    paddingHorizontal: 10
+  },
+  web: {
+    transition: '.2s'
   },
   hover: {
-    backgroundColor: '#9b42da',
+    backgroundColor: '#9b42da'
   },
   active: {
-    backgroundColor: '#9b42da',
-  },
+    backgroundColor: '#9b42da'
+  }
 });

@@ -14,7 +14,7 @@ const ButtonFavoris: React.FC<Props> = ({ client, ingredient, isActive }) => {
   useEffect(() => {
     // @ts-ignore
     button.current.setNativeProps({
-      title: 'Ajouter à mon garde-manger',
+      title: 'Ajouter à mon garde-manger'
     });
   });
 
@@ -35,16 +35,18 @@ const ButtonFavoris: React.FC<Props> = ({ client, ingredient, isActive }) => {
     }
 
     return updatePantries({
-      variables: { userId: userMe.id, pantries },
+      variables: { userId: userMe.id, pantries }
     });
   };
 
   return (
     <TouchableOpacity
-      style={[styles.favoris, isActive || isAlreadyFavoris ? styles.active : []]}
+      style={[
+        styles.favoris,
+        isActive || isAlreadyFavoris ? styles.active : []
+      ]}
       ref={button}
-      onPress={onPress}
-    >
+      onPress={onPress}>
       <View />
     </TouchableOpacity>
   );
@@ -52,23 +54,17 @@ const ButtonFavoris: React.FC<Props> = ({ client, ingredient, isActive }) => {
 
 const styles = StyleSheet.create({
   favoris: {
-    position: 'absolute',
-    top: -4,
-    left: '50%',
     width: 20,
     height: 20,
     borderRadius: 20,
-    backgroundColor: 'transparent',
-    // @ts-ignore
-    transform: 'translate3d(-50%, -50%, 0)',
-    zIndex: 2,
+    backgroundColor: 'transparent'
   },
   active: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)'
   },
   inactive: {
-    backgroundColor: 'white',
-  },
+    backgroundColor: 'white'
+  }
 });
 
 // @ts-ignore

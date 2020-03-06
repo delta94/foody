@@ -6,11 +6,11 @@ import {
   Spacer,
   SearchRecipes,
   SearchIngredients,
-  Link,
+  Link
   // @ts-ignore
 } from '@foody/ui';
 import { useMe } from '@foody/graphql';
-import { ActivityIndicator, View, Image } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 const Pantries = () => {
   const { data, loading, error } = useMe();
@@ -22,8 +22,8 @@ const Pantries = () => {
       <Text>Le garde-manger regroupe tout vos ingrédients favoris.</Text>
       <Spacer height={10} />
       <Text>
-        Recherchez une recette à tout moment en seléctionnant un ou plusieurs ingrédients si
-        dessous.
+        Recherchez une recette à tout moment en seléctionnant un ou plusieurs
+        ingrédients si dessous.
       </Text>
       <Spacer height={30} />
       {loading ? (
@@ -34,11 +34,18 @@ const Pantries = () => {
         <Text>Aucun ingrédient dans mon garde-manger.</Text>
       ) : (
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1, paddingRight: 100, alignItems: 'flex-start' }}>
+          <View style={{ flex: 1 }}>
             {recipes && (
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between'
+                }}>
                 <View style={{ flexDirection: 'row' }}>
-                  <Link label="Retour aux ingrédients" onPress={() => setRecipes(null)} />
+                  <Link
+                    label="Retour aux ingrédients"
+                    onPress={() => setRecipes(null)}
+                  />
                   <Spacer width={20} />
                 </View>
               </View>
@@ -52,17 +59,6 @@ const Pantries = () => {
             ) : (
               <SearchRecipes data={recipes} />
             )}
-          </View>
-          <View>
-            <Spacer width={40} />
-            <View style={{ width: 400 }}>
-              <Image
-                style={{ height: 400, borderRadius: 6 }}
-                source={{
-                  uri: '/assets/images/placeholder/pic.jpg',
-                }}
-              />
-            </View>
           </View>
         </View>
       )}

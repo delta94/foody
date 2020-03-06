@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
+import { css } from '@emotion/native';
 import { Text } from '../Text';
 import { Spacer } from '../Spacer';
 import { SearchIngredients } from './Ingredients';
@@ -51,7 +52,7 @@ export const Search: React.FC = () => {
 
   const reset = () => setState(initialState);
 
-  const { isTablet, isMobile } = useMediaQuery();
+  const { isTablet, isMobile, isMobileAndTablet, isDesktop } = useMediaQuery();
 
   return (
     <View
@@ -61,7 +62,7 @@ export const Search: React.FC = () => {
       <View
         style={{
           flex: 1,
-          paddingRight: isTablet ? 0 : 100,
+          paddingRight: isMobileAndTablet ? 0 : 100,
           alignItems: 'flex-start'
         }}>
         {!ingredientsIsEmpty || !recipesIsEmpty ? (
@@ -99,7 +100,9 @@ export const Search: React.FC = () => {
             onReceiveRecipes={setRecipes}
           />
         )}
-        {!recipesIsEmpty && <SearchRecipes data={state.recipes} />}
+        {!recipesIsEmpty && (
+          <SearchRecipes data={state.recipes} numColumns={2} />
+        )}
         {ingredientsIsEmpty && (
           <>
             {state.upload ? (
@@ -113,7 +116,11 @@ export const Search: React.FC = () => {
       <View>
         <Spacer width={40} height={40} />
       </View>
-      <View style={{ width: 400 }}>
+      <View
+        style={[
+          styles.image.mobile,
+          isTablet ? styles.image.tablet : isDesktop ? styles.image.desktop : {}
+        ]}>
         <Image
           style={{ height: 400, borderRadius: 6 }}
           source={{
@@ -123,4 +130,18 @@ export const Search: React.FC = () => {
       </View>
     </View>
   );
+};
+
+const styles = {
+  image: {
+    mobile: css({
+      width: '100%'
+    }),
+    tablet: css({
+      width: '40%'
+    }),
+    desktop: css({
+      width: 400
+    })
+  }
 };

@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const RecipeItem: React.FC<Props> = ({ recipe }) => (
-  <Column customStyle={{ flex: 1, flexWrap: 'wrap' }}>
+  <Column customStyle={{ flex: 1, flexWrap: 'wrap', minWidth: 300 }}>
     <Favoris recipe={recipe} />
     <Image
       style={{ width: '100%', height: 300, borderRadius: 6 }}

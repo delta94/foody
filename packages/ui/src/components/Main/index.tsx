@@ -14,6 +14,6 @@ export const Main: React.FC<Props> = ({ children }) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
