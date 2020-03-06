@@ -58,6 +58,8 @@ const styles = {
     fontSize: 18,
     cursor: 'pointer',
     opacity: 0.8,
+    borderBottomWidth: 2,
+    borderBottomColor: 'transparent',
     transition: '.2s'
   }),
   mobile: css({
@@ -69,7 +71,6 @@ const styles = {
   }),
   active: css({
     opacity: 1,
-    borderBottomWidth: 2,
     borderBottomColor: 'white'
   })
 };

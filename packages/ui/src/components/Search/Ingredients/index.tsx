@@ -11,7 +11,10 @@ interface Props {
   onReceiveRecipes: (data: any) => any;
 }
 
-export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) => {
+export const SearchIngredients: React.FC<Props> = ({
+  data,
+  onReceiveRecipes
+}) => {
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [skip, setSkip] = useState(true);
 
@@ -23,7 +26,7 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
       setSkip(true);
       onReceiveRecipes(data.recipes);
     },
-    onError: () => setSkip(true),
+    onError: () => setSkip(true)
   });
 
   const onChange = (name: string) => {
@@ -37,12 +40,22 @@ export const SearchIngredients: React.FC<Props> = ({ data, onReceiveRecipes }) =
   const onPress = () => setSkip(false);
 
   return (
-    <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
-      <IngredientList data={data} dataSelected={ingredients} onChange={onChange} />
-      <Column collapse customStyle={{ width: '100%', alignItems: 'flex-start' }}>
+    <View style={{ flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>
+      <IngredientList
+        data={data}
+        dataSelected={ingredients}
+        onChange={onChange}
+      />
+      <Column
+        collapse
+        customStyle={{ width: '100%', alignItems: 'flex-start' }}>
         <Spacer height={30} />
         <View>
-          <Button label="Trouver une recette" onPress={onPress} loading={recipesQuery.loading} />
+          <Button
+            label="Trouver une recette"
+            onPress={onPress}
+            loading={recipesQuery.loading}
+          />
         </View>
       </Column>
     </View>

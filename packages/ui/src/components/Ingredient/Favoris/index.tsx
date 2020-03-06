@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { withApollo, useUpdatePantries, ME } from '@foody/graphql';
+import { FavoriteIcon } from '../../../icons/Favorite';
+import { FavoriteOutlineIcon } from '../../../icons/FavoriteOutline';
 
 interface Props {
   client: any;
@@ -40,14 +42,18 @@ const ButtonFavoris: React.FC<Props> = ({ client, ingredient, isActive }) => {
   };
 
   return (
-    <TouchableOpacity
-      style={[
-        styles.favoris,
-        isActive || isAlreadyFavoris ? styles.active : []
-      ]}
-      ref={button}
-      onPress={onPress}>
-      <View />
+    <TouchableOpacity ref={button} onPress={onPress}>
+      <View
+        style={[
+          styles.favoris,
+          isActive || isAlreadyFavoris ? styles.active : []
+        ]}>
+        {isActive || isAlreadyFavoris ? (
+          <FavoriteIcon width={12} />
+        ) : (
+          <FavoriteOutlineIcon width={12} />
+        )}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -57,13 +63,11 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 20,
-    backgroundColor: 'transparent'
-  },
-  active: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)'
-  },
-  inactive: {
-    backgroundColor: 'white'
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    color: 'white'
   }
 });
 

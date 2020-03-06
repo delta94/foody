@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const SearchRecipes: React.FC<Props> = ({ data, numColumns }) => (
-  <View>
+  <View style={{ width: '100%' }}>
     {data.length > 0 ? (
       <RecipeList data={data} numColumns={numColumns} />
     ) : (

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { RecipeItem } from '../Item';
 import { FlatList } from 'react-native';
-import { useMediaQuery } from '../../../hooks';
 
 interface Props {
   data: any;

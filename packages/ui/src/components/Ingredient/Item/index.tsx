@@ -46,7 +46,7 @@ export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => {
           ]}>
           <Text customStyle={{ margin: 'auto' }}>{label}</Text>
           <Spacer width={5} />
-          <Favoris isActive={showFavorisButton} ingredient={label} />
+          <Favoris ingredient={label} />
         </View>
       </TouchableOpacity>
     </View>
