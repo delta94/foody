@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+// @ts-ignore
 import { css } from '@emotion/native';
+// @ts-ignore
 import { useUpdateFavoris, withApollo, ME } from '@foody/graphql';
 import { FavoriteIcon } from '../../../icons/Favorite';
 import { FavoriteOutlineIcon } from '../../../icons/FavoriteOutline';
@@ -37,7 +39,11 @@ const ButtonFavoris: React.FC<Props> = ({ client, recipe }) => {
 
   return (
     <TouchableOpacity onPress={onPress} style={{ zIndex: 2 }}>
-      <View style={[styles.favoris, {color: isAlreadyFavoris ? "#9b42da" : '#51509c'}]}>
+      <View
+        style={[
+          styles.favoris,
+          { color: isAlreadyFavoris ? '#9b42da' : '#51509c' }
+        ]}>
         {isAlreadyFavoris ? (
           <FavoriteIcon width={18} />
         ) : (
@@ -63,11 +69,9 @@ const styles = {
     shadowColor: 'rgba(0, 0, 0, .3)',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
-    shadowRadius: 20,
-  }),
-  active: css({
+    shadowRadius: 20
   })
-);
+};
 
 // @ts-ignore
 export const Favoris = withApollo(ButtonFavoris);

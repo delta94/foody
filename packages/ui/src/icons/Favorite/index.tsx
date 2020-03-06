@@ -2,7 +2,11 @@ import React from 'react';
 // @ts-ignore
 import Svg, { Path } from 'react-native-svg';
 
-export const FavoriteIcon = ({ width }) => (
+interface Props {
+  width?: number;
+}
+
+export const FavoriteIcon: React.FC<Props> = ({ width }) => (
   <Svg width={width} viewBox="0 0 768 768">
     <Path
       fill="currentColor"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
+// @ts-ignore
 import { css } from '@emotion/native';
 import { Text } from '../Text';
 import { Spacer } from '../Spacer';

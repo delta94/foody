@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { Text } from '../../Text';
 import { Favoris } from '../Favoris';
@@ -12,33 +12,21 @@ interface Props {
 }
 
 export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => {
-  const [showFavorisButton, setShowFavorisButton] = useState(false);
   const { onFocus, onBlur, itemStyles } = useHover(
     styles.container,
     styles.hover
   );
-
-  const focus = () => {
-    onFocus();
-    setShowFavorisButton(true);
-  };
-
   const isWeb = Platform.OS === 'web';
-
-  const blur = () => {
-    onBlur();
-    setShowFavorisButton(false);
-  };
 
   return (
     <View>
       <TouchableOpacity onPress={onPress}>
         <View
           // @ts-ignore
-          onMouseOver={focus}
-          onFocus={focus}
-          onMouseOut={blur}
-          onBlur={blur}
+          onMouseOver={onFocus}
+          onFocus={onFocus}
+          onMouseOut={onBlur}
+          onBlur={onBlur}
           style={[
             itemStyles,
             isWeb ? styles.web : {},
@@ -63,6 +51,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   web: {
+    // @ts-ignore
     transition: '.2s'
   },
   hover: {

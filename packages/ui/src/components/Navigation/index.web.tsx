@@ -2,29 +2,8 @@
 import React, { useEffect, useState } from 'react';
 // @ts-ignore
 import { css } from '@emotion/native';
-import Svg, {
-  Circle,
-  Ellipse,
-  G,
-  Text,
-  TSpan,
-  TextPath,
-  Path,
-  Polygon,
-  Polyline,
-  Line,
-  Rect,
-  Use,
-  Image,
-  Symbol,
-  Defs,
-  LinearGradient,
-  RadialGradient,
-  Stop,
-  ClipPath,
-  Pattern,
-  Mask
-} from 'react-native-svg';
+// @ts-ignore
+import Svg, { Path } from 'react-native-svg';
 // @ts-ignore
 import { NavLink } from '../NavLink/index.web';
 // @ts-ignore
@@ -34,7 +13,6 @@ import { useMe } from '@foody/graphql';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { Hamburger } from '../Hamburger';
 import { Spacer } from '../Spacer';
-import { Row } from '../Grid/Row';
 import { ExitIcon } from '../../icons/Exit';
 
 interface Props {

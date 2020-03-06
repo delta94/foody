@@ -1,11 +1,17 @@
 import React from 'react';
 // @ts-ignore
 import { css } from '@emotion/native';
-import Svg, { Path, Svg } from 'react-native-svg';
+// @ts-ignore
+import Svg, { Path } from 'react-native-svg';
 // @ts-ignore
 import { View, TouchableOpacity } from 'react-native';
 
-export const ExitIcon = ({ width, onPress }) => (
+interface Props {
+  width?: number;
+  onPress: () => void;
+}
+
+export const ExitIcon: React.FC<Props> = ({ width, onPress }) => (
   <View style={styles.container}>
     <TouchableOpacity onPress={onPress}>
       <Svg width={width} viewBox="0 0 768 768">
