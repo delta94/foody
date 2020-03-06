@@ -51,7 +51,7 @@ export const Search: React.FC = () => {
 
   const reset = () => setState(initialState);
 
-  const { isTablet, isMobile, isDesktop } = useMediaQuery();
+  const { isTablet, isMobile } = useMediaQuery();
 
   return (
     <View

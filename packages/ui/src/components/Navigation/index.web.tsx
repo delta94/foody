@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/native';
 // @ts-ignore
 import { NavLink } from '../NavLink/index.web';
+// @ts-ignore
 import { View, Animated } from 'react-native';
 import { useSelector } from '@foody/core';
 import { useMe } from '@foody/graphql';
@@ -59,6 +60,7 @@ export const Navigation: React.FC<Props> = ({
   logout,
   logoutCallback
 }) => {
+  // @ts-ignore
   const [animatedValue, setAnimatedValue] = useState(
     new Animated.Value(NAVIGATION_WIDTH)
   );
