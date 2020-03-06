@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 // @ts-ignore
 import { css } from '@emotion/native';
 // @ts-ignore
 import { NavLink } from '../NavLink/index.web';
-import { View } from 'react-native';
+import { View, Animated } from 'react-native';
 import { useSelector } from '@foody/core';
 import { useMe } from '@foody/graphql';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -48,6 +49,8 @@ const APP_SCREENS: Screen[] = [
   }
 ];
 
+const NAVIGATION_WIDTH = 300;
+
 export const Navigation: React.FC<Props> = ({
   activeScreen,
   toggleLoginForm,
@@ -56,6 +59,9 @@ export const Navigation: React.FC<Props> = ({
   logout,
   logoutCallback
 }) => {
+  const [animatedValue, setAnimatedValue] = useState(
+    new Animated.Value(NAVIGATION_WIDTH)
+  );
   const [skipUseMe, setSkipUseMe] = useState(true);
   const [showNavigation, setShowNavigation] = useState(false);
   const [navStyles, setNavStyles] = useState([styles.navigation]);
@@ -84,19 +90,30 @@ export const Navigation: React.FC<Props> = ({
       setNavStyles([styles.navigation]);
       setShowNavigation(false);
     }
-  });
+  }, [isTablet && navigationIsClose, isTablet && navigationIsOpen, isDesktop]);
 
   useMe({
     skip: skipUseMe
   });
 
-  const toggleNavigation = () => setShowNavigation(!showNavigation);
+  const toggleNavigation = () => {
+    Animated.timing(animatedValue, {
+      toValue: showNavigation ? NAVIGATION_WIDTH : 0,
+      duration: NAVIGATION_WIDTH,
+      useNativeDriver: true
+    }).start();
+    setShowNavigation(!showNavigation);
+  };
 
   if (isConnected) {
     return (
       <>
         <Hamburger onPress={toggleNavigation} />
-        <View style={navStyles}>
+        <Animated.View
+          style={[
+            ...navStyles,
+            { transform: [{ translateX: animatedValue }] }
+          ]}>
           {/* TODO: Create overlay for close navigation */}
           <Hamburger onPress={toggleNavigation} />
           {APP_SCREENS.map(({ label, screenName }: Screen, index: number) => (
@@ -115,7 +132,7 @@ export const Navigation: React.FC<Props> = ({
               logoutCallback && logoutCallback();
             }}
           />
-        </View>
+        </Animated.View>
       </>
     );
   }
@@ -123,10 +140,11 @@ export const Navigation: React.FC<Props> = ({
   return (
     <>
       <Hamburger onPress={toggleNavigation} />
-      <View style={navStyles}>
+      <Animated.View
+        style={[...navStyles, { transform: [{ translateX: animatedValue }] }]}>
         <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
         <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
-      </View>
+      </Animated.View>
     </>
   );
 };
@@ -140,20 +158,9 @@ const styles = {
     position: 'absolute',
     top: -40,
     right: 0,
-    width: 300,
+    width: NAVIGATION_WIDTH,
     height: '100vh',
-    backgroundColor: 'rgba(0, 0, 0, .3)',
-    transform: [
-      {
-        translateX: '100%'
-      }
-    ]
+    backgroundColor: 'rgba(0, 0, 0, .3)'
   }),
-  active: css({
-    transform: [
-      {
-        translateX: 0
-      }
-    ]
-  })
+  active: css({})
 };
