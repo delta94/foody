@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
+// @ts-ignore
+import { css } from '@emotion/native';
+import { View, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Text } from '../../Text';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableHighlight
-} from 'react-native';
 import { CloseIcon } from '../../Icon/Close';
 
 interface Props {
@@ -58,17 +55,16 @@ Modal.defaultProps = {
   isOpen: false
 };
 
-const styles = StyleSheet.create({
-  container: {
-    // @ts-ignore
+const styles = {
+  container: css({
     position: 'fixed',
     top: 0,
     right: 0,
     width: '100%',
     height: '100%',
     zIndex: 10
-  },
-  modal: {
+  }),
+  modal: css({
     position: 'relative',
     zIndex: 2,
     maxWidth: 700,
@@ -78,12 +74,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 25,
     opacity: 0,
-    // @ts-ignore
     transition: '.2s',
     margin: 'auto'
-  },
-  overlay: {
-    // @ts-ignore
+  }),
+  overlay: css({
     position: 'fixed',
     top: 0,
     right: 0,
@@ -93,13 +87,13 @@ const styles = StyleSheet.create({
     zIndex: 1,
     transition: '.2s',
     opacity: 0
-  },
-  close: {
+  }),
+  close: css({
     position: 'absolute',
     top: 20,
     right: 20
-  },
-  isOpen: {
+  }),
+  isOpen: css({
     opacity: 1
-  }
-});
+  })
+};

@@ -8,7 +8,7 @@ import Svg, { Path } from 'react-native-svg';
 import { NavLink } from '../NavLink/index.web';
 // @ts-ignore
 import { View, Animated, TouchableOpacity } from 'react-native';
-import { useSelector } from '@foody/core';
+import { useSelector, useDispatch } from '@foody/core';
 import { useMe } from '@foody/graphql';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { Hamburger } from '../Hamburger';
@@ -19,7 +19,6 @@ interface Props {
   activeScreen: string;
   toggleLoginForm: () => void;
   toggleRegisterForm: () => void;
-  logout: () => void;
   logoutCallback?: () => void;
   navigation: any;
 }
@@ -61,7 +60,6 @@ export const Navigation: React.FC<Props> = ({
   toggleLoginForm,
   toggleRegisterForm,
   navigation,
-  logout,
   logoutCallback
 }) => {
   const [skipUseMe, setSkipUseMe] = useState(true);
@@ -75,6 +73,8 @@ export const Navigation: React.FC<Props> = ({
   const [animatedValue, setAnimatedValue] = useState(
     new Animated.Value(NAVIGATION_WIDTH)
   );
+
+  const dispatch = useDispatch();
 
   const navigationIsClose = isMobileAndTablet && !showNavigation;
   const navigationIsOpen = isMobileAndTablet && showNavigation;
@@ -124,7 +124,6 @@ export const Navigation: React.FC<Props> = ({
             ...navStyles,
             { transform: [{ translateX: isDesktop ? 0 : animatedValue }] }
           ]}>
-          {/* TODO: Create overlay for close navigation */}
           <Hamburger onPress={toggleNavigation} />
           {APP_SCREENS.map(({ label, screenName }: Screen, index: number) => (
             <NavLink
@@ -137,7 +136,7 @@ export const Navigation: React.FC<Props> = ({
           <Spacer width={10} />
           <ExitIcon
             onPress={() => {
-              logout();
+              dispatch({ type: 'LOGOUT' });
               logoutCallback && logoutCallback();
             }}
           />
