@@ -3,8 +3,8 @@ import { View, TouchableOpacity } from 'react-native';
 // @ts-ignore
 import { css } from '@emotion/native';
 import { withApollo, useUpdatePantries, ME } from '@foody/graphql';
-import { FavoriteIcon } from '../../../icons/Favorite';
-import { FavoriteOutlineIcon } from '../../../icons/FavoriteOutline';
+import { FavoriteIcon } from '../../Icon/Favorite';
+import { FavoriteOutlineIcon } from '../../Icon/FavoriteOutline';
 
 interface Props {
   client: any;

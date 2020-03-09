@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { Text } from '../../Text';
-import { View, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableHighlight
+} from 'react-native';
+import { CloseIcon } from '../../Icon/Close';
 
 interface Props {
   isOpen: boolean;
@@ -22,13 +28,14 @@ export const Modal: React.FC<Props> = ({ isOpen, toggleModal, children }) => {
   }, [isOpen]);
 
   return (
-    <View style={[styles.container, { pointerEvents: isOpen ? 'auto' : 'none' }]}>
+    <View
+      style={[styles.container, { pointerEvents: isOpen ? 'auto' : 'none' }]}>
       <Overlay isOpen={isOpen} onPress={toggleModal} />
       <View style={[styles.modal, isOpen ? styles.isOpen : {}]}>
         <Text customStyle={{ color: 'black' }}>{children}</Text>
         <View style={styles.close}>
           <TouchableOpacity onPress={toggleModal}>
-            <Text theme="black">Close</Text>
+            <CloseIcon />
           </TouchableOpacity>
         </View>
       </View>
@@ -48,7 +55,7 @@ const Overlay: React.FC<OverlayProps> = ({ isOpen, onPress }) => (
 );
 
 Modal.defaultProps = {
-  isOpen: false,
+  isOpen: false
 };
 
 const styles = StyleSheet.create({
@@ -59,7 +66,7 @@ const styles = StyleSheet.create({
     right: 0,
     width: '100%',
     height: '100%',
-    zIndex: 10,
+    zIndex: 10
   },
   modal: {
     position: 'relative',
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
     opacity: 0,
     // @ts-ignore
     transition: '.2s',
-    margin: 'auto',
+    margin: 'auto'
   },
   overlay: {
     // @ts-ignore
@@ -85,14 +92,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     zIndex: 1,
     transition: '.2s',
-    opacity: 0,
+    opacity: 0
   },
   close: {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 20,
+    right: 20
   },
   isOpen: {
-    opacity: 1,
-  },
+    opacity: 1
+  }
 });

@@ -13,7 +13,7 @@ import { useMe } from '@foody/graphql';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { Hamburger } from '../Hamburger';
 import { Spacer } from '../Spacer';
-import { ExitIcon } from '../../icons/Exit';
+import { ExitIcon } from '../Icon/Exit';
 
 interface Props {
   activeScreen: string;
@@ -150,7 +150,10 @@ export const Navigation: React.FC<Props> = ({
     <>
       <Hamburger onPress={toggleNavigation} />
       <Animated.View
-        style={[...navStyles, { transform: [{ translateX: animatedValue }] }]}>
+        style={[
+          ...navStyles,
+          { transform: [{ translateX: isDesktop ? 0 : animatedValue }] }
+        ]}>
         <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
         <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
       </Animated.View>

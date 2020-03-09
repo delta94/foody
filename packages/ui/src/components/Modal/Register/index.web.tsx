@@ -18,7 +18,7 @@ interface Props {
 export const ModalRegister: React.FC<Props> = ({ ...props }) => {
   const { handleSubmit, control, errors } = useForm();
   const onChange = (event: any) => ({
-    value: event[0].nativeEvent.text,
+    value: event[0].nativeEvent.text
   });
 
   const onError = (error: any): any => console.log(error);
@@ -29,20 +29,26 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => {
 
   const [registerr] = useMutation(REGISTER, {
     onError,
-    onCompleted,
+    onCompleted
   });
 
-  const onSubmit = (variables: Record<string, any>): any => registerr({ variables });
+  const onSubmit = (variables: Record<string, any>): any =>
+    registerr({ variables });
 
   return (
     <Modal {...props}>
       <Column>
-        <Title title="Register" customStyle={{ color: 'black' }} spacer={20} theme="black" />
+        <Title
+          title="Inscription"
+          customStyle={{ color: 'black' }}
+          spacer={20}
+          theme="black"
+        />
       </Column>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         <Column customStyle={{ flex: 1 }}>
           <Controller
-            as={<Input label="Username" error={errors.username} />}
+            as={<Input label="Prénom" error={errors.username} />}
             control={control}
             name="username"
             onChange={onChange}
@@ -61,7 +67,7 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => {
       </View>
       <Column customStyle={{ width: '100%' }}>
         <Controller
-          as={<Input label="Password" error={errors.password} />}
+          as={<Input label="Mot de passe" error={errors.password} />}
           control={control}
           name="password"
           onChange={onChange}
@@ -69,8 +75,8 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => {
         />
       </Column>
       <View style={{ width: '100%' }}>
-        <Column customStyle={{ width: '50%' }}>
-          <Button label="Sign in" onPress={handleSubmit(onSubmit)} />
+        <Column customStyle={{ width: '30%' }}>
+          <Button label="Valider" onPress={handleSubmit(onSubmit)} />
           <Spacer height={10} />
         </Column>
       </View>

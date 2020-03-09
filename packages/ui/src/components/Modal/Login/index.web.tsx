@@ -50,7 +50,7 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
     <Modal {...props}>
       <Column>
         <Title
-          title="Login"
+          title="Connexion"
           customStyle={{ color: 'black' }}
           spacer={20}
           theme="black"
@@ -59,25 +59,27 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
       <View style={styles.container}>
         <Column customStyle={styles.column}>
           <Controller
-            as={<Input label="Identifier" error={errors.identifier} />}
+            as={<Input label="Email" error={errors.identifier} />}
             control={control}
             name="identifier"
+            keyboardType="email-address"
             onChange={onChange}
             rules={{ required: true }}
           />
         </Column>
         <Column customStyle={styles.column}>
           <Controller
-            as={<Input label="Password" error={errors.password} />}
+            as={<Input label="Mot de passe" error={errors.password} />}
             control={control}
             name="password"
+            secureTextEntry
             onChange={onChange}
             rules={{ required: true }}
           />
         </Column>
       </View>
-      <Column customStyle={{ width: '50%' }}>
-        <Button label="Sign in" onPress={handleSubmit(onSubmit)} />
+      <Column customStyle={{ width: '30%' }}>
+        <Button label="Connexion" onPress={handleSubmit(onSubmit)} />
         <Spacer height={10} />
       </Column>
     </Modal>
