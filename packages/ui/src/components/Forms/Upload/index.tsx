@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+// @ts-ignore
+import { css } from '@emotion/native';
 import { Row } from '../../Grid/Row';
 import { Text } from '../../Text';
 import { useHover } from '../../../hooks/useHover';
@@ -38,8 +40,7 @@ export const Upload: React.FC<Props> = ({ handleChangeFile }) => {
         onFocus={onFocus}
         onMouseOut={onBlur}
         onBlur={onBlur}
-        style={itemStyles}
-      >
+        style={itemStyles}>
         <label ref={labelRef} htmlFor="upload" style={{ cursor: 'pointer' }}>
           <Text>{label}</Text>
         </label>
@@ -48,32 +49,32 @@ export const Upload: React.FC<Props> = ({ handleChangeFile }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  input: {
+const styles = {
+  input: css({
     position: 'absolute',
     height: 1,
     width: 1,
     overflow: 'hidden',
-    clip: 'rect(1px, 1px, 1px, 1px)',
-  },
-  label: {
+    clip: 'rect(1px, 1px, 1px, 1px)'
+  }),
+  label: css({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 56,
+    height: 60,
     borderRadius: 6,
     borderWidth: 2,
     borderStyle: 'dashed',
     borderColor: 'rgba(0, 0, 0, .2)',
-    transition: '.2s',
-  },
-  hover: {
+    transition: '.2s'
+  }),
+  hover: css({
     backgroundColor: 'rgba(255, 255, 255, .1)',
-    borderColor: 'rgba(0, 0, 0, .4)',
-  },
-  remove: {
+    borderColor: 'rgba(0, 0, 0, .4)'
+  }),
+  remove: css({
     position: 'absolute',
     top: 0,
-    right: 0,
-  },
-});
+    right: 0
+  })
+};
