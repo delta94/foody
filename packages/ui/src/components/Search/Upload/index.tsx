@@ -7,11 +7,15 @@ import { useFoodImageRecognition } from '@foody/graphql';
 import { SearchPictureProps } from '../Url';
 import { Upload } from '../../Forms/Upload';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
+import { Link } from '../../Link/index.web';
+import { Spacer } from '../../Spacer';
+import { CameraIcon } from '../../Icon/Camera';
 
-const SearchUpload: React.FC<SearchPictureProps> = ({
-  onSearch,
-  onResults
-}) => {
+interface Props extends SearchPictureProps {
+  setStream: any;
+}
+
+const SearchUpload: React.FC<Props> = ({ onSearch, onResults, setStream }) => {
   const [skipRecognitionQuery, setSkipRecognitionQuery] = useState<boolean>(
     true
   );
@@ -19,6 +23,13 @@ const SearchUpload: React.FC<SearchPictureProps> = ({
     null
   );
   const [file, setFile] = useState(null);
+
+  const test = () => {
+    navigator.mediaDevices
+      .getUserMedia({ audio: false, video: true })
+      .then(setStream)
+      .catch((error) => console.error('getUserMedia() error:', error));
+  };
 
   const onError = (error: any): void => console.log(error);
   const onCompleted = ({ upload }: Mutation): void => {
@@ -50,25 +61,33 @@ const SearchUpload: React.FC<SearchPictureProps> = ({
   const { isTablet } = useMediaQuery();
 
   return (
-    <Row customStyle={{ flexDirection: isTablet ? 'column' : 'row' }}>
-      <Column collapse customStyle={{ flex: 1 }}>
-        <Upload handleChangeFile={handleChangeFile} />
-      </Column>
-      <Column
-        customStyle={{
-          marginRight: isTablet ? 0 : -20,
-          paddingHorizontal: isTablet ? 0 : 20,
-          paddingVertical: isTablet ? 20 : 0
-        }}>
-        <Row>
-          <Button
-            label="Rechercher"
-            onPress={uploadPicture}
-            loading={uploadMutation.loading || imageRecognition.loading}
-          />
-        </Row>
-      </Column>
-    </Row>
+    <>
+      <Row customStyle={{ flexDirection: isTablet ? 'column' : 'row' }}>
+        <Column collapse customStyle={{ flex: 1 }}>
+          <Upload handleChangeFile={handleChangeFile} />
+        </Column>
+        <Column
+          customStyle={{
+            marginRight: isTablet ? 0 : -20,
+            paddingHorizontal: isTablet ? 0 : 20,
+            paddingVertical: isTablet ? 20 : 0
+          }}>
+          <Row>
+            <Button
+              label="Rechercher"
+              onPress={uploadPicture}
+              loading={uploadMutation.loading || imageRecognition.loading}
+            />
+          </Row>
+        </Column>
+      </Row>
+      <Spacer height={20} />
+      <Row direction="row">
+        <CameraIcon />
+        <Spacer width={10} />
+        <Link label="Prendre une photo" onPress={test} />
+      </Row>
+    </>
   );
 };
 

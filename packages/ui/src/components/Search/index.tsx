@@ -11,6 +11,7 @@ import { Link } from '../Link/index.web';
 import SearchUpload from './Upload';
 import { Checkbox } from '../Forms/Checkbox';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { Video } from '../Video';
 
 interface State {
   ingredients: any;
@@ -27,6 +28,7 @@ const initialState: State = {
 const IMAGE_PLACEHOLDER = '/assets/images/placeholder/pic.jpg';
 
 export const Search: React.FC = () => {
+  const [stream, setStream] = useState(null);
   const [url, setUrl] = useState(IMAGE_PLACEHOLDER);
   const [state, setState] = useState(initialState);
 
@@ -107,7 +109,11 @@ export const Search: React.FC = () => {
         {ingredientsIsEmpty && (
           <>
             {state.upload ? (
-              <SearchUpload onSearch={setUrl} onResults={setIngredients} />
+              <SearchUpload
+                onSearch={setUrl}
+                onResults={setIngredients}
+                setStream={setStream}
+              />
             ) : (
               <SearchUrl onSearch={setUrl} onResults={setIngredients} />
             )}
@@ -122,12 +128,17 @@ export const Search: React.FC = () => {
           styles.image.mobile,
           isTablet ? styles.image.tablet : isDesktop ? styles.image.desktop : {}
         ]}>
-        <Image
-          style={{ height: 400, borderRadius: 6 }}
-          source={{
-            uri: url
-          }}
-        />
+        {stream ? (
+          // TODO: https://developers.google.com/web/updates/2016/12/imagecapture
+          <Video source={stream} />
+        ) : (
+          <Image
+            style={{ height: 400, borderRadius: 6 }}
+            source={{
+              uri: url
+            }}
+          />
+        )}
       </View>
     </View>
   );
