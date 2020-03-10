@@ -112,7 +112,8 @@ export const Search: React.FC = () => {
               <SearchUpload
                 onSearch={setUrl}
                 onResults={setIngredients}
-                setStream={setStream}
+                onSetStream={setStream}
+                onTakePhoto={setUrl}
               />
             ) : (
               <SearchUrl onSearch={setUrl} onResults={setIngredients} />
@@ -129,7 +130,6 @@ export const Search: React.FC = () => {
           isTablet ? styles.image.tablet : isDesktop ? styles.image.desktop : {}
         ]}>
         {stream ? (
-          // TODO: https://developers.google.com/web/updates/2016/12/imagecapture
           <Video source={stream} />
         ) : (
           <Image
@@ -147,7 +147,9 @@ export const Search: React.FC = () => {
 const styles = {
   image: {
     mobile: css({
-      width: '100%'
+      width: '100%',
+      backgroundColor: '#E0E0E0',
+      borderRadius: 8
     }),
     tablet: css({
       width: '40%'

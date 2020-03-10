@@ -11,24 +11,52 @@ import { Link } from '../../Link/index.web';
 import { Spacer } from '../../Spacer';
 import { CameraIcon } from '../../Icon/Camera';
 
+const MEDIA_DEVICS_SETTINGS = {
+  audio: false,
+  video: true
+};
+
 interface Props extends SearchPictureProps {
-  setStream: any;
+  onSearch: any;
+  onResults: any;
+  onSetStream: any;
+  onTakePhoto: any;
 }
 
-const SearchUpload: React.FC<Props> = ({ onSearch, onResults, setStream }) => {
+const SearchUpload: React.FC<Props> = ({
+  onSearch,
+  onResults,
+  onSetStream,
+  onTakePhoto
+}) => {
   const [skipRecognitionQuery, setSkipRecognitionQuery] = useState<boolean>(
     true
   );
   const [imageRecognitionUrl, setImageRecognitionUrl] = useState<string | null>(
     null
   );
+  const [imageCapture, setImageCapture] = useState<any>(null);
   const [file, setFile] = useState(null);
 
-  const test = () => {
-    navigator.mediaDevices
-      .getUserMedia({ audio: false, video: true })
-      .then(setStream)
-      .catch((error) => console.error('getUserMedia() error:', error));
+  const getMediaDevices = async () => {
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia(
+        MEDIA_DEVICS_SETTINGS
+      );
+      onSetStream(mediaStream);
+
+      const mediaStreamTrack = mediaStream.getVideoTracks()[0];
+      // @ts-ignore
+      setImageCapture(new ImageCapture(mediaStreamTrack));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const takePhoto = async (): Promise<any> => {
+    const blob: Blob = await imageCapture.takePhoto();
+    onTakePhoto(URL.createObjectURL(blob));
+    onSetStream(null);
   };
 
   const onError = (error: any): void => console.log(error);
@@ -85,7 +113,11 @@ const SearchUpload: React.FC<Props> = ({ onSearch, onResults, setStream }) => {
       <Row direction="row">
         <CameraIcon />
         <Spacer width={10} />
-        <Link label="Prendre une photo" onPress={test} />
+        {imageCapture ? (
+          <Link label="Capturer mon aliment" onPress={takePhoto} />
+        ) : (
+          <Link label="Prendre une photo" onPress={getMediaDevices} />
+        )}
       </Row>
     </>
   );
