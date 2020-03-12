@@ -55,8 +55,10 @@ const SearchUpload: React.FC<Props> = ({
 
   const takePhoto = async (): Promise<any> => {
     const blob: Blob = await imageCapture.takePhoto();
-    onTakePhoto(URL.createObjectURL(blob));
+    const photo = URL.createObjectURL(blob);
+    onTakePhoto(photo);
     onSetStream(null);
+    uploadPicture(blob);
   };
 
   const onError = (error: any): void => console.log(error);
@@ -78,8 +80,8 @@ const SearchUpload: React.FC<Props> = ({
     onCompleted
   });
 
-  const uploadPicture = (): any =>
-    upload({ variables: { file: file, ref: 'Toto' } });
+  const uploadPicture = (photo: Blob | null = null): any =>
+    upload({ variables: { file: photo ?? file, ref: 'Toto' } });
   const handleChangeFile = ({
     target: {
       files: [file]
@@ -103,7 +105,7 @@ const SearchUpload: React.FC<Props> = ({
           <Row>
             <Button
               label="Rechercher"
-              onPress={uploadPicture}
+              onPress={() => uploadPicture()}
               loading={uploadMutation.loading || imageRecognition.loading}
             />
           </Row>
