@@ -40,7 +40,7 @@ const APP_SCREENS: Screen[] = [
     screenName: 'Pantries'
   },
   {
-    label: 'Mes favoris',
+    label: 'Mes recettes favoris',
     screenName: 'Favoris'
   },
   {

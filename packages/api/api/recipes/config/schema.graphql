@@ -1,11 +1,22 @@
 module.exports = {
   definition: `
+    type Ingredient {
+      text: String!
+      weight: Float!
+    }
     type Recipe {
       uri: String!
       label: String!
+      image: String!
       source: String!
       url: String!
-      image: String!
+      yield: Int!
+      calories: Float!
+      totalWeight: Float!
+      totalTime: Float!
+      cautions: [String]
+      ingredientLines: [String]
+      ingredients: [Ingredient]
     }
   `,
   query: `

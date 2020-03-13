@@ -128,6 +128,11 @@ type FoodImageRecognition {
   app_id: String!
 }
 
+type Ingredient {
+  text: String!
+  weight: Float!
+}
+
 input InputID {
   id: ID!
 }
@@ -137,7 +142,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = FoodImageRecognition | Recipe | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | CustomUsersPermissionsMe | CustomUsersPermissionsMeRole | Search | createSearchPayload | updateSearchPayload | deleteSearchPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = FoodImageRecognition | Ingredient | Recipe | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | CustomUsersPermissionsMe | CustomUsersPermissionsMeRole | Search | createSearchPayload | updateSearchPayload | deleteSearchPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createSearch(input: createSearchInput): createSearchPayload
@@ -188,9 +193,16 @@ type Query {
 type Recipe {
   uri: String!
   label: String!
+  image: String!
   source: String!
   url: String!
-  image: String!
+  yield: Int!
+  calories: Float!
+  totalWeight: Float!
+  totalTime: Float!
+  cautions: [String]
+  ingredientLines: [String]
+  ingredients: [Ingredient]
 }
 
 input RoleInput {
