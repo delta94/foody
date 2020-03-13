@@ -25,7 +25,6 @@ import Home from '../../screens/Home';
 import Search from '../../screens/Search';
 import Pantries from '../../screens/Pantries';
 import Favoris from '../../screens/Favoris';
-import Recipes from '../../screens/Recipes';
 import History from '../../screens/History';
 import './index.css';
 
@@ -107,7 +106,6 @@ const AppNavigator = createNavigator(
     Search,
     Pantries,
     Favoris,
-    Recipes,
     History
   }),
   {}
