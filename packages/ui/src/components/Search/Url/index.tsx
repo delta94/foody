@@ -12,7 +12,10 @@ export interface SearchPictureProps {
 
 // https://assets.lightspeedhq.com/img/2019/07/8aac85b2-blog_foodpresentationtipsfromtopchefs.jpg
 
-export const SearchUrl: React.FC<SearchPictureProps> = ({ onSearch, onResults }) => {
+export const SearchUrl: React.FC<SearchPictureProps> = ({
+  onSearch,
+  onResults
+}) => {
   const [url, setUrl] = useState('');
   const [skipRecognitionQuery, setSkipRecognitionQuery] = useState(true);
 
@@ -21,7 +24,11 @@ export const SearchUrl: React.FC<SearchPictureProps> = ({ onSearch, onResults })
     onResults(data.foodImageRecognition);
   };
 
-  const { loading } = useFoodImageRecognition(url, skipRecognitionQuery, onCompleted);
+  const { loading } = useFoodImageRecognition(
+    url,
+    skipRecognitionQuery,
+    onCompleted
+  );
 
   const onChange = (event: any): any => setUrl(event.target.value);
   const onPress = (): any => {
@@ -35,7 +42,9 @@ export const SearchUrl: React.FC<SearchPictureProps> = ({ onSearch, onResults })
         <Input onChange={onChange} />
       </Column>
       <Column customStyle={{ marginRight: -20 }}>
-        <Button label="Rechercher" onPress={onPress} loading={loading} />
+        <Row>
+          <Button label="Rechercher" onPress={onPress} loading={loading} />
+        </Row>
       </Column>
     </Row>
   );

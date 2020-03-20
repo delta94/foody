@@ -93,6 +93,7 @@ export const Navigation: React.FC<Props> = ({
       setShowNavigation(false);
     }
   }, [
+    isConnected,
     isMobileAndTablet && navigationIsClose,
     isMobileAndTablet && navigationIsOpen,
     isDesktop
