@@ -3,15 +3,13 @@ import { Column } from '../../Grid/Column';
 import { Image } from 'react-native';
 import { Spacer } from '../../Spacer';
 import { Text } from '../../Text';
-import { Favoris } from '../Favoris';
+import { Favoris, FavorisProps } from '../Favoris';
 
-interface Props {
-  recipe: any;
-}
+type Props = FavorisProps;
 
-export const RecipeItem: React.FC<Props> = ({ recipe }) => (
+export const RecipeItem: React.FC<Props> = ({ recipe, ...props }) => (
   <Column customStyle={{ flex: 1, flexWrap: 'wrap', minWidth: 300 }}>
-    <Favoris recipe={recipe} />
+    <Favoris recipe={recipe} {...props} />
     <Image
       style={{ width: '100%', height: 300, borderRadius: 6 }}
       source={{

@@ -17,7 +17,7 @@ export const useUpdateFavoris = () => {
   const [updateFavoris] = useMutation(UPDATE_FAVORIS, {
     update: (cache, { data }) => {
       const query: Query | null = cache.readQuery({
-        query: ME,
+        query: ME
       });
       const userMe = query?.userMe;
 
@@ -27,12 +27,12 @@ export const useUpdateFavoris = () => {
           data: {
             userMe: {
               ...userMe,
-              favoris: data.updateUser.user.favoris,
-            },
-          },
+              favoris: data.updateUser.user.favoris
+            }
+          }
         });
       }
-    },
+    }
   });
 
   return updateFavoris;

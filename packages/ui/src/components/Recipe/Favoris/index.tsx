@@ -3,38 +3,42 @@ import { View, TouchableOpacity } from 'react-native';
 // @ts-ignore
 import { css } from '@emotion/native';
 // @ts-ignore
-import { useUpdateFavoris, withApollo, ME } from '@foody/graphql';
+import { useUpdateFavoris } from '@foody/graphql';
 import { FavoriteIcon } from '../../Icon/Favorite';
 import { FavoriteOutlineIcon } from '../../Icon/FavoriteOutline';
 
-interface Props {
-  client: any;
+export interface FavorisProps {
+  // TODO: Add recipe type
   recipe: any;
+  userFavoris: string[];
+  userId: number;
+  isAlreadyFavoris: boolean;
+  onAddToFavoris: (favoris: any[]) => void;
 }
 
-const ButtonFavoris: React.FC<Props> = ({ client, recipe }) => {
+export const Favoris: React.FC<FavorisProps> = ({
+  userFavoris,
+  isAlreadyFavoris,
+  onAddToFavoris,
+  userId,
+  recipe
+}) => {
   const updateFavoris = useUpdateFavoris();
-
-  const { userMe } = client.readQuery({ query: ME });
-  const userFavoris = userMe.favoris
-    ? userMe.favoris.map(({ label }: any) => label)
-    : [];
-  const isAlreadyFavoris = userFavoris.includes(recipe.label);
 
   const onPress = () => {
     let favoris;
 
     if (isAlreadyFavoris) {
-      favoris = userMe.favoris.filter(
-        ({ label }: any) => label !== recipe.label
-      );
+      favoris = userFavoris.filter(({ label }: any) => label !== recipe.label);
     } else {
-      favoris = [...(userMe?.favoris ?? []), recipe];
+      favoris = [...userFavoris, recipe];
     }
 
-    return updateFavoris({
-      variables: { userId: userMe.id, favoris }
+    updateFavoris({
+      variables: { userId, favoris }
     });
+
+    return onAddToFavoris(favoris);
   };
 
   return (
@@ -72,6 +76,3 @@ const styles = {
     shadowRadius: 20
   })
 };
-
-// @ts-ignore
-export const Favoris = withApollo(ButtonFavoris);
