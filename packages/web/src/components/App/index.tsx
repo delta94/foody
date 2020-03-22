@@ -10,8 +10,6 @@ import {
   // @ts-ignore
 } from '@foody/ui';
 // @ts-ignore
-import { initializeWebStore, Provider } from '@foody/core';
-// @ts-ignore
 import { useMediaQuery } from '@foody/ui';
 import {
   createNavigator,
@@ -27,8 +25,6 @@ import Pantries from '../../screens/Pantries';
 import Favoris from '../../screens/Favoris';
 import History from '../../screens/History';
 import './index.css';
-
-const reduxStore = initializeWebStore();
 
 // @ts-ignore
 const MyApp: React.FC = ({ descriptors, navigation }) => {
@@ -48,41 +44,39 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
   const { isDesktop } = useMediaQuery();
 
   return (
-    <Provider store={reduxStore}>
-      <App>
-        <Spacer height={40} />
-        <Header
-          goToSearchScreen={() => navigation.navigate('Search')}
-          activeScreen={activeKey}
-          toggleLoginForm={toggleLoginForm}
-          toggleRegisterForm={toggleRegisterForm}
-          navigation={navigation}
-          logoutCallback={logoutCallback}
+    <App>
+      <Spacer height={40} />
+      <Header
+        goToSearchScreen={() => navigation.navigate('Search')}
+        activeScreen={activeKey}
+        toggleLoginForm={toggleLoginForm}
+        toggleRegisterForm={toggleRegisterForm}
+        navigation={navigation}
+        logoutCallback={logoutCallback}
+      />
+      <Spacer height={isDesktop ? 80 : 40} />
+      <View style={styles.content}>
+        <SceneView
+          component={descriptor.getComponent()}
+          navigation={descriptor.navigation}
         />
-        <Spacer height={isDesktop ? 80 : 40} />
-        <View style={styles.content}>
-          <SceneView
-            component={descriptor.getComponent()}
-            navigation={descriptor.navigation}
-          />
-          <Spacer height={100} />
-          <Footer />
-        </View>
-        <ModalLogin
-          isOpen={loginFormIsOpen}
-          toggleModal={toggleLoginForm}
-          onCompleted={() => navigation.navigate('Search')}
-        />
-        <ModalRegister
-          isOpen={registerFormIsOpen}
-          toggleModal={toggleRegisterForm}
-          onCompleted={() => {
-            toggleRegisterForm();
-            toggleLoginForm();
-          }}
-        />
-      </App>
-    </Provider>
+        <Spacer height={100} />
+        <Footer />
+      </View>
+      <ModalLogin
+        isOpen={loginFormIsOpen}
+        toggleModal={toggleLoginForm}
+        onCompleted={() => navigation.navigate('Search')}
+      />
+      <ModalRegister
+        isOpen={registerFormIsOpen}
+        toggleModal={toggleRegisterForm}
+        onCompleted={() => {
+          toggleRegisterForm();
+          toggleLoginForm();
+        }}
+      />
+    </App>
   );
 };
 
