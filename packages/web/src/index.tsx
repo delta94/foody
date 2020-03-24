@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import App from './components/App';
 import { ApolloProvider, createApolloClient } from '@foody/graphql';
 import { Provider, initializeWebStore } from '@foody/core';
+import * as serviceWorker from './serviceWorker';
 
 const init = async () => {
   const apolloClient = await createApolloClient(
@@ -20,6 +21,10 @@ const init = async () => {
     );
 
     ReactDOM.render(<ApolloApp />, document.getElementById('root'));
+
+    if (serviceWorker.isPushNotificationSupported()) {
+      serviceWorker.register();
+    }
   }
 };
 
