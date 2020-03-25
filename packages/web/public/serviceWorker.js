@@ -1,34 +1,10 @@
-const CACHE = 'cache-and-update';
+importScripts(
+  'https://storage.googleapis.com/workbox-cdn/releases/5.0.0/workbox-sw.js'
+);
 
-self.addEventListener('install', function(evt) {
-  console.log('The service worker is being installed.');
-  evt.waitUntil(precache());
-});
+if (workbox) {
+  const { registerRoute } = workbox.routing;
+  const { NetworkFirst } = workbox.strategies;
 
-self.addEventListener('fetch', function(evt) {
-  console.log('The service worker is serving the asset.');
-  evt.respondWith(fromCache(evt.request));
-  evt.waitUntil(update(evt.request));
-});
-
-function precache() {
-  return caches.open(CACHE).then(function(cache) {
-    return cache.addAll(['/index.html', '/static/js/bundle.js']);
-  });
-}
-
-function fromCache(request) {
-  return caches.open(CACHE).then(function(cache) {
-    return cache.match(request).then(function(matching) {
-      return matching || Promise.reject('no-match');
-    });
-  });
-}
-
-function update(request) {
-  return caches.open(CACHE).then(function(cache) {
-    return fetch(request).then(function(response) {
-      return cache.put(request, response);
-    });
-  });
+  registerRoute(/\.js$/, new NetworkFirst());
 }
