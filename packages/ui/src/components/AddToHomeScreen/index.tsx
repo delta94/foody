@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAddToHomescreenPrompt } from '../../hooks/useAddToHomescreenPrompt';
 import { Button } from '../Button';
+import { Column } from '../Grid/Column';
 
 export const AddToHomeScreen: React.FC = () => {
   const [prompt, promptToInstall] = useAddToHomescreenPrompt();
@@ -17,8 +18,8 @@ export const AddToHomeScreen: React.FC = () => {
   }
 
   return (
-    <div style={{ width: 300 }}>
+    <Column customStyle={{ width: 300 }}>
       <Button label="Installer" onPress={promptToInstall} />
-    </div>
+    </Column>
   );
 };

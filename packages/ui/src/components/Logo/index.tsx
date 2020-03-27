@@ -9,7 +9,7 @@ interface Props {
 export const Logo: React.FC<Props> = ({ onPress }) => (
   <TouchableOpacity onPress={onPress}>
     <View>
-      <Title title="FOODY" spacer={null} />
+      <Title title="FOODY" size={32} spacer={null} />
     </View>
   </TouchableOpacity>
 );

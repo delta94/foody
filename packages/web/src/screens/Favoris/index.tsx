@@ -4,7 +4,7 @@ import {
   Title,
   Text,
   Spacer,
-  RecipeList,
+  RecipeList
   // @ts-ignore
 } from '@foody/ui';
 // @ts-ignore
@@ -16,7 +16,7 @@ const Favoris = () => {
 
   return (
     <Main gutter>
-      <Title title="Mes favoris" />
+      <Title title="Mes recettes favoris" />
       <Text>Retrouvez l&apos;intégralité de vos recettes coup de coeur.</Text>
       <Spacer height={30} />
       {loading ? (

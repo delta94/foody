@@ -11,7 +11,12 @@ export const RecipeItem: React.FC<Props> = ({ recipe, ...props }) => (
   <Column customStyle={{ flex: 1, flexWrap: 'wrap', minWidth: 300 }}>
     <Favoris recipe={recipe} {...props} />
     <Image
-      style={{ width: '100%', height: 300, borderRadius: 6 }}
+      style={{
+        width: '100%',
+        height: 300,
+        borderRadius: 6,
+        backgroundColor: '#E0E0E0'
+      }}
       source={{
         uri: recipe.image
       }}

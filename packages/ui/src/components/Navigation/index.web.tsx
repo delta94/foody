@@ -164,7 +164,7 @@ const styles = {
   tablet: css({
     flexDirection: 'column',
     position: 'absolute',
-    top: -40,
+    top: -20,
     right: 0,
     width: NAVIGATION_WIDTH,
     height: '100vh',

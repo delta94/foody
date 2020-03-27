@@ -155,6 +155,9 @@ const styles = {
       width: '40%'
     }),
     desktop: css({
+      alignSelf: 'flex-start',
+      position: 'sticky',
+      top: 20,
       width: 400
     })
   }

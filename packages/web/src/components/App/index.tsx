@@ -46,7 +46,7 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
 
   return (
     <App>
-      <Spacer height={40} />
+      <Spacer height={isDesktop ? 40 : 20} />
       <Header
         goToSearchScreen={() => navigation.navigate('Search')}
         activeScreen={activeKey}
@@ -55,8 +55,8 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
         navigation={navigation}
         logoutCallback={logoutCallback}
       />
-      <Spacer height={isDesktop ? 80 : 40} />
-      <View style={styles.content}>
+      <Spacer height={isDesktop ? 80 : 20} />
+      <View style={[styles.content, { paddingHorizontal: isDesktop ? 30 : 5 }]}>
         <SceneView
           component={descriptor.getComponent()}
           navigation={descriptor.navigation}
@@ -83,15 +83,8 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 50
-  },
   content: {
-    flex: 1,
-    paddingHorizontal: 30
+    flex: 1
   }
 });
 

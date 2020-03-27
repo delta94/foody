@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text } from '../Text';
-import { StyleSheet } from 'react-native';
+// @ts-ignore
+import { css } from '@emotion/native';
 import { Spacer } from '../Spacer';
+import { useMediaQuery } from '../../hooks';
 
 interface Props {
   title: string;
+  size?: number;
   spacer?: number | null;
   customStyle?: {
     [key: string]: any;
@@ -12,24 +15,32 @@ interface Props {
   theme?: string;
 }
 
-export const Title: React.FC<Props> = ({ title, spacer, customStyle, ...props }) => (
-  <>
-    <Text customStyle={[styles.title, customStyle]} {...props}>
-      {title}
-    </Text>
-    {spacer && <Spacer height={spacer} />}
-  </>
-);
+export const Title: React.FC<Props> = ({
+  title,
+  size,
+  spacer,
+  customStyle,
+  ...props
+}) => {
+  const { isDesktop } = useMediaQuery();
+  const fontSize = size ? size : isDesktop ? 32 : 28;
 
-Title.defaultProps = {
-  spacer: 5,
+  return (
+    <>
+      <Text customStyle={[styles, { fontSize }, customStyle]} {...props}>
+        {title}
+      </Text>
+      {spacer && <Spacer height={spacer} />}
+    </>
+  );
 };
 
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 32,
-    fontFamily: 'Poppins',
-    fontWeight: '600',
-    lineHeight: 47,
-  },
+Title.defaultProps = {
+  spacer: 5
+};
+
+const styles = css({
+  fontFamily: 'Poppins',
+  fontWeight: '600',
+  lineHeight: 47
 });
