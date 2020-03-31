@@ -3,11 +3,6 @@
   "name": "Foody",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
-    },
-    {
       "src": "android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
