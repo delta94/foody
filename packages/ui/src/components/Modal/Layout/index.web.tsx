@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
 // @ts-ignore
 import { css } from '@emotion/native';
-import { View, TouchableOpacity, TouchableHighlight } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  TouchableHighlight,
+  Animated
+} from 'react-native';
 import { Text } from '../../Text';
 import { CloseIcon } from '../../Icon/Close';
+import { useMediaQuery } from '../../../hooks';
 
 interface Props {
   isOpen: boolean;
@@ -14,12 +20,23 @@ interface Props {
 }
 
 export const Modal: React.FC<Props> = ({ isOpen, toggleModal, children }) => {
+  const { isDesktop } = useMediaQuery();
+  const width = new Animated.Value(0);
+  const maxWidth = isDesktop ? 900 : 700;
+  const borderRadius = new Animated.Value(maxWidth);
+
   useEffect(() => {
     if (isOpen) {
-      // @ts-ignore
       document.body.style.overflow = 'hidden';
+      Animated.timing(width, {
+        toValue: maxWidth,
+        duration: 600
+      }).start();
+      Animated.timing(borderRadius, {
+        toValue: 0,
+        duration: 600
+      }).start();
     } else {
-      // @ts-ignore
       document.body.style.overflow = 'auto';
     }
   }, [isOpen]);
@@ -27,15 +44,25 @@ export const Modal: React.FC<Props> = ({ isOpen, toggleModal, children }) => {
   return (
     <View
       style={[styles.container, { pointerEvents: isOpen ? 'auto' : 'none' }]}>
-      <Overlay isOpen={isOpen} onPress={toggleModal} />
-      <View style={[styles.modal, isOpen ? styles.isOpen : {}]}>
-        <Text customStyle={{ color: 'black' }}>{children}</Text>
-        <View style={styles.close}>
-          <TouchableOpacity onPress={toggleModal}>
-            <CloseIcon />
-          </TouchableOpacity>
+      <Animated.View
+        style={[
+          styles.animatedContainer,
+          {
+            width,
+            height: width,
+            borderRadius: isDesktop ? '50%' : borderRadius
+          }
+        ]}>
+        <Overlay isOpen={isOpen} onPress={toggleModal} />
+        <View style={[styles.modal, isOpen ? styles.isOpen : {}]}>
+          <Text customStyle={{ color: 'black' }}>{children}</Text>
+          <View style={styles.close}>
+            <TouchableOpacity onPress={toggleModal}>
+              <CloseIcon />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </Animated.View>
     </View>
   );
 };
@@ -64,11 +91,19 @@ const styles = {
     height: '100%',
     zIndex: 10
   }),
+  animatedContainer: css({
+    maxWidth: '100vw',
+    margin: 'auto',
+    overflow: 'hidden'
+  }),
   modal: css({
-    position: 'relative',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate3d(-50%, -50%, 0)',
     zIndex: 2,
     maxWidth: 700,
-    width: '100%',
+    width: '100vw',
     backgroundColor: 'white',
     borderRadius: 4,
     paddingHorizontal: 20,
