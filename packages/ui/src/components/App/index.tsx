@@ -21,7 +21,7 @@ export const App: React.FC = ({ children }) => {
 const styles = {
   container: css({
     minHeight: '100vh',
-    backgroundImage: 'linear-gradient(218deg, #9b42da 0%, #51509c 100%)',
+    backgroundImage: 'linear-gradient(315deg, #031f5c 0%, #660469 74%)',
     maxWidth: '100vw'
   })
 };

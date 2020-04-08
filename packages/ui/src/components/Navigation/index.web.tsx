@@ -7,13 +7,14 @@ import Svg, { Path } from 'react-native-svg';
 // @ts-ignore
 import { NavLink } from '../NavLink/index.web';
 // @ts-ignore
-import { View, Animated, TouchableOpacity } from 'react-native';
+import { Animated, LayoutChangeEvent } from 'react-native';
 import { useSelector, useDispatch } from '@foody/core';
 import { useMe } from '@foody/graphql';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { Hamburger } from '../Hamburger';
 import { Spacer } from '../Spacer';
 import { ExitIcon } from '../Icon/Exit';
+import { useAnimation } from '../../hooks/useAnimation';
 
 interface Props {
   activeScreen: string;
@@ -49,7 +50,7 @@ const APP_SCREENS: Screen[] = [
   }
 ];
 
-const NAVIGATION_WIDTH = 300;
+const HAMBURGER_HEIGHT = 68;
 
 export const Navigation: React.FC<Props> = ({
   activeScreen,
@@ -60,20 +61,23 @@ export const Navigation: React.FC<Props> = ({
 }) => {
   const [skipUseMe, setSkipUseMe] = useState(true);
   const [showNavigation, setShowNavigation] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
   const [navStyles, setNavStyles] = useState([styles.navigation]);
   const isConnected = useSelector(
     (state: any): boolean => state.app.isConnected
   );
   const { isMobileAndTablet, isDesktop } = useMediaQuery();
-  // @ts-ignore
-  const [animatedValue, setAnimatedValue] = useState(
-    new Animated.Value(NAVIGATION_WIDTH)
-  );
-
   const dispatch = useDispatch();
 
+  const toggleNav = () => setShowNavigation(!showNavigation);
+
   const navigationIsClose = isMobileAndTablet && !showNavigation;
+
   const navigationIsOpen = isMobileAndTablet && showNavigation;
+  const translateY = useAnimation({
+    type: 'spring',
+    toValue: navigationIsOpen ? 0 : -navHeight
+  });
 
   useEffect(() => {
     if (isConnected) {
@@ -103,57 +107,55 @@ export const Navigation: React.FC<Props> = ({
     skip: skipUseMe
   });
 
-  const toggleNavigation = () => {
-    Animated.timing(animatedValue, {
-      toValue: showNavigation ? NAVIGATION_WIDTH : 0,
-      duration: NAVIGATION_WIDTH,
-      useNativeDriver: true
-    }).start();
-    setShowNavigation(!showNavigation);
+  const onLayout = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    setNavHeight(height - HAMBURGER_HEIGHT);
   };
 
   if (isConnected) {
     return (
-      <>
-        <Hamburger onPress={toggleNavigation} />
-        <Animated.View
-          style={[
-            ...navStyles,
-            { transform: [{ translateX: isDesktop ? 0 : animatedValue }] }
-          ]}>
-          <Hamburger onPress={toggleNavigation} />
-          {APP_SCREENS.map(({ label, screenName }: Screen, index: number) => (
-            <NavLink
-              key={index}
-              label={label}
-              isActive={activeScreen === screenName}
-              onPress={() => navigation.navigate(screenName)}
-            />
-          ))}
-          <Spacer width={10} />
-          <ExitIcon
-            onPress={() => {
-              dispatch({ type: 'LOGOUT' });
-              logoutCallback && logoutCallback();
-            }}
+      <Animated.View
+        style={[
+          navStyles,
+          {
+            marginTop: isDesktop ? 0 : translateY
+          }
+        ]}
+        onLayout={onLayout}>
+        <Hamburger onPress={toggleNav} />
+        {APP_SCREENS.map(({ label, screenName }: Screen, index: number) => (
+          <NavLink
+            key={index}
+            label={label}
+            isActive={activeScreen === screenName}
+            onPress={() => navigation.navigate(screenName)}
           />
-        </Animated.View>
-      </>
+        ))}
+        <Spacer width={10} />
+        <ExitIcon
+          onPress={() => {
+            dispatch({ type: 'LOGOUT' });
+            logoutCallback && logoutCallback();
+          }}
+        />
+        <Hamburger onPress={toggleNav} />
+      </Animated.View>
     );
   }
 
   return (
-    <>
-      <Hamburger onPress={toggleNavigation} />
-      <Animated.View
-        style={[
-          ...navStyles,
-          { transform: [{ translateX: isDesktop ? 0 : animatedValue }] }
-        ]}>
-        <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
-        <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
-      </Animated.View>
-    </>
+    <Animated.View
+      style={[
+        navStyles,
+        {
+          marginTop: isDesktop ? 0 : translateY
+        }
+      ]}
+      onLayout={onLayout}>
+      <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
+      <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
+      <Hamburger onPress={toggleNav} />
+    </Animated.View>
   );
 };
 
@@ -163,12 +165,9 @@ const styles = {
   }),
   tablet: css({
     flexDirection: 'column',
-    position: 'absolute',
-    top: -20,
-    right: 0,
-    width: NAVIGATION_WIDTH,
-    height: '100vh',
-    backgroundColor: 'rgba(0, 0, 0, .3)'
+    width: '100%',
+    backgroundColor: 'rgb(136, 16, 140)',
+    padding: 20
   }),
   active: css({})
 };

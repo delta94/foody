@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Animated } from 'react-native';
 // @ts-ignore
 import { css } from '@emotion/native';
 import { Logo } from '../Logo';
@@ -7,13 +7,29 @@ import { Navigation } from '../Navigation';
 import { useMediaQuery } from '../../hooks';
 
 export const Header: React.FC<any> = ({ goToSearchScreen, ...props }) => {
-  const { isDesktop } = useMediaQuery();
+  const { isDesktop, isMobileAndTablet } = useMediaQuery();
 
   return (
-    <View style={[styles.header, { paddingHorizontal: isDesktop ? 50 : 25 }]}>
-      <Logo onPress={goToSearchScreen} />
-      <Navigation {...props} />
-    </View>
+    <Animated.View
+      style={[
+        styles.header,
+        {
+          flexDirection: isDesktop ? 'row' : 'column',
+          paddingHorizontal: isDesktop ? 50 : 0,
+          paddingTop: isDesktop ? 40 : 1
+        }
+      ]}>
+      {isDesktop ? (
+        <Logo onPress={goToSearchScreen} />
+      ) : (
+        <Navigation {...props} />
+      )}
+      {isMobileAndTablet ? (
+        <Logo onPress={goToSearchScreen} />
+      ) : (
+        <Navigation {...props} />
+      )}
+    </Animated.View>
   );
 };
 

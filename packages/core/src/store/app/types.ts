@@ -8,10 +8,6 @@ export interface Action {
   type: string;
 }
 
-export interface ReceiveJwtAction extends Action {
-  jwt: string;
-}
-
 export const APP_INIT: string = 'APP_INIT';
 export const APP_LOADING: string = 'APP_LOADING';
 export const APP_LOADED: string = 'APP_LOADED';

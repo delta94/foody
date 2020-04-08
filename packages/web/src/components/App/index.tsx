@@ -46,7 +46,6 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
 
   return (
     <App>
-      <Spacer height={isDesktop ? 40 : 20} />
       <Header
         goToSearchScreen={() => navigation.navigate('Search')}
         activeScreen={activeKey}
