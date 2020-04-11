@@ -16,6 +16,7 @@ export * from './Forms/Checkbox';
 export * from './Modal/Layout';
 export * from './Modal/Login';
 export * from './Modal/Register';
+export * from './Modal/Recipe';
 export * from './Grid/Row';
 export * from './Grid/Column';
 export * from './Spacer';

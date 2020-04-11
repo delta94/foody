@@ -5,24 +5,27 @@ import {
   View,
   TouchableOpacity,
   TouchableHighlight,
-  Animated
+  Animated,
+  ScrollView
 } from 'react-native';
 import { Text } from '../../Text';
 import { CloseIcon } from '../../Icon/Close';
 import { useMediaQuery } from '../../../hooks';
 
-interface Props {
+export interface ModalProps {
   isOpen: boolean;
   toggleModal: () => any;
-  title: string;
   children: any;
-  onToggle?: () => any;
 }
 
-export const Modal: React.FC<Props> = ({ isOpen, toggleModal, children }) => {
+export const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  toggleModal,
+  children
+}) => {
   const { isDesktop } = useMediaQuery();
   const width = new Animated.Value(0);
-  const maxWidth = isDesktop ? 900 : 700;
+  const maxWidth = isDesktop ? 1200 : 700;
   const borderRadius = new Animated.Value(maxWidth);
 
   useEffect(() => {
@@ -54,14 +57,14 @@ export const Modal: React.FC<Props> = ({ isOpen, toggleModal, children }) => {
           }
         ]}>
         <Overlay isOpen={isOpen} onPress={toggleModal} />
-        <View style={[styles.modal, isOpen ? styles.isOpen : {}]}>
+        <ScrollView style={[styles.modal, isOpen ? styles.isOpen : {}]}>
           <Text customStyle={{ color: 'black' }}>{children}</Text>
           <View style={styles.close}>
             <TouchableOpacity onPress={toggleModal}>
               <CloseIcon />
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       </Animated.View>
     </View>
   );
@@ -89,6 +92,9 @@ const styles = {
     right: 0,
     width: '100%',
     height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 10
   }),
   animatedContainer: css({
@@ -104,6 +110,7 @@ const styles = {
     zIndex: 2,
     maxWidth: 700,
     width: '100vw',
+    maxHeight: '80vh',
     backgroundColor: 'white',
     borderRadius: 4,
     paddingHorizontal: 20,

@@ -7,11 +7,25 @@ import { Spacer } from '../../Spacer';
 
 interface Props {
   label: string;
-  onPress: () => any;
+  onPress?: () => any;
+  customStyle?: {
+    [key: string]: string | number;
+  };
+  customTextStyle?: {
+    [key: string]: string | number;
+  };
   isActive: boolean;
+  showFavoris?: boolean;
 }
 
-export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => {
+export const Ingredient: React.FC<Props> = ({
+  label,
+  onPress,
+  customStyle = {},
+  customTextStyle = {},
+  isActive,
+  showFavoris = true
+}) => {
   const { onFocus, onBlur, itemStyles } = useHover(
     styles.container,
     styles.hover
@@ -30,11 +44,18 @@ export const Ingredient: React.FC<Props> = ({ label, onPress, isActive }) => {
           style={[
             itemStyles,
             isWeb ? styles.web : {},
-            isActive ? styles.active : {}
+            isActive ? styles.active : {},
+            customStyle
           ]}>
-          <Text customStyle={{ margin: 'auto' }}>{label}</Text>
-          <Spacer width={5} />
-          <Favoris ingredient={label} />
+          <Text customStyle={{ margin: 'auto', ...customTextStyle }}>
+            {label}
+          </Text>
+          {showFavoris && (
+            <>
+              <Spacer width={5} />
+              <Favoris ingredient={label} />
+            </>
+          )}
         </View>
       </TouchableOpacity>
     </View>

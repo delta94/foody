@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[];
@@ -13,14 +13,13 @@ export function useAddToHomescreenPrompt(): [
   BeforeInstallPromptEvent | null,
   () => void
 ] {
-  const [prompt, setState] = React.useState<BeforeInstallPromptEvent | null>(
-    null
-  );
+  const [prompt, setState] = useState<BeforeInstallPromptEvent | null>(null);
 
   const promptToInstall = () => {
     if (prompt) {
       return prompt.prompt();
     }
+
     return Promise.reject(
       new Error(
         'Tried installing before browser sent "beforeinstallprompt" event'
@@ -28,7 +27,7 @@ export function useAddToHomescreenPrompt(): [
     );
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const ready = (e: BeforeInstallPromptEvent) => {
       console.log('before install prompt event');
       e.preventDefault();

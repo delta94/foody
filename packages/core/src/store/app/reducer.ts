@@ -3,7 +3,9 @@ import * as types from './types';
 const initialState: types.AppState = {
   isLoading: true,
   jwt: null,
-  isConnected: false
+  isConnected: false,
+  modalRecipeIsOpen: false,
+  recipe: null
 };
 
 const appReducer = (
@@ -34,6 +36,12 @@ const appReducer = (
         ...state,
         jwt: initialState.jwt,
         isConnected: false
+      };
+    case types.LOAD_RECIPE:
+      return {
+        ...state,
+        modalRecipeIsOpen: !state.modalRecipeIsOpen,
+        recipe: action.recipe
       };
     default:
       return state;

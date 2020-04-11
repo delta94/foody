@@ -5,7 +5,8 @@ import {
   Text,
   Search,
   Spacer,
-  useMediaQuery
+  useMediaQuery,
+  ModalRecipe
   // @ts-ignore
 } from '@foody/ui';
 
@@ -22,6 +23,7 @@ const SearchScreen = () => {
       </Text>
       <Spacer height={40} />
       <Search />
+      <ModalRecipe />
     </Main>
   );
 };

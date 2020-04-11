@@ -4,7 +4,8 @@ import {
   Title,
   Text,
   Spacer,
-  RecipeList
+  RecipeList,
+  ModalRecipe
   // @ts-ignore
 } from '@foody/ui';
 // @ts-ignore
@@ -26,7 +27,10 @@ const Favoris = () => {
       ) : !data.userMe.favoris || data.userMe.favoris.length === 0 ? (
         <Text>Aucune recette favorite.</Text>
       ) : (
-        <RecipeList data={data.userMe.favoris} />
+        <>
+          <RecipeList data={data.userMe.favoris} />
+          <ModalRecipe />
+        </>
       )}
     </Main>
   );
