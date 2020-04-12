@@ -52,12 +52,12 @@ if (workbox) {
     })
   );
 
-  ROUTES.forEach((slug) =>
-    registerRoute(
-      slug,
-      new CacheFirst({
-        cacheName: 'routes'
-      })
-    )
-  );
+  // ROUTES.forEach((slug) =>
+  //   registerRoute(
+  //     slug,
+  //     new CacheFirst({
+  //       cacheName: 'routes'
+  //     })
+  //   )
+  // );
 }

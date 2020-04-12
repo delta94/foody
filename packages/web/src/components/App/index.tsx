@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
   ModalRegister,
@@ -26,6 +26,8 @@ import Pantries from '../../screens/Pantries';
 import Favoris from '../../screens/Favoris';
 import History from '../../screens/History';
 import './index.css';
+// @ts-ignore
+import { useSelector } from '@foody/core';
 
 // @ts-ignore
 const MyApp: React.FC = ({ descriptors, navigation }) => {
@@ -43,6 +45,14 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
   };
 
   const { isDesktop } = useMediaQuery();
+
+  const jwt = useSelector((s: any) => s.app.jwt);
+
+  useEffect(() => {
+    if (jwt === null) {
+      navigation.navigate('Home');
+    }
+  }, [jwt]);
 
   return (
     <App>

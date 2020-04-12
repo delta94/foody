@@ -37,6 +37,7 @@ const SearchUpload: React.FC<Props> = ({
   );
   const [imageCapture, setImageCapture] = useState<any>(null);
   const [file, setFile] = useState(null);
+  const [userHasCamera, setUserHasCamera] = useState(false);
 
   const getMediaDevices = async () => {
     try {
@@ -90,6 +91,14 @@ const SearchUpload: React.FC<Props> = ({
 
   const { isTablet } = useMediaQuery();
 
+  navigator.mediaDevices.enumerateDevices().then((devices) => {
+    devices.forEach((device) => {
+      if (device.kind === 'videoinput') {
+        setUserHasCamera(true);
+      }
+    });
+  });
+
   return (
     <>
       <Row customStyle={{ flexDirection: isTablet ? 'column' : 'row' }}>
@@ -112,15 +121,17 @@ const SearchUpload: React.FC<Props> = ({
         </Column>
       </Row>
       <Spacer height={20} />
-      <Row direction="row">
-        <CameraIcon />
-        <Spacer width={10} />
-        {imageCapture ? (
-          <Link label="Capturer mon aliment" onPress={takePhoto} />
-        ) : (
-          <Link label="Prendre une photo" onPress={getMediaDevices} />
-        )}
-      </Row>
+      {userHasCamera && (
+        <Row direction="row">
+          <CameraIcon />
+          <Spacer width={10} />
+          {imageCapture ? (
+            <Link label="Capturer mon aliment" onPress={takePhoto} />
+          ) : (
+            <Link label="Prendre une photo" onPress={getMediaDevices} />
+          )}
+        </Row>
+      )}
     </>
   );
 };

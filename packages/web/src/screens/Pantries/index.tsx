@@ -6,7 +6,8 @@ import {
   Spacer,
   SearchRecipes,
   SearchIngredients,
-  Link
+  Link,
+  ModalRecipe
   // @ts-ignore
 } from '@foody/ui';
 import { useMe } from '@foody/graphql';
@@ -62,6 +63,7 @@ const Pantries = () => {
           </View>
         </View>
       )}
+      <ModalRecipe />
     </Main>
   );
 };

@@ -53,7 +53,9 @@ export const SearchIngredients: React.FC<Props> = ({
         <View>
           <Button
             label="Trouver une recette"
-            onPress={onPress}
+            onPress={(): void | null =>
+              ingredients.length > 0 ? onPress() : null
+            }
             loading={recipesQuery.loading}
           />
         </View>
