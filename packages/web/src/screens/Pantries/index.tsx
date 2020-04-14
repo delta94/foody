@@ -12,10 +12,22 @@ import {
 } from '@foody/ui';
 import { useMe } from '@foody/graphql';
 import { ActivityIndicator, View } from 'react-native';
+import { useSelector, useDispatch } from '@foody/core';
 
 const Pantries = () => {
   const { data, loading, error } = useMe();
-  const [recipes, setRecipes] = useState(null);
+  const recipes = useSelector((s: any) => s.app.search.pantries.recipes);
+  const dispatch = useDispatch();
+  const [canShowRecipes, setCanShowRecipes] = useState(false);
+
+  const clearRecipes = () => {
+    setCanShowRecipes(false);
+    dispatch({
+      type: 'SEARCH_SET_RECIPES',
+      currentPath: 'pantries',
+      recipes: null
+    });
+  };
 
   return (
     <Main gutter>
@@ -43,10 +55,7 @@ const Pantries = () => {
                   justifyContent: 'space-between'
                 }}>
                 <View style={{ flexDirection: 'row' }}>
-                  <Link
-                    label="Retour aux ingrédients"
-                    onPress={() => setRecipes(null)}
-                  />
+                  <Link label="Retour aux ingrédients" onPress={clearRecipes} />
                   <Spacer width={20} />
                 </View>
               </View>
@@ -54,11 +63,13 @@ const Pantries = () => {
             <Spacer height={20} />
             {!recipes ? (
               <SearchIngredients
+                currentPath="pantries"
+                showRecipes={canShowRecipes}
+                canShowRecipes={() => setCanShowRecipes(true)}
                 data={data.userMe.pantries}
-                onReceiveRecipes={(items: any) => setRecipes(items)}
               />
             ) : (
-              <SearchRecipes data={recipes} />
+              <SearchRecipes currentPath="pantries" data={recipes} />
             )}
           </View>
         </View>

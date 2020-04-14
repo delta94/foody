@@ -3,7 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { loadState, saveState } from './localStorage';
-import appReducer from './app/reducer';
+import appReducer, { initialState } from './app/reducer';
 import { appLoading, appInit } from './app/actions';
 import { __DEV__ } from '../constants';
 import appMiddleware from './app/middleware';
@@ -11,11 +11,11 @@ import appMiddleware from './app/middleware';
 const logger = createLogger({
   level: 'info',
   collapsed: false,
-  logger: console,
+  logger: console
 });
 
 const reducers = combineReducers({
-  app: appReducer,
+  app: appReducer
 });
 
 const middlewares = [appMiddleware].filter(Boolean);
@@ -34,7 +34,8 @@ export const initializeWebStore = (): any => {
     saveState({
       app: {
         ...store.getState().app,
-      },
+        search: initialState.search
+      }
     })
   );
   store.dispatch(appLoading());

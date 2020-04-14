@@ -5,26 +5,37 @@ import { Column } from '../../Grid/Column';
 import { Button } from '../../Button';
 import { useQuery, RECIPES } from '@foody/graphql';
 import { IngredientList } from '../../Ingredient/List';
+import { useSelector, useDispatch } from '@foody/core';
 
 interface Props {
   data: any;
-  onReceiveRecipes: (data: any) => any;
+  currentPath: 'latest' | 'pantries';
+  showRecipes: boolean;
+  canShowRecipes: () => any;
 }
 
 export const SearchIngredients: React.FC<Props> = ({
   data,
-  onReceiveRecipes
+  currentPath,
+  showRecipes,
+  canShowRecipes
 }) => {
-  const [ingredients, setIngredients] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const searchIngredients = useSelector(
+    (s: any) => s.app.search[currentPath].ingredients
+  );
+  const [ingredients, setIngredients] = useState<string[]>(searchIngredients);
   const [skip, setSkip] = useState(true);
 
-  // @ts-ignore
   const recipesQuery = useQuery(RECIPES, {
     variables: { ingredients: ingredients.toString() },
     skip,
-    onCompleted: (data: any) => {
+    onCompleted: ({ recipes }: any) => {
       setSkip(true);
-      onReceiveRecipes(data.recipes);
+
+      if (showRecipes) {
+        dispatch({ type: 'SEARCH_SET_RECIPES', currentPath, recipes });
+      }
     },
     onError: () => setSkip(true)
   });
@@ -37,7 +48,11 @@ export const SearchIngredients: React.FC<Props> = ({
     return setIngredients([...ingredients, name]);
   };
 
-  const onPress = () => setSkip(false);
+  const onPress = () => {
+    setSkip(false);
+    dispatch({ type: 'SEARCH_SET_INGREDIENTS', currentPath, ingredients });
+    canShowRecipes();
+  };
 
   return (
     <View style={{ flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>

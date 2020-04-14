@@ -80,8 +80,8 @@ export const ModalRecipe: React.FC = () => {
             Ingrédients
           </Text>
           <Spacer height={10} />
-          {recipe?.ingredients.map(({ text }: any, index: number) => (
-            <View key={text}>
+          {recipe?.ingredients.map(({ url, text }: any, index: number) => (
+            <View key={url}>
               <Text theme="black">{text}</Text>
               {index + 1 < recipe.ingredients.length && <Spacer height={3} />}
             </View>

@@ -12,28 +12,24 @@ import SearchUpload from './Upload';
 import { Checkbox } from '../Forms/Checkbox';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { Video } from '../Video';
-
-interface State {
-  ingredients: any;
-  recipes: any;
-  upload: boolean;
-}
-
-const initialState: State = {
-  ingredients: [],
-  recipes: [],
-  upload: true
-};
-
-const IMAGE_PLACEHOLDER = '/assets/images/placeholder/pic.jpg';
+import { useDispatch, useSelector } from '@foody/core';
 
 export const Search: React.FC = () => {
+  const dispatch = useDispatch();
+  const image = useSelector((s: any) => s.app.search.latest.image);
+  const ingredients = useSelector((s: any) => s.app.search.latest.ingredients);
+  const recipes = useSelector((s: any) => s.app.search.latest.recipes);
+  const data = useSelector((s: any) => s.app.search.latest.data);
   const [stream, setStream] = useState(null);
-  const [url, setUrl] = useState(IMAGE_PLACEHOLDER);
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState({
+    ingredients: ingredients.map(({ name }: any) => name),
+    recipes,
+    upload: false
+  });
+  const [canShowRecipes, setCanShowRecipes] = useState(false);
 
-  const ingredientsIsEmpty = state.ingredients.length === 0;
-  const recipesIsEmpty = state.recipes.length === 0;
+  const ingredientsIsEmpty = data.length === 0;
+  const recipesIsEmpty = recipes === null;
 
   const setUpload = (upload: boolean) =>
     setState({
@@ -41,19 +37,26 @@ export const Search: React.FC = () => {
       upload
     });
 
-  const setRecipes = (recipes: any) =>
-    setState({
-      ...state,
-      recipes
+  const clearRecipes = () => {
+    setCanShowRecipes(false);
+    dispatch({
+      type: 'SEARCH_CLEAR_RECIPES',
+      currentPath: 'latest'
     });
+  };
 
   const setIngredients = (ingredients: any) =>
-    setState({
-      ...state,
-      ingredients
+    dispatch({
+      type: 'SEARCH_SET_DATA',
+      currentPath: 'latest',
+      data: ingredients
     });
 
-  const reset = () => setState(initialState);
+  const setImageUrl = (url: string): void => {
+    dispatch({ type: 'SEARCH_SET_IMAGE', currentPath: 'latest', image: url });
+  };
+
+  const reset = () => dispatch({ type: 'SEARCH_CLEAR_LATEST' });
 
   const { isTablet, isMobile, isMobileAndTablet, isDesktop } = useMediaQuery();
 
@@ -73,10 +76,7 @@ export const Search: React.FC = () => {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             {!recipesIsEmpty && (
               <View style={{ flexDirection: 'row' }}>
-                <Link
-                  label="Retour aux ingrédients"
-                  onPress={() => setRecipes(initialState.recipes)}
-                />
+                <Link label="Retour aux ingrédients" onPress={clearRecipes} />
                 <Spacer width={20} />
               </View>
             )}
@@ -99,24 +99,24 @@ export const Search: React.FC = () => {
         <Spacer height={20} />
         {!ingredientsIsEmpty && recipesIsEmpty && (
           <SearchIngredients
-            data={state.ingredients.map(({ name }: any) => name)}
-            onReceiveRecipes={setRecipes}
+            currentPath="latest"
+            data={data.map(({ name }: any) => name)}
+            showRecipes={canShowRecipes}
+            canShowRecipes={() => setCanShowRecipes(true)}
           />
         )}
-        {!recipesIsEmpty && (
-          <SearchRecipes data={state.recipes} numColumns={2} />
-        )}
+        {!recipesIsEmpty && <SearchRecipes data={recipes} numColumns={2} />}
         {ingredientsIsEmpty && (
           <>
             {state.upload ? (
               <SearchUpload
-                onSearch={setUrl}
+                onSearch={setImageUrl}
                 onResults={setIngredients}
                 onSetStream={setStream}
-                onTakePhoto={setUrl}
+                onTakePhoto={setImageUrl}
               />
             ) : (
-              <SearchUrl onSearch={setUrl} onResults={setIngredients} />
+              <SearchUrl onSearch={setImageUrl} onResults={setIngredients} />
             )}
           </>
         )}
@@ -135,7 +135,7 @@ export const Search: React.FC = () => {
           <Image
             style={{ height: 400, borderRadius: 6 }}
             source={{
-              uri: url
+              uri: image
             }}
           />
         )}
