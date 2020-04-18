@@ -3,12 +3,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { Modal } from '../Layout';
 import { Input } from '../../Forms/Input';
 import { Title } from '../../Title';
-import { View, StyleSheet } from 'react-native';
 import { Column } from '../../Grid/Column';
 import { Spacer } from '../../Spacer';
 import { Button } from '../../Button';
 import { useMutation, LOGIN } from '@foody/graphql';
 import { useDispatch } from '@foody/core';
+import { useMediaQuery } from '../../../hooks';
+import { Row } from '../../Grid/Row';
 
 interface Props {
   isOpen: boolean;
@@ -42,6 +43,8 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
     onCompleted
   });
 
+  const { isMobileAndTablet } = useMediaQuery();
+
   const onSubmit = (variables: Record<string, any>): void =>
     // @ts-ignore
     login({ variables });
@@ -56,8 +59,8 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
           theme="black"
         />
       </Column>
-      <View style={styles.container}>
-        <Column customStyle={styles.column}>
+      <Row>
+        <Column customStyle={{ flex: isMobileAndTablet ? '0 0 100%' : 1 }}>
           <Controller
             as={<Input label="Email" error={errors.identifier} />}
             control={control}
@@ -67,7 +70,7 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
             rules={{ required: true }}
           />
         </Column>
-        <Column customStyle={styles.column}>
+        <Column customStyle={{ flex: isMobileAndTablet ? '0 0 100%' : 1 }}>
           <Controller
             as={<Input label="Mot de passe" error={errors.password} />}
             control={control}
@@ -77,22 +80,11 @@ export const ModalLogin: React.FC<Props> = ({ ...props }) => {
             rules={{ required: true }}
           />
         </Column>
-      </View>
-      <Column customStyle={{ width: '30%' }}>
+      </Row>
+      <Column customStyle={{ width: isMobileAndTablet ? '100%' : '30%' }}>
         <Button label="Connexion" onPress={handleSubmit(onSubmit)} />
         <Spacer height={10} />
       </Column>
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: '100%'
-  },
-  column: {
-    flex: 1
-  }
-});

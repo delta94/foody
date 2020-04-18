@@ -6,8 +6,7 @@ import {
   Spacer,
   Footer,
   Header,
-  ModalLogin,
-  AddToHomeScreen
+  ModalLogin
   // @ts-ignore
 } from '@foody/ui';
 // @ts-ignore
@@ -70,8 +69,8 @@ const MyApp: React.FC = ({ descriptors, navigation }) => {
           component={descriptor.getComponent()}
           navigation={descriptor.navigation}
         />
-        <AddToHomeScreen />
-        <Spacer height={100} />
+        {/* <AddToHomeScreen /> */}
+        <Spacer height={isDesktop ? 100 : 50} />
         <Footer />
       </View>
       <ModalLogin

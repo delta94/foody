@@ -3,16 +3,16 @@ import React from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
 import { Text } from '../../Text';
 import { Spacer } from '../../Spacer';
-import { FieldError, NestDataObject } from 'react-hook-form';
+import { useMediaQuery } from '../../../hooks';
 
 interface Props {
   label?: string;
   customStyle?: {
     [key: string]: any;
   };
-  spacer?: number;
+  spacer?: null | number;
   onChange?: (event: any) => any;
-  error?: FieldError | FieldError[] | NestDataObject<any> | NestDataObject<any>[] | undefined;
+  error?: any;
   errorMessage?: string;
 }
 
@@ -23,29 +23,35 @@ export const Input: React.FC<Props> = ({
   error,
   errorMessage,
   ...props
-}) => (
-  <View style={{ width: '100%', backgroundColor: 'red' }}>
-    {label && (
-      <>
-        <Text theme="black">{label}</Text>
-        <Spacer height={10} />
-      </>
-    )}
-    <TextInput style={[styles.input, customStyle]} {...props} />
-    {error && (
-      <>
-        <Spacer height={10} />
-        <Text theme="black">{errorMessage}</Text>
-      </>
-    )}
-    {spacer && spacer > 0 && <Spacer height={spacer} />}
-  </View>
-);
+}) => {
+  const { isMobileAndTablet } = useMediaQuery();
+
+  return (
+    <View style={{ width: '100%', backgroundColor: 'red' }}>
+      {label && (
+        <>
+          <Text theme="black">{label}</Text>
+          <Spacer height={10} />
+        </>
+      )}
+      <TextInput style={[styles.input, customStyle]} {...props} />
+      {error && (
+        <>
+          <Spacer height={10} />
+          <Text theme="black">{errorMessage}</Text>
+        </>
+      )}
+      {spacer && spacer > 0 && (
+        <Spacer height={spacer || (isMobileAndTablet ? 20 : 40)} />
+      )}
+    </View>
+  );
+};
 
 Input.defaultProps = {
-  spacer: 40,
+  spacer: null,
   error: undefined,
-  errorMessage: 'This field is required',
+  errorMessage: 'This field is required'
 };
 
 const styles = StyleSheet.create({
@@ -58,6 +64,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'white',
     border: 0,
-    paddingHorizontal: 20,
-  },
+    paddingHorizontal: 20
+  }
 });

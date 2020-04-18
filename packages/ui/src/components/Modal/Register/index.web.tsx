@@ -8,6 +8,8 @@ import { Column } from '../../Grid/Column';
 import { Spacer } from '../../Spacer';
 import { Button } from '../../Button';
 import { REGISTER, useMutation } from '@foody/graphql';
+import { useMediaQuery } from '../../../hooks';
+import { Row } from '../../Grid/Row';
 
 interface Props {
   isOpen: boolean;
@@ -35,6 +37,8 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => {
   const onSubmit = (variables: Record<string, any>): any =>
     registerr({ variables });
 
+  const { isMobileAndTablet } = useMediaQuery();
+
   return (
     <Modal {...props}>
       <Column>
@@ -45,7 +49,7 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => {
           theme="black"
         />
       </Column>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+      <Row direction={isMobileAndTablet ? 'column' : 'row'}>
         <Column customStyle={{ flex: 1 }}>
           <Controller
             as={<Input label="Prénom" error={errors.username} />}
@@ -64,7 +68,7 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => {
             rules={{ required: true }}
           />
         </Column>
-      </View>
+      </Row>
       <Column customStyle={{ width: '100%' }}>
         <Controller
           as={<Input label="Mot de passe" error={errors.password} />}
@@ -75,7 +79,7 @@ export const ModalRegister: React.FC<Props> = ({ ...props }) => {
         />
       </Column>
       <View style={{ width: '100%' }}>
-        <Column customStyle={{ width: '30%' }}>
+        <Column customStyle={{ width: isMobileAndTablet ? '100%' : '30%' }}>
           <Button label="Valider" onPress={handleSubmit(onSubmit)} />
           <Spacer height={10} />
         </Column>

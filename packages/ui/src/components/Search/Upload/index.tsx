@@ -89,7 +89,7 @@ const SearchUpload: React.FC<Props> = ({
     }
   }: any): void => setFile(file);
 
-  const { isTablet } = useMediaQuery();
+  const { isMobileAndTablet } = useMediaQuery();
 
   navigator.mediaDevices.enumerateDevices().then((devices) => {
     devices.forEach((device) => {
@@ -101,15 +101,16 @@ const SearchUpload: React.FC<Props> = ({
 
   return (
     <>
-      <Row customStyle={{ flexDirection: isTablet ? 'column' : 'row' }}>
+      <Row
+        customStyle={{ flexDirection: isMobileAndTablet ? 'column' : 'row' }}>
         <Column collapse customStyle={{ flex: 1 }}>
           <Upload handleChangeFile={handleChangeFile} />
+          {isMobileAndTablet && <Spacer height={20} />}
         </Column>
         <Column
           customStyle={{
-            marginRight: isTablet ? 0 : -20,
-            paddingHorizontal: isTablet ? 0 : 20,
-            paddingVertical: isTablet ? 20 : 0
+            marginRight: isMobileAndTablet ? 0 : -20,
+            paddingHorizontal: isMobileAndTablet ? 0 : 20
           }}>
           <Row>
             <Button
@@ -120,17 +121,19 @@ const SearchUpload: React.FC<Props> = ({
           </Row>
         </Column>
       </Row>
-      <Spacer height={20} />
       {userHasCamera && (
-        <Row direction="row">
-          <CameraIcon />
-          <Spacer width={10} />
-          {imageCapture ? (
-            <Link label="Capturer mon aliment" onPress={takePhoto} />
-          ) : (
-            <Link label="Prendre une photo" onPress={getMediaDevices} />
-          )}
-        </Row>
+        <>
+          <Spacer height={20} />
+          <Row direction="row">
+            <CameraIcon />
+            <Spacer width={10} />
+            {imageCapture ? (
+              <Link label="Capturer mon aliment" onPress={takePhoto} />
+            ) : (
+              <Link label="Prendre une photo" onPress={getMediaDevices} />
+            )}
+          </Row>
+        </>
       )}
     </>
   );

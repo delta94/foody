@@ -62,7 +62,10 @@ const styles = {
     transition: '.2s'
   }),
   mobile: css({
+    borderBottomWidth: 0,
     textAlign: 'center',
+    fontSize: 16,
+    opacity: 1,
     paddingVertical: 5
   }),
   hover: css({

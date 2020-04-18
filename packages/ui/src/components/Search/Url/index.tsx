@@ -4,6 +4,7 @@ import { Button } from '../../Button';
 import { Row } from '../../Grid/Row';
 import { Column } from '../../Grid/Column';
 import { useFoodImageRecognition } from '@foody/graphql';
+import { useMediaQuery } from '../../../hooks';
 
 export interface SearchPictureProps {
   onSearch: (url: string) => any;
@@ -36,12 +37,16 @@ export const SearchUrl: React.FC<SearchPictureProps> = ({
     onSearch(url);
   };
 
+  const { isDesktop } = useMediaQuery();
+
   return (
-    <Row direction="row">
+    <Row direction={isDesktop ? 'row' : 'column'}>
       <Column collapse customStyle={{ flex: 1 }}>
-        <Input onChange={onChange} />
+        <Input onChange={onChange} spacer={isDesktop ? 40 : 20} />
       </Column>
-      <Column customStyle={{ marginRight: -20 }}>
+      <Column
+        collapse={!isDesktop}
+        customStyle={{ marginRight: isDesktop ? -20 : 0 }}>
         <Row>
           <Button label="Rechercher" onPress={onPress} loading={loading} />
         </Row>

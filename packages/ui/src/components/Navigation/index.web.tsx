@@ -50,7 +50,7 @@ const APP_SCREENS: Screen[] = [
   }
 ];
 
-const HAMBURGER_HEIGHT = 68;
+const HAMBURGER_HEIGHT = 60;
 
 export const Navigation: React.FC<Props> = ({
   activeScreen,
@@ -122,23 +122,36 @@ export const Navigation: React.FC<Props> = ({
           }
         ]}
         onLayout={onLayout}>
-        <Hamburger onPress={toggleNav} />
         {APP_SCREENS.map(({ label, screenName }: Screen, index: number) => (
           <NavLink
             key={index}
             label={label}
             isActive={activeScreen === screenName}
-            onPress={() => navigation.navigate(screenName)}
+            onPress={() => {
+              navigation.navigate(screenName);
+              toggleNav();
+            }}
           />
         ))}
         <Spacer width={10} />
-        <ExitIcon
-          onPress={() => {
-            dispatch({ type: 'LOGOUT' });
-            logoutCallback && logoutCallback();
-          }}
-        />
-        <Hamburger onPress={toggleNav} />
+        {isMobileAndTablet ? (
+          <NavLink
+            label="Déconnexion"
+            onPress={() => {
+              dispatch({ type: 'LOGOUT' });
+              logoutCallback && logoutCallback();
+              toggleNav();
+            }}
+          />
+        ) : (
+          <ExitIcon
+            onPress={() => {
+              dispatch({ type: 'LOGOUT' });
+              logoutCallback && logoutCallback();
+            }}
+          />
+        )}
+        <Hamburger isActive={navigationIsOpen} onPress={toggleNav} />
       </Animated.View>
     );
   }
@@ -154,7 +167,7 @@ export const Navigation: React.FC<Props> = ({
       onLayout={onLayout}>
       <NavLink label="Connexion" isFirst onPress={toggleLoginForm} />
       <NavLink label="Inscription" isLast onPress={toggleRegisterForm} />
-      <Hamburger onPress={toggleNav} />
+      <Hamburger isActive={navigationIsOpen} onPress={toggleNav} />
     </Animated.View>
   );
 };
