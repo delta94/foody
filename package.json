@@ -12,6 +12,7 @@
     "packages/mobile",
     "packages/storybook",
     "packages/ui",
+    "packages/test",
     "packages/web"
   ],
   "scripts": {

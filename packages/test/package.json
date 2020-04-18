@@ -1,0 +1,25 @@
+{
+  "name": "@foody/test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@foody/core": "1.0.0",
+    "@foody/graphql": "1.0.0",
+    "@foody/ui": "1.0.0",
+    "emotion": "^10.0.27",
+    "emotion-server": "^10.0.27",
+    "next": "^9.3.5",
+    "next-transpile-modules": "^3.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-native-web": "^0.12.2"
+  },
+  "devDependencies": {
+    "babel-plugin-react-native-web": "^0.12.2"
+  }
+}
