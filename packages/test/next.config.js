@@ -1,4 +1,6 @@
 const withTM = require('next-transpile-modules')([
+  'react-native-svg',
+  '@emotion/native',
   '@foody/ui',
   '@foody/core',
   '@foody/graphql'
